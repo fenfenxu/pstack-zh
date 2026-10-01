@@ -9,13 +9,13 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 这是中文译文，方便对照阅读。本站不发行中文版插件。英文原文 [`pstack/docs/guide/06-verify-and-ship.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/06-verify-and-ship.md)，取自 pstack 官方仓库 cursor/plugins 的提交 `12d587d`。
 >
-> [本站英文页](https://pstack.droplink.cloud/en/skills-zh/official-guide/06-verify-and-ship/)
+> [本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/06-verify-and-ship/)
 
 # 验证结果并开 PR
 
 「能编译」不是证据。[Prove It Works 原则](../skills/principle-prove-it-works/SKILL.md) 让代理在报告成功之前，先检查真实产物。你要做的，是让「真实产物」可以被检查。本页讲四件事：写明完结条件，为你的应用生成验证 skill，开 PR，再把它推进到已合并。
 
-![原型飞机飞过真实试飞航线，她用秒表计时，机器人拍摄并用清单核对。终端显示 verify: pass, evidence: captured。](https://pstack.droplink.cloud/guide/verification.jpg)
+![原型飞机飞过真实试飞航线，她用秒表计时，机器人拍摄并用清单核对。终端显示 verify: pass, evidence: captured。](https://pstack.ganhai.cloud/guide/verification.jpg)
 
 ## 一开始就写明完结条件
 

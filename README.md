@@ -4,7 +4,7 @@ Unofficial Chinese translation of poteto's pstack. Not affiliated with Cursor or
 
 这是 poteto 的 pstack 的非官方中文译文。这里可以读 skills、官方指南，以及我们写的教程。
 
-在线阅读站是 https://pstack.droplink.cloud。
+在线阅读站是 https://pstack.ganhai.cloud。
 
 这些译文不能代替官方插件。在 Cursor 里执行时，安装官方 pstack。本仓库与 Cursor、Lauren Tan 没有隶属关系。
 

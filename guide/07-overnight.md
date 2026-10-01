@@ -9,13 +9,13 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 这是中文译文，方便对照阅读。本站不发行中文版插件。英文原文 [`pstack/docs/guide/07-overnight.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/07-overnight.md)，取自 pstack 官方仓库 cursor/plugins 的提交 `12d587d`。
 >
-> [本站英文页](https://pstack.droplink.cloud/en/skills-zh/official-guide/07-overnight/)
+> [本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/07-overnight/)
 
 # 睡觉时让工作继续跑
 
 这是前面一切的回报。你能信任一个代理自己做验证，就可以把它单独留下，去做一件难任务。安全不靠希望。靠的是可检查的完结条件、隔离的 worktree，以及一份你早上审计的决策日志。
 
-![她在门口挥手道晚安，机器人继续运转工厂。一台机器人在 BUILD LOOP ACTIVE 牌子下，更新写着 DECISION LOG 的墙板。](https://pstack.droplink.cloud/guide/overnight.jpg)
+![她在门口挥手道晚安，机器人继续运转工厂。一台机器人在 BUILD LOOP ACTIVE 牌子下，更新写着 DECISION LOG 的墙板。](https://pstack.ganhai.cloud/guide/overnight.jpg)
 
 ## 过夜前先说清
 

@@ -9,7 +9,7 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 这是中文译文，方便对照阅读。本站不发行中文版插件。英文原文 [`pstack/README.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/README.md)，取自 pstack 官方仓库 cursor/plugins 的提交 `12d587d`。
 >
-> [本站英文页](https://pstack.droplink.cloud/en/skills-zh/official-guide/plugin-readme/)
+> [本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/plugin-readme/)
 
 # pstack
 

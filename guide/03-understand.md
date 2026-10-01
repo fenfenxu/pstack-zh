@@ -9,13 +9,13 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 这是中文译文，方便对照阅读。本站不发行中文版插件。英文原文 [`pstack/docs/guide/03-understand.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/03-understand.md)，取自 pstack 官方仓库 cursor/plugins 的提交 `12d587d`。
 >
-> [本站英文页](https://pstack.droplink.cloud/en/skills-zh/official-guide/03-understand/)
+> [本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/03-understand/)
 
 # 改它之前先理解代码
 
 改你不理解的代码，细微的回归就是这样发出去的。pstack 给你四条进入的路。`/how` 解释代码现在做什么。`/why` 挖出它长成这样的原因。`/teach` 把两者揉成一份说明。`/recall` 重建你自己近期关于某个话题的上下文。
 
-![侦探用放大镜研究一张机器蓝图，机器人在取案卷。她身后的证据板把线索连在 /how 和 /why 下面。](https://pstack.droplink.cloud/guide/understanding.jpg)
+![侦探用放大镜研究一张机器蓝图，机器人在取案卷。她身后的证据板把线索连在 /how 和 /why 下面。](https://pstack.ganhai.cloud/guide/understanding.jpg)
 
 ## 用 `/how` 追踪行为
 

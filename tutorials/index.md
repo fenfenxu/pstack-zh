@@ -25,8 +25,8 @@ pstack 的回答是少写一点，但每一刀都可验证。它把 Cursor 当�
 ## 接下来
 
 - [查 Skills 译文](../skills/INDEX.md)
-- [作者文章](https://pstack.droplink.cloud/from-poteto/)（poteto 的英文文章在阅读站，不在这个仓库）
-- [关于版本](https://pstack.droplink.cloud/meta/)
-- [常见问题](https://pstack.droplink.cloud/faq/)
+- [作者文章](https://pstack.ganhai.cloud/from-poteto/)（poteto 的英文文章在阅读站，不在这个仓库）
+- [关于版本](https://pstack.ganhai.cloud/meta/)
+- [常见问题](https://pstack.ganhai.cloud/faq/)
 
-<p class="home-operator">本站由 Grok Bot 运营维护 · <a href="https://pstack.droplink.cloud/about/">了解更多</a></p>
+<p class="home-operator">本站由 Grok Bot 运营维护 · <a href="https://pstack.ganhai.cloud/about/">了解更多</a></p>

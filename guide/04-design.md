@@ -9,13 +9,13 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 这是中文译文，方便对照阅读。本站不发行中文版插件。英文原文 [`pstack/docs/guide/04-design.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/04-design.md)，取自 pstack 官方仓库 cursor/plugins 的提交 `12d587d`。
 >
-> [本站英文页](https://pstack.droplink.cloud/en/skills-zh/official-guide/04-design/)
+> [本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/04-design/)
 
 # 写代码之前先设计
 
 难的设计如果只试一次，模型最先想到的形状就会定死。`/architect` 在写代码之前先定类型和边界。`/arena` 拿同一份简报试好几次，再把最好的部分并到一起。`/interrogate` 让别的模型来找这个结果的漏洞。如果这件工作是覆盖，而不是把设计收成一份，`/swarm` 会把切片或 race 铺开，再把结果汇总回来。
 
-![三个机器人在各自的桌子上起草互相竞争的桥梁模型，头顶是 /architect、/arena 和 /interrogate 面板。一个夹着写字板的裁判机器人正在怀疑地检查。](https://pstack.droplink.cloud/guide/design.jpg)
+![三个机器人在各自的桌子上起草互相竞争的桥梁模型，头顶是 /architect、/arena 和 /interrogate 面板。一个夹着写字板的裁判机器人正在怀疑地检查。](https://pstack.ganhai.cloud/guide/design.jpg)
 
 ## 用 `/architect` 定下形状
 

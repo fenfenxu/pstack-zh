@@ -9,13 +9,13 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 这是中文译文，方便对照阅读。本站不发行中文版插件。英文原文 [`pstack/docs/guide/10-recipes-and-pitfalls.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/10-recipes-and-pitfalls.md)，取自 pstack 官方仓库 cursor/plugins 的提交 `12d587d`。
 >
-> [本站英文页](https://pstack.droplink.cloud/en/skills-zh/official-guide/10-recipes-and-pitfalls/)
+> [本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/10-recipes-and-pitfalls/)
 
 # 配方与坑
 
 值得照抄的提示词，然后是人人都会犯一次的错。换成你自己的路径和完结条件。这些配方故意写得很随意。实际打字时就是这样。skill 读意图没有问题。
 
-![她品尝做好的菜，机器人照着食谱盒做菜。柜台上方钉着写有 /how、/tdd 和 /loop 的卡片。](https://pstack.droplink.cloud/guide/recipes.jpg)
+![她品尝做好的菜，机器人照着食谱盒做菜。柜台上方钉着写有 /how、/tdd 和 /loop 的卡片。](https://pstack.ganhai.cloud/guide/recipes.jpg)
 
 ## 弄清一个陌生的子系统
 

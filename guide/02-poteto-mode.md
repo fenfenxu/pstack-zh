@@ -9,13 +9,13 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 这是中文译文，方便对照阅读。本站不发行中文版插件。英文原文 [`pstack/docs/guide/02-poteto-mode.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/02-poteto-mode.md)，取自 pstack 官方仓库 cursor/plugins 的提交 `12d587d`。
 >
-> [本站英文页](https://pstack.droplink.cloud/en/skills-zh/official-guide/02-poteto-mode/)
+> [本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/02-poteto-mode/)
 
 # 把工作交给 `/poteto-mode`
 
 `/poteto-mode` 是入口。你给出目标。它在二十三个 playbook 里选一个，把步骤抄进 todo，需要时再去调别的 skills。这一页讲两件事：好的提示词长什么样，以及你其实只要写很短。
 
-![调度员扳下转辙杆，把轨道手摇车上的机器人送向亮着的闸门。上方的 /poteto-mode 发车板列出 BUG FIX、FEATURE 和 INVESTIGATION。](https://pstack.droplink.cloud/guide/router.jpg)
+![调度员扳下转辙杆，把轨道手摇车上的机器人送向亮着的闸门。上方的 /poteto-mode 发车板列出 BUG FIX、FEATURE 和 INVESTIGATION。](https://pstack.ganhai.cloud/guide/router.jpg)
 
 ## 看提示词会走到哪
 
