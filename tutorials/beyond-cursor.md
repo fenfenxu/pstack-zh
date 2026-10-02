@@ -36,7 +36,7 @@ description: 官方插件不能原样装。可移植的是规程与原则。Curs
 | 层 | 怎么用在别处 |
 |---|---|
 | **23 条原则** | 写成项目规则或 skill。例如 prove-it-works、sequence-verifiable-units、model-the-domain |
-| **Playbook 步骤** | 当核对清单。复现 → 根因 → 小步验证 → 开 PR |
+| **Playbook 步骤** | 当成一份核对清单：先复现，再查根因，然后一小步一小步验证，最后开 PR。 |
 | **文体** | unslop、technical-writing、短句证据同句 |
 | **验证文化** | 对真实产物证明。能编译不算完成 |
 | **figure-it-out 思路** | 没有窄规程时，先设计可审计阶段再跑 |
@@ -58,7 +58,7 @@ description: 官方插件不能原样装。可移植的是规程与原则。Curs
 
 1. 仓库级约定放进 `AGENTS.md`（Codex 与多工具常见入口）。
 2. 可复用步骤用 Codex 支持的 skill / 手册格式承载。
-3. 模型表不要抄 `pstack-models.mdc` 文件名。按 Codex 自己的模型配置写一版「角色 → 模型」对照即可。
+3. 模型表不要抄 `pstack-models.mdc` 文件名。按 Codex 自己的模型配置，写一版每个角色对应哪一款模型的对照即可。
 4. 没有 sticky mode 时，每个会话开头显式「按 Feature playbook 执行」并贴步骤。
 
 ### 共通降级表
@@ -68,7 +68,7 @@ description: 官方插件不能原样装。可移植的是规程与原则。Curs
 | `/poteto-mode` sticky | 会话首条固定规程 + 检查清单 |
 | `poteto-agent` | 宿主默认子代理 +「先读原则索引」指令 |
 | arena / interrogate 多模型 | 单模型多角色，或接受无 panel |
-| `/setup-pstack` | 手写角色→模型表，或宿主等价配置 |
+| `/setup-pstack` | 手写一份「每个角色用哪一款模型」的表，或用宿主里等价的配置。 |
 | `/loop` + babysit | 宿主自己的定时 / 轮询，或人工回看 |
 | control-ui / CDP 证明 | 换成该宿主能驱动的浏览器或 CLI 检查 |
 

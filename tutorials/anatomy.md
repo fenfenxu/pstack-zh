@@ -13,7 +13,7 @@ description: pstack 由哪些零件组成，各干什么，一次 Feature 里谁
 
 | 零件 | 数量（当前对照副本） | 一句话 |
 |---|---|---|
-| Skill | **47** | 可调用的工作流与原则 leaf |
+| Skill | **47** | 可调用的工作流，以及一条条原则 |
 | 其中 `principle-*` | **23** | 决策规则。一般不当 slash 入口 |
 | Playbook | **23** | 挂在 `poteto-mode` 下的任务规程 |
 | Agent | **2** | `poteto-agent`、`Comment Sicko` |
@@ -42,18 +42,18 @@ flowchart TB
 | 层 | 回答的问题 | 干什么 | 不干什么 |
 |---|---|---|---|
 | **Mode**（`/poteto-mode`） | 现在按哪套规程干活 | 匹配 playbook、抄步骤进 todo、按需拉其他 skill、sticky 跨回合 | 不替代你写模型表 |
-| **Playbook** | 这类任务逐步怎么做 | Feature / Bug fix / Investigation 等操作规程 | 不是独立 slash skill |
-| **Skill** | 某一步用什么能力 | `how`、`arena`、`unslop`、原则 leaf… | 多数不必手点。mode 会路由 |
+| **Playbook** | 这类任务逐步怎么做 | 做功能（Feature）、修 bug（Bug fix）、调查（Investigation）等操作规程 | 不是独立 slash skill |
+| **Skill** | 某一步用什么能力 | `how`、`arena`、`unslop`，以及一条条原则 | 多数不必手点。mode 会路由 |
 | **Agent** | 子任务用哪个人格跑 | Task 的 `subagent_type`。写代码常用 `poteto-agent` | 不是 Cursor Rules（`.mdc`） |
 | **Rule**（models） | 谁演哪个角色、预算多深 | 覆盖 spawn 时的模型与 panel 人数 | 不教怎么写代码 |
 
 Skills 与 agents 的分工见各自目录。查表用 [Skills 译文](../skills/INDEX.md)。
 
-原则 leaf 只在**本会话已读过**时才能在回复里点名。未读不可假装用过。
+一条条原则只在**本会话已读过**时才能在回复里点名。未读不可假装用过。
 
 ## 谁使用谁
 
-依赖方向是单向的。人先跑那两个入口命令。Mode 选 Playbook。Playbook 步骤拉 Skill。写代码的 Skill / 步骤 spawn Agent。Models rule 覆盖「用哪款模型」。原则被 Mode 与 Playbook **引用**，不反过来拥有流程。
+依赖方向是单向的。人先跑那两个入口命令。Mode 选 Playbook。Playbook 步骤拉 Skill。写代码的 Skill 或步骤会拉起 Agent。Models rule 覆盖「用哪款模型」。原则被 Mode 与 Playbook **引用**，不反过来拥有流程。
 
 ```mermaid
 flowchart LR
@@ -62,7 +62,7 @@ flowchart LR
   D1 --> R["models rule"]
   D2 --> PB["匹配 playbook"]
   PB --> SK["how / architect / arena / …"]
-  SK --> AG["Task → agents"]
+  SK --> AG["用 Task 拉起 agents"]
   R -.->|"覆盖 model"| SK
   R -.->|"覆盖 model"| AG
   PR["principle-*"] -.->|"约束决策"| D2
@@ -77,17 +77,17 @@ flowchart LR
 
 换掉 `poteto-agent` 用 `generalPurpose`，会跳过「先读完整 poteto-mode」那次，行为会漂。
 
-## Feature 走读：一次改动怎么 work
+## 做功能（Feature）走读：一次改动怎么走下来
 
 假想你说：给设置页加一个可观察的开关。控制流大致如下。
 
 1. **先跑入口命令。** 新机器先 `/setup-pstack`。日常任务进 `/poteto-mode`。
-2. **匹配。** Mode 认成 **Feature** playbook。把步骤原文抄进 todo。跳过的步骤留 `skip: 理由`。
+2. **匹配。** Mode 认成 **做功能（Feature）** playbook。把步骤原文抄进 todo。跳过的步骤留 `skip: 理由`。
 3. **探路。** 步骤要求时跑 `/how`，弄清该改哪一层。跨边界设计时跑 `/architect`。
-4. **实现。** 先命名数据形状，再写逻辑。多种合法形状时走 `/arena`，不靠一句「随便选」。代码 delegate 常用 `poteto-agent`。难度与模型读 models rule。
+4. **实现。** 先命名数据形状，再写逻辑。多种合法形状时走 `/arena`，不靠一句「随便选」。写代码这一步通常交给 `poteto-agent`。难度与模型读 models rule。
 5. **证明。** 对着真实界面或真实产物验证。「能编译」不算完成。这是 prove-it-works。
-6. **收口。** 需要时 `/interrogate`、`/no-comments`。几乎每个写码 playbook 末尾走 **Opening a PR**。
-7. **之后。** 推到 merge-ready 是 **Babysit**。真要落地是 **Shipping**。二者不是同一本。
+6. **收口。** 需要时 `/interrogate`、`/no-comments`。几乎每个写代码的 playbook 末尾都走开 PR（Opening a PR）。
+7. **之后。** 把 PR 推到随时可以合并，是盯 PR（Babysit）。真要合进去，是上线（Shipping）。二者不是同一本 playbook。
 
 ```mermaid
 sequenceDiagram
@@ -109,15 +109,15 @@ sequenceDiagram
   PB->>PB: Opening a PR
 ```
 
-日常四本是 Feature、Bug fix、Refactoring、Prototype。只读问题走 Investigation。过夜与程序级（figure-it-out、orchestrate、autopilot）另有阶梯，主课稍后练。
+日常四本是做功能（Feature）、修 bug（Bug fix）、重构（Refactoring）、做原型（Prototype）。只读问题走调查（Investigation）。过夜与程序级（figure-it-out、orchestrate、autopilot）另有阶梯，主课稍后练。
 
-## 三个容易混的边界
+## 三种活，各自能做到哪一步
 
-| 概念 | 含义 |
-|---|---|
-| Investigation | 只读。交付带引用的答案。不改代码 |
-| Babysit | 推到 merge-ready。**没有**合并权 |
-| Shipping | 没写这段代码的 agent 给 PASS 后才落地。绿灯 ≠ 安全 |
+下面三本都是 `/poteto-mode` 里的 playbook。
+
+- 调查（Investigation）：只看代码、回答问题，不改任何代码。回答要注明依据，比如出自哪个文件哪一行。
+- 盯 PR（Babysit）：把 PR 推到随时可以合并的状态，包括修 CI、处理评审意见，但不能自己点合并。
+- 上线（Shipping）：代码要合进去，必须先让一个没参与写这段代码的 agent 审查，它判定通过才行。CI 全绿只说明测试过了，不等于这段代码没问题。
 
 这个网站的仓库里，`skills/` 和 `content/skills-zh/` 都是给学习用的中文译文。真正跑起来的，永远是你已经安装的 Cursor 插件。不要把这些译文注册成第二套插件。
 

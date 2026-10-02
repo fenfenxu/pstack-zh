@@ -14,7 +14,7 @@ description: 能。前提是 Cursor 与官方插件。摩擦在英文运行时�
 | 现象 | 原因 | 影响 |
 |---|---|---|
 | Skill 打开是英文 | 插件交付物是英文 `SKILL.md` | 跟读吃力。命令与步骤名仍须认英文 |
-| 默认要 opus / grok / sol 等 slug | poteto-mode 与 panel 按多模型分工 | 本机 entitlement 不全时，Task 拒模型或反复降级 |
+| 默认要 opus / grok / sol 等 slug | poteto-mode 与 panel 按多模型分工 | 本机能用的模型不全时，Task 会拒绝所选模型，或一次次改用别的模型 |
 | 想「装中文 skills 当运行时」 | 这个网站的仓库里，`skills/` / `content/skills-zh/` 是译文 | 和官方插件一起注册会冲突，两边还会越差越远 |
 | 回复与 playbook 术语偏英文工程话 | 官方文体与原则名是英文 | 中文提问没问题。对照表与原则名仍要认得 |
 

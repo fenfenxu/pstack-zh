@@ -19,7 +19,7 @@ pstack 的回答是少写一点，但每一刀都可验证。它把 Cursor 当�
 ## 这几页
 
 - [pstack skills 全景](https://pstack.ganhai.cloud/understand/skills-map/) - 47 个 skill 按使用时机排开，点名字看卡片
-- [构成与关系](./anatomy.md) - 零件清单、谁用谁、一次 Feature 怎么转起来
+- [构成与关系](./anatomy.md) - 零件清单、谁用谁、一次做功能（Feature）怎么转起来
 - [中文开发者能直接用吗](./for-chinese-devs.md) - 能用的前提、摩擦与解法
 - [Claude Code / Codex 能用吗](./beyond-cursor.md) - 官方插件边界与适配降级
 
