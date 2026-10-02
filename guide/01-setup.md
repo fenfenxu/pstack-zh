@@ -7,9 +7,11 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 > [!NOTE]
 > **来源**
 >
-> 这是中文译文，方便对照阅读。本站不发行中文版插件。英文原文 [`pstack/docs/guide/01-setup.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/01-setup.md)，取自 pstack 官方仓库 cursor/plugins 的提交 `12d587d`。
+> 这是中文译文，方便对照阅读。本站不发行中文版插件。
 >
-> [本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/01-setup/)
+> 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/01-setup/)
+>
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/01-setup.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/01-setup.md)（提交 `12d587d`）
 
 # 安装 pstack
 
