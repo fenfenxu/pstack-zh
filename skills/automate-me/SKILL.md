@@ -1,103 +1,103 @@
 ---
 name: automate-me
-description: "用于「automate me」「create/update/refresh my -mode skill」「turn/capture my preferences or working style into a skill」，或希望 agent 按用户工作方式行事时。通过 create-skill + unslop 起草或修订个人 -mode skill，可选从近期 transcript 拉取新证据。"
+description: "用于「automate me」「create/update/refresh my -mode skill」「turn/capture my preferences or working style into a skill」，或者希望 agent 照用户的方式做事。借助 create-skill 和 unslop 起草或修订个人的 -mode skill，可以选择从近期对话记录里补充新证据。"
 disable-model-invocation: true
 ---
 
 # Automate me
 
-将用户工作惯例转化为 agent 会遵循的 skill 的引导流程。输出是一个为其定制的 `-mode` skill（如 `jay-mode`、`priya-mode`）。
+一套引导流程，把用户的工作习惯变成 agent 会遵守的 skill。产出是一个为用户量身定做的 `-mode` skill（例如 `jay-mode`、`priya-mode`）。
 
-本 skill 编排另外三个：内联挖掘（见步骤 1）、Cursor 内置 `create-skill`（撰写）、以及 **unslop** skill（行文纪律）。它负责编排顺序，不替代它们。
+这个 skill 调度另外三样东西：一轮内嵌的挖掘（见第 1 步）、Cursor 内置的 `create-skill`（负责写 skill），以及 **unslop** skill（负责文字纪律）。它只安排先后顺序，不取代它们。
 
 ## 流程
 
-### 0. 检查是否已有 skill
+### 0. 先看有没有现成的 skill
 
-递归查找 `.cursor/skills/**/*-mode/SKILL.md` 和 `~/.cursor/skills/*-mode/SKILL.md`，匹配用户 handle。Mode skill 可位于个人分类目录（`.cursor/skills/<handle>/`），不限于顶层。若已存在，用 AskQuestion 确认意图（除非用户已说「update my skill」等）：
+递归查找跟用户名号匹配的 `.cursor/skills/**/*-mode/SKILL.md` 和 `~/.cursor/skills/*-mode/SKILL.md`。mode skill 可能放在个人分类目录里（`.cursor/skills/<handle>/`），不一定在顶层。如果已经有了，用 `AskQuestion` 确认用户想做什么（用户已经说了「update my skill」之类的话就不用问）：
 
-- 更新现有 skill（重复运行的默认）
-- 从头开始（少见，先问原因）
+- 更新现有的 skill（重复运行时的默认）
+- 从头再来（少见，动手前先问为什么）
 
-更新模式会改变后续流程：
-- 步骤 1 仅挖掘 skill 上次编辑后的历史（`git log -1 --format=%cI <path>`）。
-- 步骤 2 问什么变了或缺什么，而非从零问要 capture 哪些惯例。
-- 步骤 4 原地编辑现有文件。保留用户未否定的章节。修订有新证据的章节。仅对真正新规则新增章节。
+选了更新，后面的流程会变：
+- 第 1 步只挖这个 skill 上次修改之后的历史（`git log -1 --format=%cI <path>`）。
+- 第 2 步问的是哪些变了、还缺什么，而不是从零问要记下什么。
+- 第 4 步直接改现有文件。用户没有否定的章节保留。有新证据的章节修改。只有真正新的规则才加新章节。
 
-### 1. 挖掘历史
+### 1. 挖用户的历史
 
-在扇出前定位当前 workspace 的 transcript。系统 prompt 会给出 workspace 的 `agent-transcripts/` 目录。只用该路径。不要 glob `~/.cursor/projects/*/`。那会跨 workspace 边界并读取无关项目的私密聊天。
+扇出之前，先找到当前 workspace 的对话记录。系统提示词里写了这个 workspace 的 `agent-transcripts/` 目录。只用这个路径。不要对 `~/.cursor/projects/*/` 做 glob。那样会越过 workspace 的边界，读到无关项目里的私人对话。
 
-在该范围内调查近期 agent 对话中的反复模式。对历史切片并行跑多个子 agent（如最近 2–4 周，拆成 3 片使每片有足够材料）。每个切片挖掘子 agent 从父 agent 提供的 workspace 范围路径读 transcript，寻找下方信号，返回带证据指针的简短结构化模式列表。默认值得搜寻的信号：
+在这个范围内，梳理近期 agent 对话里反复出现的规律。把历史切成几段，开几个子代理并行挖（例如最近 2 到 4 周，切成 3 段，让每段都有足够材料）。每个挖掘子代理从父代理给的、限定在本 workspace 的路径读对话记录，找下面这些信号，返回一份简短的结构化清单，列出看到的规律和证据出处。默认值得找的信号：
 
-- 回复偏好（长度、语气、格式、「说简单点」类纠正）
-- 委派习惯（子 agent、模型、专用 workflow、并行）
-- 验证姿态（「done」的含义、单测 vs 现场复现、reviewer）
-- 代码与行文纪律（风格、引用的原则、lint/format 工具）
-- 流程惯例（worktree、commit、PR、review/merge 工具）
-- 元偏好（任务中修 skill、提议新 skill）
+- 回复偏好（长度、语气、格式，「说简单点」这类纠正）
+- 委派习惯（子代理、模型、专门的工作流程、并行）
+- 验证的态度（「做完」指什么，单元测试还是现场复现，评审的人）
+- 代码和文字纪律（风格、常引用的原则、lint 和格式化工具）
+- 流程习惯（worktree、commit、PR、评审和合并用的工具）
+- 关于做事方式本身的偏好（任务中途修 skill、提议新 skill）
 
-在提升信号前跨切片交叉核对。2+ 切片出现的模式为高置信。孤立信号弱，通常丢弃。
+一个信号要在几段之间互相印证，才能升格。在 2 段或更多段里出现的规律，可信度高。只出现一次的信号很弱，通常丢掉。
 
 ### 2. 直接问用户
 
-挖掘会漏掉尚未出现的意图。用 AskQuestion 工具（结构化多选），不要让用户从零打字。
+挖掘抓不到还没表现出来的意图。用 `AskQuestion` 工具（结构化的多选题），不要让用户从零开始打字。
 
-形式：一两道题，每题 4–6 个选项，分类题设 `allow_multiple: true`。先宽（「哪些领域最重要？」），再对选中领域用具体选项跟进。结构化轮次后，一道自由形式聊天题捕获选项遗漏的内容。
+形式：一两道题，每题 4 到 6 个选项，分类题用 `allow_multiple: true`。先问大的（「哪些方面最重要？」），再针对选中的方面给具体选项追问。结构化的几轮问完后，在聊天里再问一道开放题，接住选项没覆盖到的东西。
 
-不要一次问 20 个问题。
+不要一口气抛出 20 道题。
 
-### 3. 聚类发现
+### 3. 把发现归类
 
-将合并信号分组为章节。常见章节（仅用适用的）：
+把合在一起的信号分成章节。常见的有这些（只用适用的）：
 
 - **回复风格**：长度、语气、格式。
-- **自主度**：不经询问做多少、MCP 工具使用。
-- **先理解**：定范围或调查变更时该用哪些 skill。
-- **子 agent**：默认、并行、模型与任务、专用 workflow。
-- **行文/代码纪律**：原则、lint 工具、风格指南。
-- **审查与验证**：复现姿态、verification skill、现场测试工具。
-- **流程**：git worktree、commit、PR、review/merge 工具。
-- **Skill**：skill 撰写习惯、先修 skill、提议新 skill。
+- **自主程度**：不问就能做多少，MCP 工具怎么用。
+- **先理解**：划定范围或调查改动时用哪些 skill。
+- **子代理**：默认做法、并行、什么任务配什么模型、专门的工作流程。
+- **文字和代码纪律**：原则、lint 工具、风格指南。
+- **评审和验证**：复现的态度、验证 skill、现场测试工具。
+- **流程**：git worktree、commit、PR、评审和合并用的工具。
+- **Skill**：写 skill 的习惯、先修 skill、提议新 skill。
 
-**poteto-mode** skill 展示形态。读它以了解粒度。不要复制其内容。用户规则与 poteto-mode 不同。
+**poteto-mode** skill 是现成的样子。读它是为了把握粒度。不要照抄内容。用户的规则和 poteto-mode 的规则不一样。
 
 ### 4. 起草 skill
 
-用 Cursor 内置 `create-skill` skill 撰写。放置：
+用 Cursor 内置的 `create-skill` skill 来写。放在哪里、怎么写：
 
-- 路径：保留现有 mode skill 的分类。新 mode 时，若 repo 已有该 handle 的个人分类，用 `.cursor/skills/<handle>/<handle>-mode/SKILL.md`。否则默认项目内 `.cursor/skills/<handle>-mode/SKILL.md`（或用户偏好个人 skill 时用 `~/.cursor/skills/<handle>-mode/`）。
-- Handle：用户名字或自选标识。
-- Frontmatter `description`：以其名字 + `/<handle>-mode` +「按 ta 的风格工作」触发，不要用「write code」「review PR」等泛关键词。
-- Frontmatter 格式：遵循 `create-skill` 的 YAML 规则。`description` 保持为单个 YAML 标量。需要时用引号或 `description: >-` 加缩进续行。
-- Frontmatter `disable-model-invocation: true` 为默认。仅当用户明确希望 mode 每轮生效时才 opt out。
+- 路径：现有 mode skill 在哪个分类，就保留在哪。新建 mode 时，如果仓库里已经有这个名号的个人分类，用 `.cursor/skills/<handle>/<handle>-mode/SKILL.md`。否则默认放在项目里的 `.cursor/skills/<handle>-mode/SKILL.md`（用户更想要个人 skill 时，放 `~/.cursor/skills/<handle>-mode/`）。
+- 名号：用户的名字，或用户自己选的标识。
+- front matter 的 `description`：用用户的名字、`/<handle>-mode` 和「照 ta 的风格做事」来触发，不要用「write code」「review PR」这类泛泛的关键词。
+- front matter 的格式：照 `create-skill` 的 YAML 规则。`description` 保持为一个 YAML 标量。标点或换行需要时，加引号，或者用 `description: >-` 加缩进的续行。
+- front matter 默认写 `disable-model-invocation: true`。只有用户明确希望这个 mode 每一轮都生效时，才去掉。
 
-### 5. 迭代行文
+### 5. 反复改文字
 
-对每一行应用 **unslop** skill 和 `create-skill` 的写作指南。
+每一行都用 **unslop** skill 和 `create-skill` 的写作指南过一遍。
 
-向用户展示草稿并收反馈。预期多轮迭代。狠心删减。Mode skill 不是手册。
+把草稿给用户看，听反馈。预计要改好几轮。下手要狠。mode skill 不是使用手册。
 
-### 6. 落地
+### 6. 合进去
 
-在 main 的 worktree 中工作。Commit 并开 PR。不要直接 push 到 main。
+在从 main 拉出的 worktree 里做。提交并开 PR。不要直接推到 main。
 
 ## 护栏
 
-- **不要过度拟合单次对话。** 说过一次又在别处矛盾的是噪声。编码前需多次出现。
-- **不要耍聪明。** 复述其他 skill 内容、发明隐喻、为 agent 读者写「诗意」散文，成本无收益。保持可执行、可操作。
-- **引用，不要内联。** 用户依赖的其他 skill 以路径引用出现，不要粘贴摘录。同理其在他处维护的原则文档。
-- **章节保持精简。** 仅当用户在该处有具体、非默认规则时才加章节。「沟通要清楚」不是章节。「短段落。比较选项时用表格。仅当条目真正并列时才用 bullet。」才是。
-- **命名惯例通用化。** 祈使句中用「用户」或「人类」，不用作者名字。
-- **不要强行对称。** 若用户没有值得写下的流程规则，整节「流程」跳过。
+- **不要只凭一次对话下结论。** 说过一次、另一次又自相矛盾的偏好是噪声。要出现好几次才写进规则。
+- **不要耍小聪明。** 复述别的 skill 的内容、发明比喻、给 agent 读者写「有诗意」的文字，只有成本没有好处。写成能照着做的。
+- **引用，不要内嵌。** 用户依赖的其他 skill 用路径引用，不要贴摘录。用户在别处维护的原则文档也一样。
+- **章节越少越好。** 只有用户在某方面有具体的、不同于默认的规则，才加这一节。「沟通要清楚」撑不起一节。「段落要短。比较选项时用表格。只有条目真正并列时才用列表。」才是。
+- **规则写得通用。** 祈使句里写「用户」或「人」，不写作者的名字。
+- **不要硬凑对称。** 如果用户没有值得写下来的流程规则，整节「流程」都不要。
 
 ## 评估
 
-`-mode` skill 是主观输出。`create-skill` 式测试/迭代基准循环在这里无用。与用户感受核对：读起来像 ta 吗？漏了什么？然后 ship。
+`-mode` skill 的产出是主观的。`create-skill` 那种测试、迭代、跑基准的循环在这里没用。跟用户一起凭感觉检查：读起来像不像 ta？有没有漏掉什么？然后交付。
 
-仅当 skill 的 trigger 准确性在实践中成问题时才跑 description-optimization 循环。
+只有 skill 在实际使用中真的触发不准，才去跑一轮优化 description 的循环。
 
 ## 什么时候别用
 
-- 用户要任务专用 skill（非工作惯例）：单独 `create-skill`，无需挖掘。
-- 用户要固化一条窄 workflow（如「我怎么写 commit message」）。那是普通 skill，不是 mode skill。
+- 用户要的是做某件具体任务的 skill（不是工作习惯）：单独用 `create-skill`，不需要挖掘。
+- 用户想记下一条很窄的工作流程（例如「我怎么写 commit message」）。那是普通 skill，不是 mode skill。

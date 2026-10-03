@@ -1,16 +1,16 @@
 ### Refactoring
 
-**你负责契约。结构变，行为不变。** 与 Feature（新增行为）和 Bug fix（纠正行为）不同。
+**你负责的是契约。结构要变，行为不变。** Feature 增加行为，Bug fix 纠正行为，这个 playbook 跟两者都不同。
 
-若清理暴露缺失功能或真实 bug，拆出并在已经固定下来的行为约定下先 ship 结构变更。允许 redesign，但须命名并路由到 Feature。大型或跨切面结构工作属于 **figure-it-out** skill。本 playbook 用于聚焦到中等的变更。
+整理时如果发现缺了功能，或者有真 bug，把它拆出去，先在固定下来的契约下交付结构改动。可以重新设计，但要明说是重新设计，并转到 Feature。规模大或横跨多个模块的结构工作，交给 **figure-it-out** skill。这个 playbook 管的是范围集中、规模从小到中等的改动。
 
-1. 先把行为约定固定下来。对受影响子系统运行 **how** skill 以了解契约，然后在任何结构移动前写 characterization test、snapshot 或等价 harness 捕获当前行为。若该区域无覆盖，动结构前先写能固定当前行为的测试。类型检查和 lint 不算把行为固定下来。
-2. 按 **principle-model-the-domain** 指出代码缺失的结构。形状已清晰且局部时，简单直白的代码可保留。reshape 须删除分支或非法状态，不要增加间接层。
-3. 命名目标形状。说明若今天新建，模块布局、类型与 call graph 应如何（**principle-foundational-thinking**、**principle-redesign-from-first-principles**）。若目标跨函数边界，移动前用 **architect** skill 并行探索形状设计。
-4. 先减后增。引入新形状前删除 dead code、合并单 caller wrapper、去掉冗余 validator、移除 orphan reference（**principle-subtract-before-you-add**）。到达目标形状的最小变更即 ship（**principle-laziness-protocol**）。「可能有帮助」的 speculative cleanup 须 revert。
-5. 以小步行为保持移动，每步都让这些固定行为的测试通过。API reshape 时，同一波次迁移每个 caller 并删除旧 API（**principle-migrate-callers-then-delete-legacy-apis**）。不要兼容 shim，不要新旧并行路径。对每个 rename 对照实际文件抽查。rename 会静默漏掉 string、正文与 back-reference 中的用法。将机械编辑委托给子代理，使用配置的 refactoring 模型（默认 `grok-4.7-xhigh-fast`），范围明确（file path、移动的名称、须保持的行为）。
-6. 在真实产物上证明行为未变，而非「能编译」（**principle-prove-it-works**）。较大 reshape 时运行等价检查：diff 旧新输出的脚本、对新代码 replay 的记录基线，或通过相关 control skill 在匹配界面上做冒烟运行。
-7. 确认变更值得保留。成功度量是降低 reader load（**principle-minimize-reader-load**）。若 diff 未在任何处降低 reader load，revert。
-8. Rebase 成小而有序的 commit：减法 commit，然后 reshape，然后后续 cleanup。用 **sequence-verifiable-units** 原则 skill 塑形，使每个行为保持 slice 在下一步前保持绿。运行 **Opening a PR**。
+1. 先把行为契约固定下来。对受影响的子系统跑一遍 **how** skill，弄清契约。然后在动任何结构之前，写一个特征测试、快照或等价 harness（对比新旧行为是否一致的测试程序），把当前行为记录下来。如果这一块没有测试覆盖，先写好这道固定行为的检查，再动结构。类型检查和 lint 都不算固定行为的检查。
+2. 按 **principle-model-the-domain**，说出代码缺的是什么结构。形状已经清楚、而且只在局部时，平淡的代码就留着。重塑必须删掉分支或非法状态，不能加间接层。
+3. 说出目标形状。写明如果今天从头写，模块布局、类型和调用图应该是什么样（**principle-foundational-thinking**、**principle-redesign-from-first-principles**）。目标跨函数边界时，先用 **architect** skill 并行探索这个形状的设计，再动手迁移。
+4. 先减后加。引入新形状之前，删掉死代码，合并只有一个调用方的包装函数，去掉多余的校验器，清掉孤立的引用（**principle-subtract-before-you-add**）。交付的是能到达目标形状的最小改动（**principle-laziness-protocol**）。「也许有用」的投机性清理，要回退。
+5. 小步移动，每一步都不改变行为，每一步都让那道固定行为的检查保持通过。重塑 API 时，在同一波里迁移所有调用方，并删掉旧 API（**principle-migrate-callers-then-delete-legacy-apis**）。不留兼容垫片，不让新旧两条路径并存。每次重命名都要对照实际文件抽查。重命名会悄无声息地漏掉字符串、正文和反向引用里的用法。机械性的修改交给子代理，用你配置的 refactoring 模型（默认 `grok-4.7-xhigh-fast`），并给出明确的范围（文件路径、要移动的名字、要保持的行为）。
+6. 在真实产物上证明行为没变，「能编译」不算（**principle-prove-it-works**）。重塑规模较大时，跑一次等价检查：写个脚本 diff 新旧输出，把录好的基线拿到新代码上回放，或者用相关的 control skill 在对应的界面上做一次冒烟运行。
+7. 确认这个改动值得保留。衡量成功的标准是阅读负担变小（**principle-minimize-reader-load**）。如果这份 diff 没有在任何地方降低阅读负担，就回退。
+8. 用 rebase 整理成几个有序的小 commit。先是做减法的 commit，然后是重塑，最后是后续清理（如果有）。按 **sequence-verifiable-units** 原则 skill 安排它们，让每一片不改变行为的改动，在下一片开始之前都保持通过。执行 **Opening a PR**。
 
-**回复：** 变更的结构、这些测试所依据的约定、等价证明、reader load 变化、已 ship 与已 revert 的内容。无新行为。
+**回复：** 改了哪些结构、你对照的那道固定行为的检查、等价性证明、阅读负担的变化、交付了什么和回退了什么。没有新行为。

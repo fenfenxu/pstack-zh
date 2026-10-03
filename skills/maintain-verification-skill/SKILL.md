@@ -1,39 +1,39 @@
 ---
 name: maintain-verification-skill
-description: "定期 pass，保持项目 verification skill 与 feature map 诚实：每功能并行只读 source reader、一次 live session 驱动全部功能、最多一个 PR 的已证明修正。用于 /maintain-verification-skill 或「audit the verify skill」。"
+description: "定期走一轮，让项目的验证 skill 和 feature map 与实际相符：每个功能派一个子代理并行读源码，用一个实际运行的会话把每个功能都操作一遍，最多开一个 PR，提交验证过的修正。用于 /maintain-verification-skill 或「audit the verify skill」。"
 disable-model-invocation: true
 ---
 
-# 维护 verification skill
+# 维护验证 skill
 
-应用一变，feature map 就开始腐化。本 skill 是 `/create-verification-skill` 生成 skill（或任何带 feature map 的项目本地 verification skill）的 upkeep 循环。严谨单位是功能，不是每句话：每个功能文件都要 source 覆盖与 live 演练，不必把每条 bullet 终端化。
+应用一改，feature map（一份索引，加上每个功能一个说明文件）就开始过时。这个 skill 是 `/create-verification-skill` 所生成 skill 的维护循环（任何带 feature map 的项目本地验证 skill 也适用）。严谨要落到每个功能，而不是每一句话。每个功能文件都要对照源码过一遍，每个功能都要在实际运行的应用上操作一遍，但不用把每条要点都逐条验证到底。
 
 ## 结果
 
-选一种并说明：
+选一个，并说明是哪一个：
 
-- **clean** — 每功能都有 source 与 live 覆盖；无值得 ship 的。无分支、无 PR。
-- **changed** — 一个 PR ship 已证明的文档、harness 或 map 修正。
-- **blocked** — 覆盖无法完成或已证明修复无法安全 ship。精确说明阻塞点。
+- **clean**：每个功能都从源码和实际运行两方面覆盖到了，没有值得交付的改动。不建分支，不开 PR。
+- **changed**：用一个 PR 交付验证过的修正，改的是文档、harness（用来操作应用的脚本和工具）或 map。
+- **blocked**：覆盖没能做完，或者某个验证过的修复没法安全交付。说清楚到底是什么挡住了。
 
-## 编辑范围
+## 改动范围
 
-只编辑 verification skill 自有目录（其 SKILL.md、features/ 及自有 harness 脚本）。run 中不要改产品代码：map 描述的行为应用不再做，要么是文档漂移（修 map），要么是产品回归（报告，不要在文档里掩盖）。
+只改这个验证 skill 自己的目录（它的 SKILL.md、features/，以及归它所有的 harness 脚本）。一轮维护进行中，绝不改产品代码。map 描述了某个行为，应用却不再这样做，只有两种可能：文档漂移（改 map），或者产品回归（报告出来，不要在文档里把它掩盖过去）。
 
 ## Pass
 
-0. **定位目标。** 找要维护的 verification skill：正文含 launch/drive 与 feature map 的项目本地 skill（通常 `.cursor/skills/verify-*/`）。多个候选则问哪一个；没有则停，指向 `/create-verification-skill`，不要发明目标。
+0. **找到目标。** 找出要维护的验证 skill。它是项目本地的 skill，正文里有 Launch 和 Drive 两节，还有一份 feature map（通常在 `.cursor/skills/verify-*/`）。有多个候选，就问清是哪一个。一个都没有，就停下，指向 `/create-verification-skill`，不要自己编一个目标出来。
 
-1. **索引卫生。** 读 feature map README 并 glob 兄弟文件。修缺失、多余、重复或 dead 条目。轻量；不要生成 inventory。
+1. **整理索引。** 读 feature map 的 README，再用 glob 找出同目录下的其他文件。修正缺失、多余、重复或已失效的条目。这一步从简，不生成盘点清单。
 
-2. **Source 波。** 每个功能文件一个只读子 agent，并发 launch。各从 source 解释「该面向用户功能如何工作」，带引用 flag 可能文档漂移，返回一条 concise live 验证配方。子 agent 不驱动应用、不编辑文件。返回形态：功能摘要 / source 入口 / 可能漂移或无 / 一条配方。
+2. **并行读源码。** 每个功能文件配一个只读子代理，同时启动。每个子代理根据源码解释「这个面向用户的功能是怎么工作的？」，标出可能的文档漂移并附上出处，再交回一条简短的实际运行验证步骤。子代理绝不操作应用，也绝不改文件。交回的格式：功能摘要 / 源码入口 / 可能的漂移或无 / 一条验证步骤。
 
-3. **对账。** 每个功能文件都有返回摘要。把重叠配方合并为尽可能少的应用状态。 spot-check 引用的漂移；不要重证 clean 声称。扫近期 churn 找 map 缺失的用户面；称缺失须有具体 source 路径。
+3. **汇总核对。** 每个功能文件都要有交回的摘要。把重叠的验证步骤合并，在可行范围内让需要的应用状态尽量少。对子代理引用的漂移做抽查，不要重新证明那些说没问题的结论。把最近频繁改动的地方扫一遍，找 map 里漏掉的面向用户的界面。要认定某个界面漏了，必须先拿出具体的源码路径。
 
-4. **Live pass。** 即使 source 看起来 clean 也必需。协调者拥有全部 driving；遵循 verification skill 自有 launch 模型——server 与 UI 一个长驻实例串行驱动，或短生命周期 CLI 每次 drive 新隔离 session（由 skill 的 Launch 节决定，不是本 skill）。至少演练每个功能一次，全程 hold 三条 invariant，无论失败：(1) 不要驱动自上次做 surprising 之事以来未 health-check 的实例——首次 drive 前 doctor，session 为单元时每新 session doctor，任何失败 drive 后再 doctor；doctor 看不到失败时（健康进程上的 wedged UI），reset 到已知状态或 relaunch，不要碰运气；(2) 迄今采集的证据 survive 每次 cleanup，在其指名位置检查，不要假设；(3) drive 启动的东西不要比该 drive 有用性活得更久——失败迭代 residue 无论 session stuck、退出或共享都要清（共享实例清 residue，不清实例）。skill 漂移导致的 doctor 失败是漂移：在编辑范围内修并重试一次——只 restart 修复 invalidate 的部分——再称 pass `blocked`。功能不可达仅当给出具体 prerequisite（auth、entitlement、OS、外部状态）与尝试路径时为 `verified-unreachable`；map 缺该 prerequisite 是漂移。triage 的任何 harness 修复 ship 前须 live 重驱动。最终 teardown 在 run 最后一次 drive 之后——含那些 re-proof——使无物 outlive run（证据保留，按 skill）。
+4. **实际跑一遍。** 源码看起来没问题也必须做。所有对应用的操作都由协调者负责。按验证 skill 自己的启动方式来：服务器和 UI 用一个长期运行的实例，依次串行操作；运行时间短的 CLI 每次操作都开一个新的隔离会话（用哪种由那个 skill 的 Launch 一节决定，不由这个 skill 决定）。每个功能至少操作一次。整一轮里，不管遇到哪种失败，都要守住三条不变量。（1）实例上一次出现意外之后，只要还没做过健康检查，就绝不能操作它。第一次操作前跑 doctor（验证 skill 里那项只读的健康检查）；以会话为单位时，每个新会话都跑 doctor；任何一次操作失败后，再跑一次 doctor。doctor 发现不了的失败（进程健康，UI 却卡在某个状态里），要重置到已知状态或重新启动，不要碰运气。（2）到目前为止采集的证据，每次清理之后都必须还在。要去 skill 为它指定的位置检查，不能想当然。（3）一次操作启动的任何东西，在这次操作用不着之后都不能留着。失败迭代留下的残留一律清掉，不管会话是卡住了、已经退出，还是共享的（共享实例只清残留，不清实例本身）。如果 doctor 失败是 skill 漂移造成的，那就是漂移。先在改动范围内修好，再重试一次，重试过才能把这一轮判为 `blocked`。重试时，这次修复让什么失效了就只重启什么，别的不动。到不了的功能，只有写明具体的前提（鉴权、使用资格、操作系统、外部状态）和尝试过的路径，才能记为 `verified-unreachable`。如果 map 没写这个前提，那就是漂移。分类处理时做的任何 harness 修复，交付前都要重新实际跑一遍。最终拆除放在这一轮最后一次操作之后，那些重新验证也算在内。这样，这一轮结束后什么都不会留下（证据按 skill 的规定保留）。
 
-5. **Triage。** 错误或缺失的用户 POV 描述 → 文档漂移，修它。行为正常但 harness 驱动不了 → harness gap，修它；harness 修复遵循与生成相同的 helpers 规则（脚本可执行、skill 正文写调用）。应用行为真坏了 → 产品 gap；记给用户，不进本 PR。
+5. **分类处理。** 从用户视角写的描述有错或缺失 → 文档漂移，修掉。行为本身正常，harness 却操作不了 → harness 缺口，修掉。修 harness 要遵守和生成 skill 时同一条 Helpers 规则（脚本可执行，调用方法写在 skill 正文里）。应用行为确实坏了 → 产品缺口。记下来告诉用户，不放进这个 PR。
 
-6. **Ship 或停。** changed：一个 PR 的已证明修正，先重读每个改动文件。clean 或 blocked：无 PR，诚实报告结果与覆盖。
+6. **开 PR 或到此为止。** 结果是 changed 时，用一个 PR 提交验证过的修正，提交前先把每个改过的文件重读一遍。结果是 clean 或 blocked 时，不开 PR，如实报告结果和覆盖情况。
 
-在 scratch 位置保留 concise run notes（覆盖功能、不可达 prerequisite、确认漂移、结果）；不要 commit。
+在临时位置留一份简短的运行笔记（覆盖了哪些功能、到不了的功能缺什么前提、确认过的漂移、结果），不要提交。

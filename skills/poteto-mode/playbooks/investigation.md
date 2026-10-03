@@ -1,14 +1,14 @@
 ### Investigation
 
-**你拥有答案。规划、路由、撰写。**
+**答案由你负责。先规划，再分派，然后写出来。**
 
-Investigation 请求是只读。产出带引用的解释或建议，不是代码变更。
+调查类请求是只读的。产出的是带出处的解释或一条建议，不是代码改动。
 
-1. 经 **how** skill 路由。动机类问题也经 **why** skill。
-2. 吞吐检查点保持一行：`throughput checkpoint: n/a, read-only investigation`。
-3. 产出 `how` 形输出（Overview / Key Concepts / How It Works / Where Things Live / Gotchas），或若请求是在备选间决策则带 tradeoffs 表的建议。
-4. 对回复应用 **unslop** skill。
+1. 交给 **how** skill 处理。问的是动机，还要交给 **why** skill。
+2. 吞吐检查点只写一行：`throughput checkpoint: n/a, read-only investigation`。
+3. 产出 `how` 那种结构的结果（Overview / Key Concepts / How It Works / Where Things Live / Gotchas）。如果请求是在几个备选里做决定，就给一条建议，附一张取舍表。
+4. 对回复用一遍 **unslop** skill。
 
-无 PR、无 babysit、无 `architect`，除非 investigation  precedes 代码变更。若 precedes，交还用户并 re-route 到 Bug fix 或 Feature。
+不开 PR，不 babysit，不跑 `architect`，除非这次调查之后要改代码。如果要改，交还给用户，改走 Bug fix 或 Feature。
 
-**Reply：** investigation 输出。对「are we sure?」类答案，含真实判断与理由。前提错误则 push back（见 Autonomy）。
+**回复：** 调查结果。回答「我们确定吗？」这类问题时，写出你真实的判断和理由。前提错了就直接反驳（见 Autonomy）。

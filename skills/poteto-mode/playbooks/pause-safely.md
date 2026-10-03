@@ -1,10 +1,10 @@
 ### Pause safely
 
-**你拥有干净停止。留下 cold-start agent 可恢复的 checkpoint。** 仅显式触发。对「keep going」「going to bed, keep going」「don't stop」不要 pause。
+**干净地停下由你负责。留一个检查点，让毫无背景的 agent 也能接着做。** 只有明确要求时才用。听到「keep going」「going to bed, keep going」或「don't stop」，不要暂停。
 
-1. 在 safe boundary 停止。完成当前 atomic step 或 back out。不要 start 新事，cancel 嵌套子 agent。
-2. 为 pause 不做不可逆动作。除非已有，否则无 PR、无 push。
-3. 使 work durable。将未 commit 编辑作为清晰 `wip:` commit 于当前 branch，避免丢失。树 broken 则在 commit body 一行说明。
-4. 在 context 外写 resume note。capture 意图、在做什么、progress 与已 verify 项、当前 state、next steps、关键文件、gotcha。compaction trigger 时写到如 `/tmp/<slug>-resume.md`。若存在 show-me-your-work trail，指向它而非 duplicate。
+1. 停在安全的边界上。把当前这个不可拆分的步骤做完，或者把它退回去。不开始任何新的事，并取消所有嵌套的子代理。
+2. 不为了暂停做任何不可逆的操作。之前没开 PR、没推送的，现在也不开、不推。
+3. 让工作落到盘上。把没提交的改动在当前分支上提交成一个清楚的 `wip:` commit，什么都不丢。如果代码处于坏掉的状态，在 commit 正文里用一行说明。
+4. 把续做说明写到上下文之外。写下意图、你当时在做什么、进展和已验证的部分、当前状态、下一步、关键文件和坑。如果是上下文压缩触发的暂停，写到 `/tmp/<slug>-resume.md` 这样的文件里。如果已经有 show-me-your-work 的 trail（决策记录），指向它，不要重复写一遍。
 
-**Reply：** loop 中位置、磁盘上 vs 仍在脑中（路径，无 diff dump）、所做 commit 与树是否 clean、resume 时 first action。这是 pause，非 final report。
+**回复：** 你在循环里走到了哪一步，哪些已经在盘上、哪些还只在你脑子里（写路径，不要贴整段 diff），你做了哪些 commit、工作区是否干净，以及恢复时要做的第一件事。这是一次暂停，不是最终报告。

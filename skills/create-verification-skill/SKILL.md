@@ -1,44 +1,44 @@
 ---
 name: create-verification-skill
-description: "生成项目本地的 verification skill，像用户一样驱动应用——任意语言、框架或平台。用于 /create-verification-skill、「给这个仓库做个 control skill」，或项目没有脚本化方式证明 UI/CLI/服务行为时。"
+description: "生成一个只属于当前项目的验证 skill，像用户一样操作你的应用，不限语言、框架或平台。用于 /create-verification-skill、「给这个仓库做个 control skill」，或者项目还没有用脚本证明 UI、CLI 或服务行为的办法时。"
 disable-model-invocation: true
 ---
 
-# 创建 verification skill
+# 创建验证 skill
 
-每个严肃项目都需要脚本化方式驱动真实应用并证明行为：启动、像用户一样演练功能、采集证据。本 skill 在仓库中生成项目本地 skill（`.cursor/skills/verify-<app>/`）。你写的是给下一个 agent 看的，不是给人：它会在任务中途、从未见过该应用的情况下冷读。
+每个认真的项目都需要一种用脚本操作真实应用、证明其行为的办法：启动应用，像用户那样用一遍某个功能，再留下证据。这个 skill 把这套办法生成为一个按仓库定制的项目本地 skill（`.cursor/skills/verify-<app>/`）。你写的东西是给下一个 agent 看的，不是给人看的：读它的 agent 从没见过这个应用，会在任务进行到一半时毫无背景地读它。
 
-## 1. 访谈仓库，而非用户
+## 1. 问仓库，不问用户
 
-从代码库回答下列问题；只有观察不到时才问用户：
+下面这些问题从代码库里找答案，只有观察不到的才问用户：
 
-- **界面：** 用户实际接触什么？Web UI、CLI/TUI、桌面应用、API、移动应用、库？仓库可有多种，选主要一种并注明其余。
-- **运行：** 本地如何启动？优先仓库自文档化的 dev 命令（package scripts、Makefile、README 快速上手）。记下端口、环境变量、种子数据、鉴权。
-- **驱动：** agent 如何程序化交互？先看现有 harness——Playwright/Cypress spec、expect 脚本、PTY 辅助、可 curl 的端点、调试端口。再选通用方案：浏览器/CDP 用于 Web 与 Electron，tmux/PTY harness 用于 CLI/TUI，纯 HTTP 用于服务。
-- **观察：** 能采集什么证据？截图、终端 transcript、响应体、日志、退出码、DB 状态。
-- **隔离：** 能否并排跑两个实例（端口、数据目录、profile）？若不能，在生成的 skill 中说明：拒绝双开共享实例，好过搞坏用户会话。
+- **界面：** 用户实际接触的是什么？网页 UI、CLI 或 TUI、桌面应用、API、移动应用，还是一个库？一个仓库可能有好几种。挑主要的那一种，其余的记下来。
+- **运行：** 应用在本地怎么启动？优先用仓库自己写明的开发命令（package 脚本、Makefile、README 里的快速上手）。记下端口、环境变量、种子数据、鉴权。
+- **操作：** agent 怎样用程序和它交互？先找现成的 harness（测试和操作用的脚手架）：Playwright 或 Cypress 的 spec、expect 脚本、PTY 辅助工具、能用 curl 访问的端点、调试端口。都没有，再选一套通用做法：网页和 Electron 用浏览器或 CDP，CLI 和 TUI 用 tmux 或 PTY harness，服务用普通 HTTP。
+- **观察：** 能留下什么证据？截图、终端记录、响应正文、日志、退出码、数据库状态。
+- **隔离：** 能不能同时跑两个实例（端口、数据目录、配置档）？不能的话，在生成的 skill 里写明：宁可拒绝两边同时操作一个共享实例，也不要弄坏用户的会话。
 
-若 checkout 本身无法构建或启动，先生成前修复（或精确报告）；基于坏底座的 skill 会教错步骤。无关缺失资产阻塞启动时（API 从不服务的静态目录、示例配置），生成的 skill 可创建它，明确标为 verification 脚手架，并在 cleanup 中删除。
+如果当前代码原样无法构建或启动，先修好（或者把问题说准确），再生成 skill。照着坏掉的基础写出来的 skill，教的步骤就是错的。如果启动被一个无关的缺失文件挡住（API 根本不提供的静态目录、一份示例配置），生成的 skill 可以把它建出来，清楚标明这是验证用的临时脚手架，并在清理时删掉。
 
 ## 2. 生成 skill
 
-写 `.cursor/skills/verify-<app>/SKILL.md`，含 YAML frontmatter（`name: verify-<app>` 与 `description` 写明应用、界面与何时使用——无 frontmatter 则 skill 不会注册），以及下列各节，均基于访谈实际发现（不留占位符）：
+写 `.cursor/skills/verify-<app>/SKILL.md`。文件带 YAML front matter（`name: verify-<app>`，以及一段写明应用、界面和何时该用的 `description`。没有 front matter，skill 根本不会被注册），并包含下面这些部分，每一部分都要基于前面实际查到的东西（不留任何占位符）：
 
-- **Launch：** 验证用的确切启动命令，以及如何判定就绪（日志行、端口响应、提示符）。含 teardown。短生命周期 CLI/TUI 无常驻 server：launch 指先构建二进制（或装依赖），每次 drive 在独立 PTY 或 tmux 会话中启动。
-- **Doctor：** 一次只读检查，回答「这个实例值得驱动吗？」——进程在跑、版本/构建正确、端口归我们、鉴权有效。任何异常时 agent 先跑这个。
-- **Drive：** 本仓库真实 selector/命令 的 harness 配方，不是示例。优先稳定句柄（ARIA label、data 属性、提示字符串、路由路径），而非坐标与 tab 顺序。
-- **Evidence：** 证明要采什么、放哪里。写明证明标准：走真实用户路径，不用内部 setter 或仅测试端点；采集动作与结果状态，不只最终画面；与可见结果一起验证副作用（写文件、插行、发消息）；mock 仅用于生产边界已隔离外部系统处。安全路径是 dry-run 或 test mode 时，用观察验证它实际跳过了什么（文件、网络、git ref），不信名字：有些 dry-run 仍会触网或开浏览器。
-- **Cleanup：** 如何拆掉本 run 创建的实例。不要按进程名杀；只杀你启动的。cleanup 移除实例与 scratch 状态，从不删证据：证明产物在 teardown 后仍留在 skill 指名的位置。
-- **Helpers：** skill 自带的脚本须可执行，且 skill 正文写出调用方式。读者还要反推的 helper 不算 helper。
+- **Launch：** 为验证启动应用的确切命令，以及怎么判断它已就绪（某行日志、某个端口有响应、出现提示符）。写上怎么关掉。对于短命的 CLI 或 TUI，没有需要一直开着的服务：launch 指的是先构建一次二进制（或者装一次依赖），之后每次操作都在独立的 PTY 或 tmux 会话里启动。
+- **Doctor：** 一次只读检查，回答「这个实例值得操作吗？」：进程在跑、版本或构建正确、端口归我们、鉴权有效。只要有哪里不对劲，agent 就先跑这一步。
+- **Drive：** harness 的操作步骤，用这个仓库里真实的选择器和命令，不是举例。优先用稳定的抓手（ARIA 标签、data 属性、提示字符串、路由路径），不要靠坐标和 Tab 顺序。
+- **Evidence：** 证明一件事要留下什么、放在哪里。写明证明的标准：走真实的用户路径，不走内部的 setter 或只供测试用的端点；记录操作本身和操作后的状态，不只是最后一屏；除了看得见的结果，还要验证副作用（写了文件、插了行、发了消息）；只有在生产环境本来就有边界把外部系统隔开的地方，才用 mock。当安全的做法是 dry-run 或测试模式时，要靠观察（文件、网络、git ref）确认它实际跳过了什么，不要看名字就信：有些 dry-run 照样会访问网络或打开浏览器。
+- **Cleanup：** 怎样关掉这次运行开起来的实例。绝不按进程名去杀，只杀你自己启动的。清理只删实例和临时状态，绝不删证据：证明材料在关掉实例后依然保留，放在 skill 指定的位置。
+- **Helpers：** skill 附带的任何脚本都必须可执行，并在 skill 正文里写出调用方式。读的人还得自己反推怎么用的辅助脚本，不算辅助脚本。
 
-## 3. 播种 feature map
+## 3. 先建起功能地图
 
-创建 `.cursor/skills/verify-<app>/features/README.md`，以及每个可识别的面向用户功能各一个文件（先从路由、命令、菜单或文档找 top 3–5）。形态见 [`references/feature-map-example/`](references/feature-map-example/)：README 索引加每功能一文件。每文件从用户视角回答：功能是什么、如何到达、如何用 harness 驱动、何种可观察终态证明有效。四个 H2 为 `Sub-features`、`How to get to it (user POV)`、`Driving it with <harness>`、`Gotchas`。map 是仓库维护的验证源；map 列了其他入口却只驱动一个方便入口的证明是不完整的。
+创建 `.cursor/skills/verify-<app>/features/README.md`，再给你能找出的每个面向用户的功能各建一个文件（先从路由、命令、菜单或文档里挑最重要的 3 到 5 个）。照 [`references/feature-map-example/`](references/feature-map-example/) 的结构来：一个 README 索引，加上每个功能一个文件。每个文件都从用户的角度回答：这个功能是什么，怎么找到它，怎么用 harness 操作它，以及看到什么样的最终状态就能证明它正常。四个二级标题是 `Sub-features`、`How to get to it (user POV)`、`Driving it with <harness>` 和 `Gotchas`。这份地图是仓库持续维护的验证依据。地图里列了别的入口，证明却只走了一个方便的入口，这份证明就不完整。
 
-## 4. 交付前证明生成的 skill
+## 4. 交出去之前先证明生成的 skill 能用
 
-按自身说明端到端跑一遍：launch、doctor、驱动 ONE 个已映射功能（一个就够；map 供后续覆盖其余）、采证据、cleanup。cleanup 后确认证据仍在指名位置——吃掉证明的 cleanup 算本步失败。修失败项，每次失败迭代后也跑生成的 cleanup，避免坏尝试遗留进程与端口。从未执行过的生成 skill 是草稿，不是交付物。
+照它自己的说明完整跑一遍：launch、doctor、操作地图里的一个功能（一个就够，地图就是留给以后的运行去覆盖其余功能的）、留下证据、清理。清理之后，确认证据还在指定的位置。清理把证明删了，这一步就算失败。哪里失败就修哪里，每次失败之后也都要跑一遍生成的清理步骤，免得失败的尝试留下没关的进程和占着的端口。一个从没执行过的生成 skill 只是草稿，不是交付物。
 
-## 5. 提供维护循环
+## 5. 告诉用户怎么持续维护
 
-指向 `/maintain-verification-skill` 以保持 map 随应用变化而诚实。仅当用户问时才建议 cadence。
+告诉用户用 `/maintain-verification-skill` 来让地图随着应用变化保持真实。只有用户问起，才建议多久跑一次。

@@ -1,24 +1,24 @@
 ### Perf issue
 
-**你拥有测量叙事。规划、review、验证数字。** 每个 fix 绑测量，不要读源码代替测量。
+**整套测量由你负责。你来规划、评审，并核实数字。** 每个修复都要对应一次测量。不要拿读源码代替测量。
 
-1. 经匹配 control skill 捕获 baseline trace。用 **benchmark-checklist** skill 核对这条基线，以及之后的每个数字。
-2. `how` grounding 假设。未跑过不要 claim perf ceiling。
-   多数 fix 来自八类策略族。作 hypothesis 生成器，非 checklist。仅 trace 显示其命名信号时才值得尝试。
-   - **Elimination.** 优化 hot path 前先问是否必须存在：无人消费的计算、对该用户永远 off 的 feature gate、冗余 mirror state 的 sync、因「以防万一」保留的 legacy path。trace 显示慢，从不说明可删，故需 `how` pass，非 profiler。
-   - **Divide and conquer.**  dominant cost 随输入规模 scaling。split 使每块触更少（chunk、shard、prune search space）或独立块并行。
-   - **Caching.** 相同输入重复相同计算或 fetch。存结果复用。claim win 前命名 invalidation。
-   - **Indirection.** hot path 做 expensive work，更 cheap intermediate 可吸收：index 替代 scan、queue 把 work 移出交互线程、handle 允许 swap cheaper implementation。仅当从 critical path 移除多于新增 hop 时加 hop。
-   - **Batching.** 许多小操作各付 fixed overhead（RPC、query、syscall、draw call）。合并为每 batch 付一次 overhead。
-   - **Redundancy.** 等待挂在一慢 instance 或 attempt。duplicate work（replica、hedged request、speculative execution）取最快结果。trace 须显示 wait dominate 且系统有 headroom。
-   - **Lazy evaluation.** cost 落在未用或尚不需要的结果（boot path eager init、渲染 offscreen item）。defer 到 first use。
-   - **Scheduling.** work 必须发生，但不在交互时刻。移到无人等待处：idle callback、boot 后 background warmup、用户到达前 precompute、frame commit 后 cleanup。win 是感知 latency，故测交互 path，非总 work。
-3. 从 trace 规划 fix。跨函数边界则先 `architect`。用配置的 perf-issue model（默认 `grok-4.7-xhigh-fast`）delegate 实现。review diff。捕获 post-fix trace。
-   应用 **sequence-verifiable-units** principle skill，下一尝试前 verify 每次 attempt。
-4. 解析并比较人工制品（JSON 到 sqlite、diff）。「Inconclusive」或 wrong-surface 不算 pass。标记。
-5. PR 中 cite 测量。
-6. 运行 **Opening a PR**。
+1. 用对应的 control skill 采集一份基线 trace（性能追踪记录）。用 **benchmark-checklist** skill 核查这份基线，之后得到的每个数字也一样要核查。
+2. 用 `how` 给假设找依据。没实际跑过，不要断言性能已经到了上限。
+   大多数修复出自下面八类策略。把它们当作提出假设的来源，不要当成清单逐项过。只有 trace 显示出某一类所说的信号，这一类才值得一试。
+   - **消除。** 优化热路径之前，先问它是否非存在不可：没人用到结果的计算，对这个用户始终关闭的功能开关，把状态多余地镜像一份的同步，为了「以防万一」留着的旧代码路径。trace 只能显示哪里慢，从来不能显示哪里可以删。所以这一类要靠 `how` 走一轮分析，不靠性能分析器。
+   - **分而治之。** 主要开销随输入规模增长。把工作拆开，让每一块处理的量更少（分块、分片、剪枝搜索空间），或者让互不依赖的几块并行跑。
+   - **缓存。** 同样的输入反复触发同样的计算或数据拉取。把结果存下来复用。宣布有提升之前，先说清什么会让缓存失效。
+   - **间接层。** 热路径上在做昂贵的工作，而一个更便宜的中间环节本可以接过去：用索引代替扫描，用队列把工作移出交互线程，用句柄让更便宜的实现替换进来。只有这一层从关键路径上省掉的比它自己增加的多，才加这一层。
+   - **批处理。** 很多小操作各付一笔固定开销（RPC、查询、系统调用、绘制调用）。把它们合并起来，每一批只付一次。
+   - **冗余。** 等待卡在某一个慢实例或某一次慢尝试上。把同一份工作多做几份（副本、对冲请求、推测执行），取最快的结果。trace 必须显示等待占了大头，而且系统还有余量。
+   - **惰性求值。** 开销花在了永远用不上或暂时还用不上的结果上（启动路径上的提前初始化，渲染屏幕外的条目）。把工作推迟到第一次用到时再做。
+   - **调度。** 这项工作非做不可，但不该在用户交互的那一刻做。把它挪到没人等待的时候：空闲回调，启动后的后台预热，用户到来之前的预计算，帧提交之后的清理。收益体现在感知延迟上，所以要测交互路径，而不是总工作量。
+3. 根据 trace 规划修复。修复跨函数边界时，先用 `architect`。把实现交给子代理，用你配置的 perf-issue 模型（默认 `grok-4.7-xhigh-fast`）。评审 diff。采集一份修复后的 trace。
+   按 **sequence-verifiable-units** 原则 skill 推进，每次尝试都先验证，再试下一个。
+4. 解析并比较产物（把 JSON 导入 sqlite，做 diff）。结果是「Inconclusive」（没有定论），或者测错了界面，都不算通过。要把它标出来。
+5. 在 PR 里引用这次测量。
+6. 执行 **Opening a PR**。
 
-相对 metric 的 sustained 改进而非一次性 fix 用 Hillclimb playbook（`playbooks/hillclimb.md`）。
+如果要针对某个指标持续改进，而不是做一次性修复，用 Hillclimb playbook（`playbooks/hillclimb.md`）。
 
-**Reply：** baseline 数、post-fix 数、delta、artifact 路径。
+**回复：** 基线数字、修复后数字、差值、产物路径。

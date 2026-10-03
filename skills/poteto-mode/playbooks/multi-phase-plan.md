@@ -1,34 +1,34 @@
 ### 多阶段或多 PR 计划
 
-**你负责计划，不负责写代码。计划是一份清单，由负责人逐项勾选，操作者依据证据审计。** 计划才是交付物。不要实施。
+**计划归你负责，代码不归你。计划是一份清单。负责人一格一格地勾，操作者凭证据审核。** 交付物就是计划。不要动手实现。
 
-1. 若改动仅涉及一两个文件且方案明确，跳过计划。说明原因后停止。
-2. 动笔前先通过原型解决未决问题。每个问题运行 `playbooks/prototype.md`。保留分支、SHA 及附录 A 的截图。仅就任何运行都无法定论的产品或偏好决策询问操作者。给出选项（**never-block-on-the-human** 原则 skill）。
-3. 用 `subagent_type: "poteto-agent"` 在子代理中探索，并按 Subagents 章节为每个子代理指定模型（**guard-the-context-window** 原则 skill）。每个子代理返回文件指针、约定、测试命令和入口点。不要内联大段输出。
-4. 将下方骨架复制到计划文件并填齐每个占位符。除非操作者指定路径，否则将文件写在 agent store 的 `docs/` 下。保持每个标题及每个子块的顺序不变。每个 PR 一节。一个 PR 即一项变更及其独立证据（**sequence-verifiable-units** 原则 skill）。在 **How to read this** 中命名执行 playbook。按 `playbooks/autopilot-stack.md` 末尾规则在 `playbooks/autopilot-full.md` 与 `playbooks/autopilot-stack.md` 之间选择。长期项目使用 `playbooks/orchestrate.md`。
-5. 正文按 `/technical-writing` 完整撰写，再执行 `/unslop`。正文采用单一 Diátaxis 模式：how-to。附录承载 explanation 与 reference。每个标题陈述任务或结论。不用长破折号。不在句中使用冒号。
-6. 运行 `node pstack/skills/poteto-mode/scripts/check-plan.mjs <plan.md>` 并修复其输出的每一行（**encode-lessons-in-structure** 原则 skill）。
-7. 交回。发布计划路径与脚本输出后停止。仅在操作者明确同意后，按计划命名的执行 playbook 开始执行。
+1. 改动只涉及一两个文件、做法也一目了然时，跳过计划。说明这一点，然后停下。
+2. 动笔之前，先用原型把悬而未决的问题定下来。每个问题跑一遍 `playbooks/prototype.md`。留好分支、SHA 和截图，写进附录 A。只有任何运行都定不下来的产品或偏好问题，才去问操作者，并给出选项（**never-block-on-the-human** 原则 skill）。
+3. 探索交给子代理。用 `subagent_type: "poteto-agent"`，并按 Subagents 一节为每个子代理明确指定模型（**guard-the-context-window** 原则 skill）。每个子代理交回文件指针、约定、测试命令和入口。不要把大段原始内容直接贴回来。
+4. 把下面的骨架复制进计划文件，填满每个占位符。操作者没指定路径时，把文件写到 agent 存储目录的 `docs/` 下。每个标题、每个子块都要保留，顺序和骨架一致。一个 PR 一节。一个 PR 就是一项改动，带着它自己的证据（**sequence-verifiable-units** 原则 skill）。在 **How to read this** 里写明执行时用哪个 playbook。`playbooks/autopilot-full.md` 和 `playbooks/autopilot-stack.md` 二选一，依据 `playbooks/autopilot-stack.md` 末尾的规则。长期运行的项目用 `playbooks/orchestrate.md`。
+5. 全文严格按 `/technical-writing` 写，写完再跑 `/unslop`。正文只用一种 Diátaxis 模式，就是 how-to。explanation 和 reference 放进附录。每个标题直接写出任务或结论。不用长破折号。句子中间不用冒号。
+6. 运行 `node pstack/skills/poteto-mode/scripts/check-plan.mjs <plan.md>`，把它打印出来的每一行都修掉（**encode-lessons-in-structure** 原则 skill）。
+7. 交回。贴出计划路径和脚本输出，然后停下。操作者明确说开始之后，才按计划里写明的执行 playbook 开始执行。
 
-**验证。** 仅靠测试不足以完成验证。仅当某 PR 的 unit、live、perf 三项全部勾选时，该 PR 才算验证通过（**prove-it-works** 原则 skill）。该句即验证规则。每个验证块以此句开头。live 块为必填。在 PR head 上按 **swarm** skill 的 `swarm workers` 模型（默认 `grok-4.7-xhigh-fast`）通过对应 control skill 驱动真实界面，共十条 lane。每条 lane 对应一个勾选框，含具体场景、保存的截图及通过谓词。其中一条为 **Regression lane against trunk.** 在 trunk 与 head 上运行同一关键场景。若 trunk 尚无该功能，lane 记录该事实，并对 diff 新增的行为及用户等待的终态设门，而非虚构 trunk 结果。perf 门为双侧：trunk 与 head 均须产出命名指标。若 trunk 缺少该功能，还需隔离 diff 新增的工作，并为该工作及用户等待的端到端终态设定绝对预算。不要对不可比场景声称比率。perf 块须写明指标、交错探测、先测得的 trunk 基线，以及含失败阈值的规则。变更交互的 PR 须过 review 门：操作者在合并前于聊天中审阅截图与视频。未变更交互的 PR 写 `**Review gate.** None. <PR id> is not review-gated.`，其下无勾选框。
+**验证。** 光有测试不算充分的验证。只有 unit、live、perf 三类勾选框全部勾上，一个 PR 才算验证通过（**prove-it-works** 原则 skill）。这句话就是验证规则。每个验证块都以这句话开头。live 块必须有。在 PR head 上开十条 lane（swarm 里并行跑的验证线，一条一个场景），按 **swarm** skill 的做法，用 `swarm workers` 那一项的模型（默认 `grok-4.7-xhigh-fast`），通过该界面的 control skill 操作真实界面。每条 lane 是一个勾选框，写明具体场景、要保存的截图和通过条件。其中一条是 **Regression lane against trunk**（对照 trunk 的回归 lane）。它在 trunk 和 head 上跑同一个关键场景。如果 trunk 还没有这个功能，这条 lane 就记下这个事实，改为给 diff 新增的行为、以及用户最终等到的状态设门禁，不要编一个 trunk 结果出来。perf 门禁两边都要测。trunk 和 head 都必须产出指定的指标。如果 trunk 没有这个功能，还要把 diff 新增的那部分工作单独拿出来，为这部分工作和用户等待的端到端状态设定绝对预算。不同的场景之间不要算比值。perf 块要写明指标、交错运行的探测、先在 trunk 上测出的基线，以及判定规则和判为失败的数值。改动了交互的 PR 要过评审门禁。合并之前，操作者在聊天里看截图和视频，做评审。没有改动交互的 PR 写 `**Review gate.** None. <PR id> is not review-gated.`，下面不放勾选框。
 
-**Control skill。** 按界面选择。Browser、Electron 与 web UI 使用 `cursor-team-kit` 的 `control-ui`。CLI 与 TUI 使用 `cursor-team-kit` 的 `control-cli`。原生移动端使用仓库内驱动模拟器的 skill。触及两种界面的 PR 在两侧均设 lane。无 control skill 的界面记入附录 C 为风险，其 live 块仍须说明各 lane 如何驱动。
+**选哪个 control skill。** 按界面选。浏览器、Electron 和 web 界面用 `cursor-team-kit` 的 `control-ui`。CLI 和 TUI 用 `cursor-team-kit` 的 `control-cli`。原生移动端用仓库里现有的驱动模拟器的 skill。一个 PR 碰到两种界面，两边都要开 lane。没有 control skill 的界面算一项风险，写进附录 C。它的 live 块仍要写明每条 lane 怎么操作它。
 
-下面的代码块是要复制进计划文件的骨架。`check-plan.mjs` 按英文标题原文匹配，所以块内保持英文，不要翻译。阅读对照：
+下面的代码块是要复制进计划文件的骨架。`check-plan.mjs` 按英文标题原样匹配，所以块里保持英文，不要翻译。各个英文标题的意思见下表。
 
 | 英文标题 | 在说什么 |
 | --- | --- |
-| How to read this | 怎么读这份计划。一格是一个工作单元，格里写明证据。 |
-| Program checklist | 项目清单。 |
-| Arm the program | 向操作者说明协议后停住，得到明确同意后用 `/loop 1h` 设巡检。 |
-| Spawn owners | 为每个 PR 指定负责人。 |
-| PR mechanics | PR 怎么开、怎么叠。 |
-| Verdict and merge | 谁给 verdict，谁合并。 |
-| Boot recipe | 开跑时要读的文件和命令。 |
-| Close the program | 收尾。 |
-| Depends on. / Files. / Build. / You see. | 每个 PR 的依赖、文件、构建、操作者能看见什么。 |
-| Verify, unit. / Verify, live. / Verify, perf. | 三项验证。live 必填。 |
-| Review gate. / Merge. | 交互变更要人看截图。合并条件。 |
+| How to read this | 怎么读这份计划。一个勾选框是一个工作单元，每个框写明勾上它需要什么证据。 |
+| Program checklist | 整个项目的总清单。 |
+| Arm the program | 先向操作者说明做法，然后停下。得到明确同意后，用 `/loop 1h` 设好每小时一次的巡检。 |
+| Spawn owners | 每个 PR 派一名负责人，写明依赖顺序、文件边界和评审门禁。 |
+| PR mechanics | 每个 PR 怎么开、怎么推、什么时候 rebase。 |
+| Verdict and merge | 怎么跑 swarm 拿到 verdict（验证结论），什么条件下才能合并。 |
+| Boot recipe | 每条 live lane 怎么在 PR head 上把应用跑起来、怎么截图。 |
+| Close the program | 收尾。确认每个框都有证据，再按执行 playbook 给操作者回复。 |
+| Depends on. / Files. / Build. / You see. | 每个 PR 依赖谁、动哪些文件、做什么改动、做完能看到什么。 |
+| Verify, unit. / Verify, live. / Verify, perf. | 三类验证，分别是单元测试、真实界面上的十条 lane、trunk 与 head 的性能对比。live 必须有。 |
+| Review gate. / Merge. | 改了交互的 PR 要等操作者看过截图和视频再合并。合并前要满足的条件。 |
 
 ````markdown
 # <Program> plan
@@ -168,4 +168,4 @@ Each live lane runs on its own cloud VM at the PR head. Drive through `control-u
 <Docs to read before editing. Which PRs get `pstack/skills/how/SKILL.md` and `pstack/skills/interrogate/SKILL.md`. The trail per `pstack/skills/show-me-your-work/SKILL.md`.>
 ````
 
-**回复：** 计划路径、各 PR id 及其依赖与需 review 的集合、原型已证明与仍未证明的内容，以及检查脚本的输出。
+**回复：** 计划路径；各个 PR id、它们的依赖，以及需要过评审门禁的那几个；原型证明了什么，还有什么没证明；检查脚本的输出。

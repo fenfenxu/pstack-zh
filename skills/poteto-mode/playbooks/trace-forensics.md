@@ -1,14 +1,14 @@
 ### Trace forensics
 
-**你负责从产物得出诊断。加载、塑形、收窄至原因、归因到源码。**
+**从已有的抓取文件得出诊断，由你负责。加载它，整理成能查的形式，缩小到原因，再落到源码上。**
 
-与 **Runtime forensics** 不同，后者对 live 进程做 instrumentation。此处 capture 已存在。产物是固定数据集：读取它，不要重跑。保持工具通用以便 playbook 可移植：cpuprofile 与 `.json.gz` 用 DevTools 或 trace 解析器，spindump 用文本编辑器，heapsnapshot 用你的 heap 工具。
+和 **Runtime forensics** 不同，那个是给正在运行的进程加探针。这里抓取的文件已经有了。它是一份固定的数据，读它，不要重跑。工具保持通用，这个 playbook 才能到处用：cpuprofile 和 `.json.gz` 用 DevTools 或 trace 解析器，spindump 用文本编辑器，heapsnapshot 用你手头的堆分析工具。
 
-1. 识别格式并用合适工具加载。在子代理中解析大型产物（**principle-guard-the-context-window** skill），将缩减结论保留在主线程。
-2. 将原始产物转为可查询形式。将 trace 或 heap snapshot dump 到 sqlite，每 sample、frame 或 node 一行。阅读前先达到可查询形状。
-3. 收窄至原因。查询占用最多时间的 frame 并沿 call tree 走到热路径。泄漏时沿 retainer 链从泄漏对象到 GC root。spindump 时找到持续占用 CPU 或阻塞的线程及其等待原因。
-4. 归因到源码。通过产物自身 symbol 将热 frame 映射到 file、symbol、line。无 source mapping 的 frame 尚非诊断。解析 symbol，或明确说明产物未携带它们。
-5. 有配对 capture 时对照确认。对比前后产物。没有时，将结论标为产物支持的最强假设，而非已确认原因。
-6. 交回带引用的诊断，除非被要求否则不提供修复。原因明确后路由到 Bug fix 或 Perf issue。Throughput checkpoint 保持一行：`throughput checkpoint: n/a, read-only forensics`。
+1. 认出格式，用合适的工具加载。大文件放在子代理里解析（**principle-guard-the-context-window** skill），主线程里只留缩减后的结论。
+2. 把原始文件转换成能查询的形式。把 trace 或堆快照导进 sqlite，每个采样、栈帧或节点一行。先变成能查的样子，再开始读。
+3. 缩小到原因。查出占时间最多的栈帧，顺着调用树走到热路径。查内存泄漏时，从泄漏的对象沿着持有链一直追到 GC root。看 spindump 时，找到卡在 CPU 上或被阻塞的线程，以及它在等什么。
+4. 落到源码上。用文件自带的符号，把热点栈帧对应到文件、符号和行号。对不上源码的栈帧，还算不上诊断。把符号解析出来，或者直接说明这份文件里没有符号。
+5. 有成对的抓取文件时，拿它来确认。对比改动前后的两份文件。没有的话，把结论标为这份文件能支持的最有力的假设，而不是已确认的原因。
+6. 交回一份带出处的诊断，没被要求就不给修法。原因清楚之后，转给 Bug fix 或 Perf issue。吞吐检查点只写一行：`throughput checkpoint: n/a, read-only forensics`。
 
-**回复：** 产物与格式、缩减结论、源码位置、产物 path，以及配对 capture 是否确认。
+**回复：** 抓取文件和它的格式、缩减后的结论、源码位置、文件路径，以及有没有成对的抓取文件确认过。

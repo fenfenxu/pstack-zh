@@ -1,13 +1,13 @@
 ### Autonomous run
 
-**你拥有退出条件。先定义 done，然后不停驱动至满足。**
+**退出条件由你负责。先定义怎样算做完，然后一路推到做完，中间不停。**
 
-1. 第一次迭代前，将退出条件陈述为可检查 predicate（测试绿、复现修复、全部 N 个 PR merged、pixel-diff 为零）。
-2. 用 Cursor 的 `/loop` 命令（内置，非 pstack skill）选 wake 机制。要 watch 的事件（CI、merge、ref 前进）用 watcher 子 agent 在事件时唤醒你，并以长周期 time-based heartbeat 为 fallback。无事件则用固定间隔 heartbeat，大小取决于何时值得 re-check。
-3. 每轮迭代做证据 justify 的最小变更，对 predicate 验证，前进则 commit，无效则 discard。belt-and-suspenders「可能有帮助」要 revert，不要留着碰运气。
-   按 **sequence-verifiable-units** principle skill 排序工作，每单元下一步前验证，而非末尾批量检查。
-4. 中途发现由你处理。通过 poteto-mode 自行处理损坏 skill、相关 bug、flaky verifier、review 噪音、工具失败、orphaned follow-up、可修 drift。带外 fix 放独立 PR。不要为可逆工作 park 给人类或使用 `AskQuestion`。仅 surface 不可逆动作、任何实验无法 settle 的真实产品/偏好选择，或真实 dead end。predicate 仍是主驱动，每次 side fix 后回到它。
-5. 每轮通过 **show-me-your-work** skill checkpoint：一行记录变更与 predicate 是否移动。
-6. predicate 满足时停止。plateau 不是停止理由，继续并 pivot 方法突破。surface 真实 dead end 而非空转，绝不 relax predicate 来宣布胜利。
+1. 第一轮迭代之前，把退出条件写成一个可以检查的判定（测试变绿、复现的问题修好、N 个 PR 全部合并、像素对比差异为零）。
+2. 用 Cursor 的 `/loop` 命令（内置命令，不是 pstack 的 skill）选择唤醒方式。有可以盯的事件（CI、一次合并、某个 ref 往前走），就开一个盯事件的子代理，事件发生时叫醒你，再配一个间隔很长的定时心跳作兜底。没有事件，就用固定间隔的心跳，间隔按结果什么时候值得再查一次来定。
+3. 每一轮只做证据支持的最小改动，拿判定验证它，有进展就提交，没帮助的改动就丢掉。「也许有用」的双保险要撤掉，不要留着碰运气。
+   按 **sequence-verifiable-units** 原则 skill 安排工作顺序，每个单元验证过再做下一个，不要把检查都攒到最后。
+4. 中途发现的问题归你处理。坏掉的 skill、相关的 bug、不稳定的验证器、评审噪音、工具故障、没人跟进的后续事项、能修的偏离，都用 poteto-mode 自己处理。主线以外的修复单独开 PR。可以撤回的工作，不要搁着等人，也不要用 `AskQuestion`。只把这几类事提出来：不可逆的操作、任何实验都定不下来的真正的产品或偏好决定、确实走进了死胡同。判定始终是主线，每次顺手修完别的，都回到它。
+5. 每一轮都用 **show-me-your-work** skill 记一个检查点，一行写改了什么、判定有没有往前走。
+6. 判定满足了就停。卡在平台期不是停下的理由，继续做，换个思路突破它。真走进死胡同就说出来，不要原地打转，也绝不放宽判定来宣布成功。
 
-**Reply：** 退出条件、迭代次数、落地内容、discard 内容、最终 predicate 状态。
+**回复：** 退出条件、跑了几轮、合入了什么、丢掉了什么、判定最后的状态。

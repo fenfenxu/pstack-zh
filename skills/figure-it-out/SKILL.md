@@ -1,52 +1,52 @@
 ---
 name: figure-it-out
-description: "当没有更窄 playbook 适用时，设计可审计的 playbook：大型迁移、雄心勃勃的多部分变更，或人类离开后再审查的工作。按任务缩放严谨度，跑假设循环，经 show-me-your-work 记录决策。用于 /figure-it-out、「figure it out」、大型迁移，或无更窄 playbook 时。"
+description: "没有更具体的 playbook 适用时，设计一份可审计的 playbook。比如大规模迁移、目标宏大且分好几部分的改动，或要等人离开一阵、回来再审的工作。按任务调整严谨程度，跑假设循环，并用 show-me-your-work 记录决策。用于 /figure-it-out、「figure it out」、大规模迁移，或没有更具体的 playbook 适用时。"
 disable-model-invocation: true
 ---
 
 # Figure it out
 
-任务不匹配任何 playbook 时，设计一个。任何代码前的交付物是工作流本身：按任务缩放严谨度的阶段序列，跑科学方法，留下人类离开后能审计的决策轨迹。
+任务对不上任何 playbook 时，就自己设计一个。动手写代码之前，要先交付的是工作流本身。它是一串阶段，严谨程度随任务调整，按科学方法推进，并留下一条决策 trail（逐条记下的决策记录），让人离开一阵再回来时能够审计。
 
 ## 开始
 
-打开 todolist，第一项是阅读 **poteto-mode** skill 的 Principles 节。再把下列阶段加为 todo。
+开一个 todo 列表，第一项是读 **poteto-mode** skill 的 Principles 一节。再把下面各个阶段加成 todo。
 
-## 阶段 A：定框
+## 阶段 A：界定问题
 
-先摸底，再承诺。直到能陈述以下内容再开始 run：
+先摸底，再拍板。下面几项都能说清楚了，再开始运行：
 
-- 完成定义：可证伪谓词（**prove-it-works** 原则 skill）。
-- 范围量化：大致单元与工作量，加摸底 surfaced 的 blocker。
-- 严谨度，偏高默认。单向门与高 blast radius 多给。可逆低 stakes 步骤少给。严谨是 gate 与 artifact，不是「更努力试」。
+- 完成的定义，写成可证伪的判定条件（**prove-it-works** 原则 skill）。
+- 量化后的范围：大致的单元数和工作量，再加上摸底时发现的阻碍。
+- 严谨程度，宁高勿低。单向门（做了就难以撤回的决定）和影响面大的改动，多给。可逆、风险低的步骤，少给。严谨指的是门禁和产物，不是「再努力一点」。
 
-长 run 前先呈现 framing 与权衡。可逆工作可继续（**never-block-on-the-human** 原则 skill），但数小时 run 值得一次 checkpoint。
+投入一次长时间运行之前，先把你对问题的界定和其中的取舍摆出来。可逆的工作照常推进（**never-block-on-the-human** 原则 skill），但要跑好几个小时的运行，值得设一次检查点。
 
 ## 阶段 B：设计工作流
 
-分解为原子、可独立 land 的单元。最未知风险优先排序。脚手架与验证先于功能（**foundational-thinking** 原则 skill）。
+拆成原子的、能各自独立落地的单元。风险最大的未知项排在最前面。脚手架和验证先于功能（**foundational-thinking** 原则 skill）。
 
-- 工作前建验证 harness，基线从变更前状态捕获，使检查读作「旧值 vs 新值」。
-- 单向门设计决策跑 **architect** skill（它跑 **arena**）。形状已具体的机械工作跳过。对已 settled 设计再跑 arena 是过度工程（**laziness-protocol** 原则 skill）。
-- 决定什么扇出。仅跨 seam 并行，各 worker 自有 worktree 或分支（**separate-before-serializing-shared-state** 原则 skill）。不要过度扇出。
-- 写下设计的阶段列表。人类 review 的就是这份列表。
+- 开工之前先搭好验证 harness（运行被测代码、检查结果的测试装置）。基线取自改动前的状态，这样检查结果读起来就是「旧值对比新值」。
+- 遇到单向门式的设计决定，跑 **architect** skill（它会跑 **arena**）。机械性的工作，形态已经具体了，就跳过这一步。设计已经定下来还再跑一轮 arena，属于过度设计（**laziness-protocol** 原则 skill）。
+- 决定哪些部分扇出。只在能干净切开的地方并行，每个执行者各用自己的 worktree 或分支（**separate-before-serializing-shared-state** 原则 skill）。不要扇出过多。
+- 把设计出的阶段清单写下来。人要评审的就是这份清单。
 
-然后执行设计。在阶段 C 项之后、阶段 D 之前，把其步骤加为 todolist 具体项。每项在阶段 C 循环纪律下跑，阶段 D 日志贯穿其中，每步 land 一行，而非最后才记整条轨迹。
+然后按设计执行。把设计里的步骤作为具体条目加进 todo 列表，放在阶段 C 那一项之后、阶段 D 之前。每一步都按阶段 C 的循环规矩来跑。阶段 D 的日志穿插在这些步骤中间，每落地一步记一行，不要把整条 trail 攒到最后才写。
 
 ## 阶段 C：跑循环
 
-每单元是一次实验。陈述假设，做最小变更，对真实 artifact 按谓词度量，推进则保留，否则 revert。应用 **sequence-verifiable-units** 原则 skill：下一单元开始前验证当前单元，不要最后批量检查。
+每个单元都是一次实验。说出假设，做最小的改动，在真实产物上对照判定条件测量。有进展就留下，没有就撤回。按 **sequence-verifiable-units** 原则 skill 来，验证完一个单元再开始下一个，不要把检查攒到最后一起做。
 
-- 通过检查 artifact 验证，不要自报。某物太容易通过时，先怀疑观察方法而非系统。
-- 委派工作与 judge 配对。worker  gaming gate 则 reset 并硬化契约。gate 本身错了则在独立变更中修 gate，不要绕路。
-- 裁决为 VERIFIED、NOT VERIFIED 或 INCONCLUSIVE。INCONCLUSIVE 不是 pass。不要隐藏 negative。
+- 验证靠检查产物，绝不靠自述。某样东西通过得太容易时，先怀疑观察方法，再怀疑系统。
+- 委派出去的工作，要配一个评判者。执行者如果钻了门禁的空子，就重来，并把契约收紧。如果门禁本身错了，单独用一个改动修好门禁，不要绕开它。
+- verdict（验证结论）只能是 VERIFIED、NOT VERIFIED 或 INCONCLUSIVE。INCONCLUSIVE 不算通过。不要藏起负面结果。
 
-## 阶段 D：保留审计轨迹
+## 阶段 D：留下审计 trail
 
-经 **show-me-your-work** skill 记录 run。figure-it-out 的工作通常足够 ambitious，应 commit 轨迹以便 reviewer 在 PR 中阅读。轨迹加 diff 让人回来能信任工作。
+用 **show-me-your-work** skill 记录这次运行。figure-it-out 接的工作通常目标够大，值得把 trail 提交上去，让评审者在 PR 里就能读到。人回来以后，靠 trail 加上 diff，才能信任这份工作。
 
 ## 阶段 E：验证并交回
 
-对照阶段 A 谓词在真实产品上检查整体，不只 harness。把 recurring 纠正编码为 gate、lint 规则、检查或脚本（**encode-lessons-in-structure** 原则 skill）。
+在真实产品上对照阶段 A 的判定条件检查整体，不能只看 harness。任何反复出现的纠正，都固化成门禁、lint 规则、检查或脚本（**encode-lessons-in-structure** 原则 skill）。
 
-**回复：** 设计的 playbook、严谨度及原因、决策轨迹路径、相对谓词已验证什么、仍开放什么。
+**回复：** 你设计的 playbook，选定的严谨程度和理由，决策 trail 的路径，哪些已经对照判定条件验证过，还有哪些悬而未决。
