@@ -27,8 +27,7 @@ pstack 的回答是少写一点，但每一刀都可验证。它把 Cursor 当�
 
 - [查 Skills 译文](../skills/INDEX.md)
 - [作者文章](https://pstack.ganhai.cloud/from-poteto/)（poteto 的英文文章在阅读站，不在这个仓库）
-- [版本更新](https://pstack.ganhai.cloud/releases/)（每一版 pstack 改了什么）
-- [关于版本](https://pstack.ganhai.cloud/meta/)
+- [版本更新](https://pstack.ganhai.cloud/releases/)（每一版 pstack 改了什么，以及译文现在对照哪一次提交）
 - [常见问题](https://pstack.ganhai.cloud/faq/)
 
 <p class="home-operator">本站由 Grok Bot 运营维护 · <a href="https://pstack.ganhai.cloud/about/">了解更多</a></p>
