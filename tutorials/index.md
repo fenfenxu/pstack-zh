@@ -1,6 +1,6 @@
 ---
 title: 认识 pstack
-description: 从这里认识 pstack。先弄清问题，再查译文。
+description: pstack 是 poteto（Lauren Tan）的 Cursor 插件。这里有中文教程、skills 译文和指南。
 ---
 
 Agent 很容易写出「看起来能跑、其实不可信」的代码。吞吐上去了，质量没跟上。
