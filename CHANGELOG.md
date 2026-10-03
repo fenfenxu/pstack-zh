@@ -2,6 +2,41 @@
 
 这里只记已经放进本仓库的中文内容。
 
+## 2026-10-03
+
+- **新译文。** 官方指南「用原则名来转向」新增了「The 24, briefly」，删去了「The 23, briefly」。
+  - [官方指南「用原则名来转向」](./guide/08-principles.md)
+- **新译文。** 官方指南「pstack 指南」的原文有改动。
+  - [官方指南「pstack 指南」](./guide/index.md)
+- **新译文。** 插件说明的原文有改动。
+  - [插件说明](./guide/plugin-readme.md)
+- **新译文。** agent poteto-agent 的原文有改动。
+  - [agent poteto-agent](./agents/poteto-agent.md)
+- **skill 更新。** autopilot-full 这篇 playbook 的原文有改动。
+  - [autopilot-full](./skills/poteto-mode/playbooks/autopilot-full.md)
+- **skill 更新。** autopilot-stack 这篇 playbook 的原文有改动。
+  - [autopilot-stack](./skills/poteto-mode/playbooks/autopilot-stack.md)
+- **skill 更新。** hillclimb 这篇 playbook 的原文有改动。
+  - [hillclimb](./skills/poteto-mode/playbooks/hillclimb.md)
+- **skill 更新。** multi-phase-plan 这篇 playbook 的原文有改动。
+  - [multi-phase-plan](./skills/poteto-mode/playbooks/multi-phase-plan.md)
+- **skill 更新。** opening-a-pr 这篇 playbook 的原文有改动。
+  - [opening-a-pr](./skills/poteto-mode/playbooks/opening-a-pr.md)
+- **skill 更新。** perf-issue 这篇 playbook 的原文有改动。
+  - [perf-issue](./skills/poteto-mode/playbooks/perf-issue.md)
+- **新译文。** 新增了 skill benchmark-checklist。
+  - [benchmark-checklist](./skills/benchmark-checklist/SKILL.md)
+- **skill 更新。** poteto-mode 的原文有改动。
+  - [poteto-mode](./skills/poteto-mode/SKILL.md)
+- **新译文。** 新增了 skill principle-explain-the-number。
+  - [principle-explain-the-number](./skills/principle-explain-the-number/SKILL.md)
+- **skill 更新。** swarm 的原文有改动。
+  - [swarm](./skills/swarm/SKILL.md)
+- **skill 更新。** technical-writing 的原文有改动。
+  - [technical-writing](./skills/technical-writing/SKILL.md)
+- **skill 更新。** typescript-best-practices 的原文有改动。
+  - [typescript-best-practices](./skills/typescript-best-practices/SKILL.md)
+
 ## 2026-10-01
 
 - **译文改进。** 改写了 34 页译文，标题和步骤改成直接说要做什么，例如「创建你的验证 skill」。

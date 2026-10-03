@@ -1,6 +1,6 @@
 # pstack Skills 中文索引
 
-共 **47** 个 skill。日常用法：先 `/setup-pstack`，干活用 `/poteto-mode`；其余多数由 mode 按需调用，也可直接 `/skill-name`。
+共 **49** 个 skill。日常用法：先 `/setup-pstack`，干活用 `/poteto-mode`；其余多数由 mode 按需调用，也可直接 `/skill-name`。
 
 想按课表练，从 [教程](../tutorials/index.md) 读起。本页是 reference 查表。
 
@@ -70,6 +70,7 @@ skills 与 agents 的文件都在这个仓库里。模型表由 `/setup-pstack` 
 | [`maintain-verification-skill`](./maintain-verification-skill/SKILL.md) | 审计并修正 verify skill / feature map 漂移 |
 | [`no-comments`](./no-comments/SKILL.md) | 拉起 Comment Sicko，修接受项，约束编码化 |
 | [`typescript-best-practices`](./typescript-best-practices/SKILL.md) | 读/写 `.ts`/`.tsx` 时的 TS 实践（类型纪律落地） |
+| [`benchmark-checklist`](./benchmark-checklist/SKILL.md) | 汇报测到的提速或退步之前，先核对这个数字 |
 | [`unslop`](./unslop/SKILL.md) | 剔除 AI 写作痕迹（写作侧常驻） |
 | [`technical-writing`](./technical-writing/SKILL.md) | Diátaxis + Google 风格 + STE 等分层文档标准 |
 
@@ -87,7 +88,7 @@ skills 与 agents 的文件都在这个仓库里。模型表由 `/setup-pstack` 
 
 ---
 
-## 6. 设计原则（`principle-*`，22 条）
+## 6. 设计原则（`principle-*`，24 条）
 
 由 poteto-mode / 其他 skill 按情境调用；一般不直接当入口。
 
@@ -128,6 +129,7 @@ skills 与 agents 的文件都在这个仓库里。模型表由 `/setup-pstack` 
 | Skill | 一句话 |
 |---|---|
 | [`principle-prove-it-works`](./principle-prove-it-works/SKILL.md) | 对真实产物验证，不靠「能编译」 |
+| [`principle-explain-the-number`](./principle-explain-the-number/SKILL.md) | 相信或汇报测到的数字之前，先说出限制因素 |
 | [`principle-test-behavior-not-implementation`](./principle-test-behavior-not-implementation/SKILL.md) | 像用户一样测可观察结果 |
 | [`principle-build-the-lever`](./principle-build-the-lever/SKILL.md) | 建可重复运行的工具/skill，少手工扫 |
 | [`principle-encode-lessons-in-structure`](./principle-encode-lessons-in-structure/SKILL.md) | 复发教训 → lint/检查/脚本，而非更多文字 |
@@ -198,4 +200,4 @@ skills 与 agents 的文件都在这个仓库里。模型表由 `/setup-pstack` 
 | [`unslop`](./unslop/SKILL.md) | 去 AI 腔 |
 | [`why`](./why/SKILL.md) | 为何如此 |
 
-英文原文总览见上游 [`pstack/README.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/README.md)。
+英文原文总览见上游 [`pstack/README.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/README.md)。

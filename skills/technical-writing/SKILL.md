@@ -48,8 +48,6 @@ compass 可用于整文档或单句。
 
 不要混模式：tutorial 里无 reference 表，reference 里无 tutorial  hand-holding，how-to 里无争论。拆开链接。
 
-来源：diataxis.fr，抓取于 2026-07-18。
-
 ## 句子对读者说话（Google developer style）
 
 - 用「you」，现在时。「Will」只用于确实稍后才发生的事。
@@ -64,8 +62,6 @@ compass 可用于整文档或单句。
 - 顺序用编号列表，其余 bullet。列表前用完整句引入。项保持 parallel。
 - 代码用 code font。UI 元素 bold。用 serial comma。删「etc.」， upfront 说列表不完整。
 
-来源：developers.google.com/style，抓取于 2026-07-18。
-
 ## 陈述一次只加载一条（STE 规则）
 
 - 每句一条指令。其余每句一思。
@@ -76,8 +72,6 @@ compass 可用于整文档或单句。
 - 每动作一词并坚持：「start」，不要此处 start 彼处 initiate。
 - 程序用直接命令，不用叙述、不用被动：「Install the component」，不是「the component must be installed」。
 - 能避则避「-ing」词。语法职务太多，易误读。
-
-来源：asd-ste100.org（Issue 9, 2025），抓取于 2026-07-18。编号规则与词典在 spec PDF。上文原则是 transferable core。
 
 ## 不留双读句（Global English）
 
@@ -93,8 +87,6 @@ compass 可用于整文档或单句。
 - 无斜杠：写「a, b, or both」，不写「a/b」或「and/or」。
 - 一物一名 everywhere。同一物说「the gate」「the ratchet」「the budget check」等于教三物。未改句 between  edits 也同代价。未改的不 churn。
 - 跳过 idiom、口语、拉丁缩写、隐喻。非母语读者、译者与 agent 都最擅长 plain 构造。
-
-来源：Kohl, The Global English Style Guide (SAS Press)。Guideline 文本抓取自 Internet Archive 与 SAS sample chapter，2026-07-18。
 
 ## 语气与仓库细则
 

@@ -13,8 +13,8 @@ description: pstack 由哪些零件组成，各干什么，一次 Feature 里谁
 
 | 零件 | 数量（当前对照副本） | 一句话 |
 |---|---|---|
-| Skill | **47** | 可调用的工作流，以及一条条原则 |
-| 其中 `principle-*` | **23** | 决策规则。一般不当 slash 入口 |
+| Skill | **49** | 可调用的工作流，以及一条条原则 |
+| 其中 `principle-*` | **24** | 决策规则。一般不当 slash 入口 |
 | Playbook | **23** | 挂在 `poteto-mode` 下的任务规程 |
 | Agent | **2** | `poteto-agent`、`Comment Sicko` |
 | Models rule | **1** | `~/.cursor/rules/pstack-models.mdc` |
@@ -26,7 +26,7 @@ INDEX 标题有时写「22 条原则」。目录里是 23 个 `principle-*`。�
 ```mermaid
 flowchart TB
   subgraph plugin["Cursor 插件 pstack"]
-    S["47 skills<br/>含 23 principle-*"]
+    S["49 skills<br/>含 24 principle-*"]
     A["2 agents"]
     PB["23 playbooks<br/>在 poteto-mode 内"]
   end

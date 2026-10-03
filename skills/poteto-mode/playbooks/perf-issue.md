@@ -2,7 +2,7 @@
 
 **你拥有测量叙事。规划、review、验证数字。** 每个 fix 绑测量，不要读源码代替测量。
 
-1. 经匹配 control skill 捕获 baseline trace。
+1. 经匹配 control skill 捕获 baseline trace。用 **benchmark-checklist** skill 核对这条基线，以及之后的每个数字。
 2. `how` grounding 假设。未跑过不要 claim perf ceiling。
    多数 fix 来自八类策略族。作 hypothesis 生成器，非 checklist。仅 trace 显示其命名信号时才值得尝试。
    - **Elimination.** 优化 hot path 前先问是否必须存在：无人消费的计算、对该用户永远 off 的 feature gate、冗余 mirror state 的 sync、因「以防万一」保留的 legacy path。trace 显示慢，从不说明可删，故需 `how` pass，非 profiler。

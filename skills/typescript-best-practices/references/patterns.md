@@ -153,27 +153,38 @@ failure 是预期分支时用 `safeParse`。仓库用其他 schema 库时用等�
 每个 `as` 都是潜在的运行时崩溃。仅在类型系统已验证声称后强转。
 
 ```ts
+import { z } from "zod";
+
 // Don't
 const user = data as User;
 
-// Do. Earn the cast at the boundary.
-function parseUser(data: unknown): User {
-  if (typeof data !== "object" || data === null) {
-    throw new Error("expected object");
-  }
-  if (!("id" in data) || typeof (data as Record<string, unknown>).id !== "string") {
-    throw new Error("expected id");
-  }
-  // ... validate all fields
-  return data as User; // OK, earned cast after full validation
+// Don't
+function isUser(data: unknown): data is User {
+  return typeof data === "object" && data !== null && "id" in data;
 }
+
+// Do
+const userSchema = z.object({ id: z.string(), name: z.string() });
+type User = z.infer<typeof userSchema>;
+
+function parseUser(data: unknown): User {
+  return userSchema.parse(data);
+}
+```
+
+类型先写下来时，给校验器标注它要证明的那个类型。编译器就会拒绝一个证明得比这个类型少的校验器。把下面对象里的 `name` 删掉，赋值就编译不过。
+
+```ts
+type User = { id: string; name: string };
+
+const userSchema: z.ZodType<User> = z.object({ id: z.string(), name: z.string() });
 ```
 
 从现有代码 refactor 掉 `as` 时，找出 TypeScript 无法推断的原因：
 
 - 缺 discriminant：加一个，改用可区分联合。
 - 源类型过宽（如 `Record<string, unknown>`）：收窄。
-- 无类型边界：加 parse 函数或 schema。
+- 无类型边界：用拥有这个结构的 schema 来解析。没有 schema 时才加一个。
 - 确实无法表达：用 branded type 或 `satisfies`。
 
 ## 收窄层次

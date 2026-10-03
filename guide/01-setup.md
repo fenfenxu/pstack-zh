@@ -1,7 +1,7 @@
 ---
 title: "安装 pstack"
 description: "安装插件，选定 pstack 用的模型，并跑第一个任务。安装是一条命令，加上一段短对话。"
-sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/01-setup.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/01-setup.md"
 ---
 
 > [!NOTE]
@@ -11,7 +11,7 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/01-setup/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/01-setup.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/01-setup.md)（提交 `12d587d`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/01-setup.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/01-setup.md)（提交 `23e4138`）
 
 # 安装 pstack
 

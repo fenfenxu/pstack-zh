@@ -1,7 +1,7 @@
 ---
 title: "写代码前先设计"
 description: "实现前用 /architect 定类型和边界。/arena 比较多次尝试，/swarm 做覆盖，/interrogate 让别的模型来拆结果。"
-sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/04-design.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/04-design.md"
 ---
 
 > [!NOTE]
@@ -11,7 +11,7 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/04-design/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/04-design.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/04-design.md)（提交 `12d587d`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/04-design.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/04-design.md)（提交 `23e4138`）
 
 # 写代码之前先设计
 

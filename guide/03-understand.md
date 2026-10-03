@@ -1,7 +1,7 @@
 ---
 title: "先理解代码"
 description: "改代码之前先弄清它。/how 讲现状，/why 挖原因，/teach 合成说明，/recall 重建你自己的近期上下文。"
-sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/03-understand.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/03-understand.md"
 ---
 
 > [!NOTE]
@@ -11,7 +11,7 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/03-understand/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/03-understand.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/03-understand.md)（提交 `12d587d`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/03-understand.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/03-understand.md)（提交 `23e4138`）
 
 # 改它之前先理解代码
 

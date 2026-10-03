@@ -10,23 +10,26 @@
 
 **Titles。** 使用 Conventional Commits 形式 `type(scope): subject`。type 用 `feat`、`fix`、`docs`、`refactor`、`test`、`chore` 或 `perf`。scope 用变更区域，如 `pstack` 或 `poteto-mode`。subject 短且祈使。有承载变更的真实 symbol 时写出。例如 `fix(pstack): retarget opening-a-pr babysit trigger`。不要加句末句号。
 
-**Descriptions。** PR 正文是简报，不是实验笔记本。已有 diff 的 reviewer 应从中了解为何变更、范围外是什么、如何证明变更有效。squash commit 正文即 PR 正文。若正文会使 squash commit 超过约 40 行，删减正文。
+**Descriptions。** PR 正文是简报，不是实验笔记本。已有 diff 的 reviewer 应在一分钟内看懂：为什么改、没包括什么、可能弄坏什么、怎么证明有效。句子要短、要简单，少用代码标识符。不要写成大段文字。squash commit 正文即 PR 正文。若正文会使 squash commit 超过约 40 行，删减正文。
 
-按以下顺序使用各节。无内容可写时省略该节。
+每节用二级标题 `##`，不要用加粗开头，这样各节能分开。按以下顺序使用各节。无内容可写时省略该节。
 
-- `## Why`。用一两段短句说明意图与方案。不要列 SHA 或 rebase 谱系。不要加「based on main」前言。
-- `## Scope`。用 bullet 列出真实 symbol 与 path。rename 或 retarget 时写出两侧。仅边界重要时说明范围内外。不要写逐文件长文。
-- `## Tradeoffs`。只写 reviewer 否则会问的已否决备选。无真实取舍时跳过。
-- `## Blast Radius`。一至三句说明影响谁或什么，以及变更安全或风险的原因。说明 main 若不合并 fix 的持续代价。
-- `## Verification`。写出每条真实运行路径及结果。性能变更用 `before → after` 形式报告一个带单位的主指标。其余证据链接 arena 或 swarm 目录。不要写样本量方法论、swarm 复述或指标表。
+- `## Why` 用一到三句短句说明问题和做法。不要列 SHA 或 rebase 谱系。不要加「based on main」前言。
+- `## What changed` 写 1 到 3 条短 bullet。只有某个 symbol 或 path 承载这次改动时才写出它。rename 或 retarget 时写出两侧。
+- `## Scope` 始终写明这个 PR 包括什么、刻意不包括什么，例如相关的后续工作或已知缺口。用 1 到 3 条短项。不要列 symbol 或 path，也不要写逐文件长文。
+- `## Tradeoffs` 只写 reviewer 否则会问的已否决备选。无真实取舍时跳过。
+- `## Blast Radius` 用一两句说明影响谁或什么，以及这样是安全还是有风险。main 是红的时候，写明继续红着的代价。
+- `## Verification` 写 1 到 3 条 bullet。每条写出一条真实运行路径及结果。性能变更用 `before → after` 形式报告一个带单位的主指标。其余证据链接 arena 或 swarm 目录。不要写样本量方法论、swarm 复述或指标表。
 
-上述各节之后，当视频或截图能证明主张时再附上。不要粘贴完整 SHA、swarm 或 arena lane 复述、杠杆修正长文、逐文件 checklist 或「CLEAN」裁决。这些细节放在链接产物中。不要用 `## Summary` 或 `## Test plan` 套话。commit 正文不重复 subject。
+上述各节之后，当视频或截图能证明主张时再附上。不要粘贴完整 SHA、swarm 或 arena lane 复述、杠杆修正长文、逐文件 checklist 或「CLEAN」裁决。这些细节放在链接产物中。commit 正文不重复 subject。
 
 **Forge。** 第一次 PR 操作前解析 forge，create、edit、view、watch、merge 全程保持该选择。GitHub CLI（`gh`）为默认。若 `command -v origin` 成功且 Origin 能解析仓库，优先 `origin pr ...`。Origin 不存在或无法解析仓库时继续用 `gh` 并记录回退。不要要求 Graphite（`gt`）。
 
-**规模与栈。** 优先五个窄 PR，而非一个大 PR。栈是 base-branch 链。root PR 指向 trunk。每个子分支 rebase 到父分支精确 tip，其 PR 指向父分支。按已解析 forge 用 `origin pr create --status open --base <parent-branch>` 或 `gh pr create --base <parent-branch>` 创建子 PR。用 `origin pr edit <pr> --base <parent-branch>` 或 `gh pr edit <pr> --base <parent-branch>` retarget 已有子 PR。独立工作才从 trunk 分支。大规模栈工作前在 trunk 上 rebase。
+**内置 PR 工具。** 这次运行提供了内置 PR 工具时，创建、编辑、改目标分支、标为就绪都走它，不要走 forge 的命令行。工具自己的说明写了怎么用。用命令行开的 PR 会漏掉工具在跟踪的东西，例如后来的运行还能改的描述。工具没覆盖的事，以及这次运行没有这种工具时的全部 PR 操作，用已解析的 forge。
 
-**Readiness.** 每个 PR 以 ready 状态打开，不要 draft。Origin 传 `--status open`。`gh` 省略 `--draft`。Cloud-agent PR 工具默认 draft，因此每次创建 PR 调用设 `draft: false`。若 PR 仍以 draft 打开，按已解析 forge 运行 `origin pr ready <number>` 或 `gh pr ready <number>`。引用 PR 状态前先运行 `origin pr view <number>` 或 `gh pr view <number>`。
+**规模与栈。** 优先五个窄 PR，而非一个大 PR。栈是 base-branch 链。root PR 指向 trunk。每个子分支 rebase 到父分支精确 tip，其 PR 指向父分支。没有内置 PR 工具时，按已解析 forge 用 `origin pr create --status open --base <parent-branch>` 或 `gh pr create --base <parent-branch>` 创建子 PR，用 `origin pr edit <pr> --base <parent-branch>` 或 `gh pr edit <pr> --base <parent-branch>` 改已有子 PR 的目标分支。独立工作才从 trunk 分支。大规模栈工作前在 trunk 上 rebase。
+
+**Readiness.** 每个 PR 以 ready 状态打开，不要 draft。内置 PR 工具可能默认 draft，因此每次通过它创建时都设 `draft: false`。Origin 传 `--status open`。`gh` 省略 `--draft`。若 PR 仍以 draft 打开，通过 PR 工具标为就绪，或按已解析 forge 运行 `origin pr ready <number>` 或 `gh pr ready <number>`。引用 PR 状态前先运行 `origin pr view <number>` 或 `gh pr view <number>`。
 
 **Babysit.** 开 PR 不会启动 babysit。发布 URL 后继续构建。先完成阶段或整栈。仅当整栈存在后用户另行要求时，才单独跑 babysit。每个新 PR 都 babysit 会拖慢构建，并在后续波次重启 check 上浪费资源。反馈偏离意图时予以推回。
 

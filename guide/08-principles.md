@@ -1,7 +1,7 @@
 ---
 title: "用原则名来转向"
-description: "pstack 有 23 条原则 skill。用它们的名字把工作转向，一个短语比一段指示更准。"
-sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/08-principles.md"
+description: "pstack 有 24 条原则 skill。用它们的名字把工作转向，一个短语比一段指示更准。"
+sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/08-principles.md"
 ---
 
 > [!NOTE]
@@ -11,11 +11,11 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/08-principles/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/docs/guide/08-principles.md)（提交 `12d587d`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/08-principles.md)（提交 `23e4138`）
 
 # 用原则名来转向
 
-pstack 把 23 条原则作为单独的 skill 带上。`/poteto-mode` 在每个多步任务开始时读它们的索引，应用任务触发的那些，并在回复里点名每一条用过的原则，以及它改变的那个决定。
+pstack 把 24 条原则作为单独的 skill 带上。`/poteto-mode` 在每个多步任务开始时读它们的索引，应用任务触发的那些，并在回复里点名每一条用过的原则，以及它改变的那个决定。
 
 你不调用原则。你用它们的名字来转向。每个名字指向代理已经读过的一条完整 rule。所以一个短语比一段指示更能精确地改道。
 
@@ -41,7 +41,7 @@ separate before serializing shared state. give each attempt its own worktree, no
 
 每个短语能落地，是因为背后的 rule 很具体。代理仍须在回复里说明，这条 rule 改变了哪个决定。只引用原则、后面没有决定，说明它在点名，没有真正应用。
 
-## 二十三条，各用一句话
+## 二十四条，各用一句话
 
 核心原则决定做多少，以及何时重新想设计：
 
@@ -71,6 +71,7 @@ separate before serializing shared state. give each attempt its own worktree, no
 - [Fix Root Causes](../skills/principle-fix-root-causes/SKILL.md) 改代码之前先复现，并追溯到根因。
 - [Sequence Work into Verifiable Units](../skills/principle-sequence-verifiable-units/SKILL.md) 每个小单元以一次检查结束，再开始下一个。
 - [Test Behavior, Not Implementation](../skills/principle-test-behavior-not-implementation/SKILL.md) 按用户的方式调用代码，并对一个字面期望值做断言。如果每个导入的函数都返回 `undefined`，测试仍会通过，就删掉这个测试。
+- [Explain the Number](../skills/principle-explain-the-number/SKILL.md) 在任何人相信或汇报一个测出来的数字之前，说出限制它的因素，并排除它测到的其实是别的东西。
 
 委派原则让并行工作保持清醒：
 

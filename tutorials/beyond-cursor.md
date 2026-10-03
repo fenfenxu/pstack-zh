@@ -35,7 +35,7 @@ description: 官方插件不能原样装。可移植的是规程与原则。Curs
 
 | 层 | 怎么用在别处 |
 |---|---|
-| **23 条原则** | 写成项目规则或 skill。例如 prove-it-works、sequence-verifiable-units、model-the-domain |
+| **24 条原则** | 写成项目规则或 skill。例如 prove-it-works、sequence-verifiable-units、explain-the-number |
 | **Playbook 步骤** | 当成一份核对清单：先复现，再查根因，然后一小步一小步验证，最后开 PR。 |
 | **文体** | unslop、technical-writing、短句证据同句 |
 | **验证文化** | 对真实产物证明。能编译不算完成 |

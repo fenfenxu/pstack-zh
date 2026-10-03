@@ -17,7 +17,7 @@ reminder: 新任务？若需匹配 playbook 或更高严谨度 → 应用 /potet
 其余触发条件：
 
 - 非平凡变更、架构决策，或「我们确定吗？」→ **how** skill。
-- 即将对「选哪种方案」「我该怎么」「这应该做什么」类分叉使用 `AskQuestion` → 先分类。若答案是可以通过运行某物观察得到的事实（行为、时序、布局、输出、性能，甚至某次 eval 能否区分），则不该由人类回答。按 Prototype playbook（`playbooks/prototype.md`）搭草模，让结果做决定。若任务是只读 Investigation，交付物为带引用的答案，则留在该 playbook 内，用证据回答，而非搭草模。仅把问题留给任何实验都无法 settle 的真实产品或偏好选择。在完全自主授权下，对授权范围内的选择自行决定、执行并汇报，不要回复词、不要提供选项。对只能由操作者做的选择，应用默认值，并完整说明默认值及一个可撤销的词。操作者点名的门禁与 Autonomy 中的 Always-pause 列表仍须操作者参与。
+- 即将对「选哪种方案」「我该怎么」「这应该做什么」类分叉使用 `AskQuestion` → 先分类。若答案是可以通过运行某物观察得到的事实（行为、时序、布局、输出、性能，甚至某次 eval 能否区分），则不该由人类回答。按 Prototype playbook（`playbooks/prototype.md`）搭草模，让结果做决定。若任务是只读 Investigation，交付物为带引用的答案，则留在该 playbook 内，用证据回答，而非搭草模。仅把问题留给任何实验都无法 settle 的真实产品或偏好选择。在完全自主授权下，对授权范围内的选择自行决定、执行并汇报，不要回复词、不要提供选项。对只能由操作者做的选择，应用默认值，并完整说明默认值。用白话说明操作者可以让你改成怎么做。操作者用自己的话回答。不要给出需要原样输入的简写口令。操作者点名的门禁与 Autonomy 中的 Always-pause 列表仍须操作者参与。
 - 任何代码 → 先命名数据形状，并按 **principle-model-the-domain** 选择组织方式。
 - 代码跨函数边界 → **architect** skill，实现前并行探索设计。
 - 并行扇出 → **swarm** skill，用于覆盖矩阵、竞态、压力测试与探索分区。设计或代码 bakeoff 用 **arena**，含基线选择与嫁接。
@@ -28,6 +28,7 @@ reminder: 新任务？若需匹配 playbook 或更高严谨度 → 应用 /potet
 - commit 前 → `cursor-team-kit` 插件中的 `deslop` skill（`/deslop`）。
 - review 前 → **no-comments** skill（`/no-comments`）。
 - 交付 UI / IDE / CLI → 使用对应的 control skill。`cursor-team-kit` 提供 `control-cli`（CLI 与 TUI）和 `control-ui`（浏览器 / Electron / Web UI）。修 bug 时先在同一表面自行复现。仅在最窄的 Bug fix 第 1 步例外下交给用户。
+- 跑基准、自己测性能，或汇报自己测到的提速或退步 → 先用 **benchmark-checklist** skill，再汇报这个数字或据此行动。
 - 任何 PR 状态类请求 → **Babysit** playbook（`playbooks/babysit.md`），而非 Cursor 内置 babysit skill（描述用词相同）。包括「babysit this」「get it green」「address the bugbot comments」，以及最常见说法「check on PR X」/「anything outstanding on X」。仅打开 PR 不会触发。轮询前声明模式。该 playbook 第 1 步负责请求到模式的映射。在 phase agent 内调用 `drive` 会阻止该 agent 完成其回合。
 - 要求落地或 ship 绿色栈 → **Shipping** playbook（`playbooks/shipping.md`）。绿色不等于安全。在独立 per-PR 裁决前不得 arm 任何项，且只有从根开始的连续已验证运行可以落地。
 - Bugbot 或 agentic 安全 review 评论 → 持怀疑态度。它们能抓到真 bug，也会报非问题与吹毛求疵，故逐条按 merits 评估，用具体理由 dismiss 噪音，而非空转改代码。按 `references/bugbot-triage.md` 分类为 fix / dismiss / ask。
@@ -66,6 +67,7 @@ reminder: 新任务？若需匹配 playbook 或更高严谨度 → 应用 /potet
 - **Fix Root Causes**（**principle-fix-root-causes**）。调试。把每个症状追到根因，先复现，反复问为什么直到到达。
 - **Sequence Work into Verifiable Units**（**principle-sequence-verifiable-units**）。多步工作（扫描、迁移、同类编辑批次）及 commit/PR 堆叠方式。拆成以检查结束的小单元，下一步前验证每一步，并按自证顺序交付。
 - **Test Behavior, Not Implementation**（**principle-test-behavior-not-implementation**）。编写、修改或保留测试时。像用户一样调用代码，对字面期望值断言。若每个 import 函数都返回 `undefined` 测试仍会通过，则重写断言或删测试。
+- **Explain the Number**（**principle-explain-the-number**）。在相信、汇报或依据自己测到的数字行动之前（提速、退步、吞吐量、延迟或评测结果）。找出限制它的因素，并排除它测到的其实是别的东西。
 
 **Delegation**
 
@@ -92,7 +94,9 @@ reminder: 新任务？若需匹配 playbook 或更高严谨度 → 应用 /potet
 
 **每次 `Task` 调用的默认值。** `run_in_background: true`，agent 模式（readonly 去掉 MCP），文件指针而非内联上下文，每角色显式 model（可通过 `/setup-pstack` 配置。默认代码用 `grok-4.7-xhigh-fast`，散文与判断用 `claude-opus-5-5-max`）。写代码 delegate 按难度分层。最难变更（跨切面设计、棘手并发、 subtle 算法）交给最强判断 model（`claude-opus-5-5-max`），无论任务需要模糊意图判断还是精确指定步骤。琐碎机械编辑交给 fast code model。`/setup-pstack` rule 中 per-role 行覆盖这些默认及路由 skill（`how`、`why`、`arena`、`swarm`、`architect`、`interrogate`、`reflect`）中的 model 选择。某 role 无行则保留默认；`inherit-parent` 或 `auto` 表示该 role 用父聊天 model（省略 Task `model`）。各 code playbook 的 model 来自其行（`feature, refactoring`、`bug-fix`、`perf-issue` 或 `hillclimb`），最难变更读 `hardest tasks`。散文与判断读 `judgment and prose`。
 
-你拥有每个子 agent 的工作。review diff 并写自己的摘要，不要透传它说的。interrupt 链式 resume 会静默丢弃 directive，故用 consolidated scope 重新 spawn，而非信任「done」摘要。第二意见是同一 prompt 换不同 model。一致是高信号。
+你拥有每个子 agent 的工作。review diff 并写自己的摘要，不要透传它说的。第二意见是同一 prompt 换不同 model。一致是高信号。
+
+**默认用全新子代理。** 新工作交给一个全新的子代理，并附上完整背景：原始任务、之后的每条指示，以及上一个代理的报告和分支。修复一轮、后续工作、重试，以及队列里的下一项，都这样做。只有新工作严格依赖那个代理里、而且搬出来代价很高的状态时，才续用、发消息，或给已有子代理排队后续：它的本地副本、未提交修改，或它仍在跑的进程，例如开发服务器、模拟器，或 babysit 的监视进程。对正在跑的代理下停止或暂停令，不算续用。像 PR 负责人这样的角色比它的代理活得更久。那个代理返回之后，由一个新代理接下这个角色的下一轮。interrupt 链式 resume 会静默丢弃 directive，所以用完整背景重新启动一个子代理，不要信任一句「done」摘要。
 
 ## Writing the reply
 

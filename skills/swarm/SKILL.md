@@ -37,7 +37,7 @@ worker 须从非默认已 push 分支开始时，传 `cloud_base_branch`。
 
 ## 阶段 C：聚合
 
-读 terminal 结果。未记录 brief 要求的 SHA 与方法的结果丢弃，该 worker 重跑一次。第二次仍 miss 则记 gap。gap 不算 pass。覆盖形态下每个必需 slice 都要有结果。race 按 upfront 声明的选择规则：`first pass`、`rank all` 或 `best-of`。不要粘贴 raw worker dump。
+读 terminal 结果。未记录 brief 要求的 SHA 与方法的结果丢弃，重新启动一个新 worker 一次。第二次仍 miss 则记 gap。gap 不算 pass。覆盖形态下每个必需 slice 都要有结果。race 按 upfront 声明的选择规则：`first pass`、`rank all` 或 `best-of`。不要粘贴 raw worker dump。
 
 保留紧凑结果表、一行 evidenced issue、明确 gap 或 dropout。
 

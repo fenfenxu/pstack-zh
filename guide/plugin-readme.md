@@ -1,7 +1,7 @@
 ---
 title: "pstack 插件说明"
 description: "pstack 是 poteto 每天在 Cursor 用来交付高质量代码的同一套 skill。它帮你写得更少，质量更高。"
-sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/README.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/README.md"
 ---
 
 > [!NOTE]
@@ -11,7 +11,7 @@ sourceUrl: "https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/plugin-readme/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/README.md)（提交 `12d587d`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/README.md)（提交 `23e4138`）
 
 # pstack
 
@@ -137,6 +137,7 @@ morning.
 | [`/reflect`](../skills/reflect/SKILL.md) | 一个长任务落地了，你想把配方留成一次 skill 编辑。 |
 | [`/teach`](../skills/teach/SKILL.md) | 你想真正理解一处改动或一个子系统，而不只是拿到摘要。它跑 how + why，并织成一份白话说明，一张图一张图往上建。 |
 | [`/tdd`](../skills/tdd/SKILL.md) | 你在修一个 bug，并且有一条便宜的本地测试路径。先写失败测试，再写修复。 |
+| [`/benchmark-checklist`](../skills/benchmark-checklist/SKILL.md) | 你跑了基准测试，或测到了提速或退步。在汇报或据此行动之前，先核对这个数字（限制因素、调优、出错、重复运行、对整条路径是否重要）。 |
 | [`/no-comments`](../skills/no-comments/SKILL.md) | 复审前去掉注释。它启动 Comment Sicko，修复被接受的 finding，并为声称的约束提供编码。 |
 | [`/typescript-best-practices`](../skills/typescript-best-practices/SKILL.md) | 你在读或改 TypeScript。把 type-system-discipline 原则落到语法上。 |
 | [`/figure-it-out`](../skills/figure-it-out/SKILL.md) | 没有打包的 playbook 合适。为这个任务设计一份严格、可审计的 playbook。 |
@@ -203,10 +204,10 @@ pstack 还带 [Comment Sicko](../agents/comment-sicko.md)，一个只读的注�
 
 ## 原则
 
-二十三个短 skill，每个一条原则。`poteto-mode` 把它们内联索引，并在任务开始时读这份索引。独立文件在那里，是为了让其他 skill 能按名字引用一条原则，也是为了让索引能指向每一条的完整 rule。
+二十四个短 skill，每个一条原则。`poteto-mode` 把它们内联索引，并在任务开始时读这份索引。独立文件在那里，是为了让其他 skill 能按名字引用一条原则，也是为了让索引能指向每一条的完整 rule。
 
 <details>
-<summary>全部二十三条原则</summary>
+<summary>全部二十四条原则</summary>
 
 | 原则 | 分组 | rule |
 |---|---|---|
@@ -230,6 +231,7 @@ pstack 还带 [Comment Sicko](../agents/comment-sicko.md)，一个只读的注�
 | [fix-root-causes](../skills/principle-fix-root-causes/SKILL.md) | 验证 | 把每个症状追溯到根因，并在那里修复。先复现。一直问为什么，直到到达根因。抵制用空值检查守卫把崩溃消音。 |
 | [sequence-verifiable-units](../skills/principle-sequence-verifiable-units/SKILL.md) | 验证 | 用于多步工作（扫荡、迁移、一串相似编辑），也用于你如何叠放提交和 PR。把工作拆成小单元，每个都以可验证状态结束。先检查一个，再做下一个。把交付排好序，让序列自己向审查者证明。 |
 | [test-behavior-not-implementation](../skills/principle-test-behavior-not-implementation/SKILL.md) | 验证 | 在你编写、修改或保留一个测试时使用。按用户的方式调用代码，并把他们观察到的结果对一个字面期望值做断言。如果每个导入的函数都返回 undefined，测试仍会通过，就改写断言，或删掉测试。 |
+| [explain-the-number](../skills/principle-explain-the-number/SKILL.md) | 验证 | 在相信、汇报或依据自己测到的数字行动之前使用：提速、退步、吞吐量、延迟，或评测结果。找出限制它的因素，并排除它测到的其实是别的东西。 |
 | [guard-the-context-window](../skills/principle-guard-the-context-window/SKILL.md) | 委派 | 把大批量路由给子代理。主线程里留摘要，不留原始载荷。 |
 | [never-block-on-the-human](../skills/principle-never-block-on-the-human/SKILL.md) | 委派 | 继续做，交出结果，让人事后纠正方向。确认只留给不可逆的动作。 |
 | [encode-lessons-in-structure](../skills/principle-encode-lessons-in-structure/SKILL.md) | 元 | 把这条 rule 编成 lint、元数据标记、运行时检查或脚本，不要再加文字。 |
