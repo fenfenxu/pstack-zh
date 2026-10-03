@@ -4,6 +4,10 @@
 
 ## 2026-10-03
 
+- **译文改进。** 改写了 14 页译文，标题和步骤改成直接说要做什么，例如「直接说目标」。
+  - [官方指南](./guide/index.md)
+  - [agents](./agents/README.md)
+  - [插件说明](./guide/plugin-readme.md)
 - **新译文。** 官方指南「用原则名来转向」新增了「The 24, briefly」，删去了「The 23, briefly」。
   - [官方指南「用原则名来转向」](./guide/08-principles.md)
 - **新译文。** 官方指南「pstack 指南」的原文有改动。

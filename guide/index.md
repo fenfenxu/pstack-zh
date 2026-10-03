@@ -1,6 +1,6 @@
 ---
 title: "pstack 指南"
-description: "说出目标，以及你怎么知道做完了。/poteto-mode 选 playbook、运行 skills，并把证据给你看。"
+description: "别再一步一步地指挥 agent。说清你要什么、怎样算做完，/poteto-mode 会挑 playbook、调用其他 skills，再把证据拿给你看。"
 sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/README.md"
 ---
 
@@ -15,31 +15,31 @@ sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f8
 
 # pstack 指南
 
-pstack 在你不再微操 agent 时效果最好。你描述想要什么，以及你怎么知道做完了。`/poteto-mode` 选出 playbook，在步骤需要时运行其他 skills，并把证据给你看。本指南用贴近真实的提示词教这个习惯。
+别再一步一步地指挥 agent，pstack 才最好用。你说清想要什么，以及怎样算做完。`/poteto-mode` 负责挑 playbook，按步骤需要调用其他 skills，最后把证据拿给你看。这份指南用贴近实际的提示词，带你养成这个习惯。
 
 你会学到这些：
 
-1. [安装 pstack](./01-setup.md)。安装插件，并选定你的模型。
-2. [把工作交给 `/poteto-mode`](./02-poteto-mode.md)。给它一个目标，看它选出 playbook。
-3. [理解代码](./03-understand.md)。改任何东西之前，先用 `/how`、`/why`、`/teach` 和 `/recall`。
-4. [设计这次改动](./04-design.md)。代码锁死形状之前，先用 `/architect`、`/arena`、`/swarm` 和 `/interrogate`。
-5. [构建并清理这次改动](./05-build-and-clean.md)。构建类 playbooks、`/tdd`、`/unslop` 和 `/no-comments`。
-6. [验证并交付](./06-verify-and-ship.md)。在真实应用上证明行为，然后开一个聚焦的 PR，并把它推到合并。
-7. [你睡觉时让工作继续跑](./07-overnight.md)。过夜之前要说清的几件事、一份可以审计的决策日志，以及规模能超过单个 agent 的 playbooks。
-8. [用原则名来转向](./08-principles.md)。任务中途用来给 agent 改道的 24 个名字。
-9. [把它变成你的](./09-make-it-yours.md)。你自己的 mode，加上怎么测试一次 skill 改动。
-10. [配方与坑](./10-recipes-and-pitfalls.md)。可以照抄的提示词，以及该跳过的错误。
+1. [安装 pstack](./01-setup.md)。装好插件，选好模型。
+2. [把工作交给 `/poteto-mode`](./02-poteto-mode.md)。给它一个目标，看它怎么挑 playbook。
+3. [理解代码](./03-understand.md)。动手改之前，先用 `/how`、`/why`、`/teach` 和 `/recall`。
+4. [设计这次改动](./04-design.md)。代码定型之前，先用 `/architect`、`/arena`、`/swarm` 和 `/interrogate`。
+5. [构建并清理这次改动](./05-build-and-clean.md)。构建类 playbook，以及 `/tdd`、`/unslop` 和 `/no-comments`。
+6. [验证并交付](./06-verify-and-ship.md)。先在真实应用上证明行为没问题，再开一个只做一件事的 PR，一路推到合并。
+7. [睡觉时让工作继续跑](./07-overnight.md)。一份过夜交接约定、一份可以审计的决策日志，以及能扩展到多个 agent 的 playbook。
+8. [用原则名来转向](./08-principles.md)。这 24 个名字能在任务中途让 agent 改方向。
+9. [把它变成你的](./09-make-it-yours.md)。做一个你自己的 mode，再学会测试 skill 改动。
+10. [配方与坑](./10-recipes-and-pitfalls.md)。可以照抄的提示词，以及不用再犯的错。
 
-第一次按顺序读这些页。之后每一页都能单独成立。
+第一次读，按顺序来。之后每一页都可以单独看。
 
 ## 如果你只记住一件事
 
-用你自己的话，给 agent 一个目标，以及一种检查它的办法：
+用你自己的话，给 agent 一个目标，再给它一个检查办法：
 
 ```text
 /poteto-mode the export writes duplicate rows when a retry lands mid-run. repro first, then fix and verify.
 ```
 
-你不需要点名 playbook，也不需要列出 skills。「repro first」和一个可检查的结果，就是 `/poteto-mode` 需要的全部路由信号。它匹配 Bug fix playbook，把步骤抄进 todo 列表，并在每一步触发时调用对应的 skills。
+不用点名 playbook，也不用列出 skills。`/poteto-mode` 只凭「repro first」（先复现）和一个能检查的结果，就能判断该走哪个 playbook。它会匹配到 Bug fix playbook，把步骤抄进 todo 列表，每走到一步就调用该用的 skills。
 
 下一篇：[安装 pstack](./01-setup.md)。

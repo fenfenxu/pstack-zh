@@ -1,6 +1,6 @@
 ---
 title: "构建并清理 diff"
-description: "说出你观察到的，让构建 playbook 来要证据。这一页讲常见构建提示词，以及让 diff 可审的清理习惯。"
+description: "你说清看到了什么，证据由构建类 playbook 去要。本页讲常见构建任务的提示词怎么写，以及让 diff 好审的清理习惯。"
 sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/05-build-and-clean.md"
 ---
 
@@ -15,76 +15,76 @@ sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f8
 
 # 构建这次改动，并清理 diff
 
-构建类 playbook 共用一条纪律。说出你观察到的。让 playbook 来索取证据。这一页展示每种常见构建任务的提示词里该放什么，然后是让 diff 保持可审的清理习惯。
+构建类 playbook 都守同一条规矩。你说清自己看到了什么，证据由 playbook 去要。本页先讲每种常见构建任务的提示词里该写什么，再讲一个让 diff 保持好审的清理习惯。
 
 ## 把你已经知道的告诉构建 playbook
 
-一条 bug 提示词陈述症状，并要求先做复现：
+修 bug 的提示词写清症状，并要求先复现：
 
 ```text
 /poteto-mode this command emits two records after a retry. repro first, then fix and verify.
 ```
 
-一条 feature 提示词陈述行为，以及什么必须不变：
+加功能的提示词写清要什么行为，以及哪些东西不能变：
 
 ```text
 /poteto-mode add a --json flag. text output stays byte-identical. verify both forms.
 ```
 
-一条重构提示词在结构移动之前钉住行为：
+重构的提示词在动结构之前，先把现有行为固定下来：
 
 ```text
 /poteto-mode move parsing into one module, zero behavior change. record the current output first and prove it's unchanged after.
 ```
 
-一条性能提示词陈述测量，不陈述感觉：
+性能优化的提示词写测量结果，不写感觉：
 
 ```text
 /poteto-mode startup takes 1.8s on this fixture. trace it, fix the measured cause, show me before and after.
 ```
 
-每一条都会路由到它的 playbook（[Bug fix](../skills/poteto-mode/playbooks/bug-fix.md)、[Feature](../skills/poteto-mode/playbooks/feature.md)、[Refactoring](../skills/poteto-mode/playbooks/refactoring.md)、[Perf issue](../skills/poteto-mode/playbooks/perf-issue.md)）。playbook 补上你没有打出来的步骤：修复前先复现，实现前先命名数据形状，重组前先钉住行为，优化前先剖析。
+这几条提示词各自会交给对应的 playbook（[Bug fix](../skills/poteto-mode/playbooks/bug-fix.md)、[Feature](../skills/poteto-mode/playbooks/feature.md)、[Refactoring](../skills/poteto-mode/playbooks/refactoring.md)、[Perf issue](../skills/poteto-mode/playbooks/perf-issue.md)）。你没写出来的步骤，playbook 会补上：修之前先复现，实现之前先说清数据形状，重组之前先固定行为，优化之前先剖析性能。
 
-要对一个数字做持续改进，有 [Hillclimb playbook](../skills/poteto-mode/playbooks/hillclimb.md)。给它指标、目标，以及尝试次数的下限。它用一套冻结的测量 harness，一次循环一个假设。它保留赢的那些。其余全部回退。
+要让某一个数字持续变好，就用 [Hillclimb playbook](../skills/poteto-mode/playbooks/hillclimb.md)。告诉它指标、目标，以及最少要试多少次。它一轮只试一个假设，测量用的 harness（包在被测代码外面，负责运行和测量的程序）全程不动。有用的改动留下，其余全部撤回。
 
 ## 用 `/tdd` 先写失败的测试
 
-当一个 bug 有便宜的本地测试路径时，整条提示词可以只有两个词：
+如果一个 bug 在本地很容易测，整条提示词可以只有两个词：
 
 ```text
 /tdd implement
 ```
 
-放在上下文里，这就够了。[`/tdd`](../skills/tdd/SKILL.md) 先写最小的测试，让它因为预期的原因失败，然后写修复，然后重跑测试。如果一个测试需要大范围搭建 harness，或需要脆弱的 mock，这个 skill 会说出来，并改用最接近的可执行检查。在真实命令是更强证据的地方，不要硬塞一个测试。
+有对话里的上下文，这就够了。[`/tdd`](../skills/tdd/SKILL.md) 先写一个最小的测试，让它因为预期的原因失败，接着写修复，再重跑这个测试。如果写测试要先搭一大套 harness，或者得靠脆弱的 mock，这个 skill 会直接说明，改用最接近的可执行检查。真实命令能给出更强的证据时，别硬写测试。
 
 ## 写 TypeScript 时自动带上规则
 
-[`typescript-best-practices`](../skills/typescript-best-practices/SKILL.md) 在你的工作流里没有斜杠命令。只要 agent 碰到 `.ts` 或 `.tsx` 文件，它就会加载，并把类型系统的原则变成具体规则：可区分联合、边界上的 `unknown`、穷尽变体、由 schema 推导出的类型。
+[`typescript-best-practices`](../skills/typescript-best-practices/SKILL.md) 用不着你敲斜杠命令。agent 一碰 `.ts` 或 `.tsx` 文件，它就自动加载，把类型系统的原则落成具体规则：可辨识联合、边界处用 `unknown`、穷尽所有变体、从 schema 推导类型。
 
 ## 提交前先清理
 
-[Opening a PR playbook](../skills/poteto-mode/playbooks/opening-a-pr.md) 在每次 commit 之前对 diff 跑 `/deslop`，并把 [`/unslop`](../skills/unslop/SKILL.md) 用到 PR 描述和 commit 正文上。`/deslop` 随 `cursor-team-kit` 插件提供，不在 pstack 里。如果你没有它，就用白话要求同样的结果：去掉叙述性注释、无依据的守卫、死掉的兼容路径，以及无关编辑。
+[Opening a PR playbook](../skills/poteto-mode/playbooks/opening-a-pr.md) 每次提交前都会对 diff 跑一遍 `/deslop`，并用 [`/unslop`](../skills/unslop/SKILL.md) 处理 PR 描述和 commit 说明。`/deslop` 属于 `cursor-team-kit` 插件，不在 pstack 里。没有装的话，就用大白话提出同样的要求：删掉复述代码的注释、没有依据的防御检查、已经没人走的兼容分支，以及跟这次改动无关的修改。
 
-对散文，`/unslop` 接受一个目标，以及你另外有的任何规则：
+处理文字时，`/unslop` 接收一个目标，再加上你自己的额外规则：
 
 ```text
 /unslop the readme changes, no emdashes
 ```
 
-你会发展出自己的简写。这个 skill 从 `unslop that, tighten it` 这种简短提示词里就能读懂意图。
+用久了，你会有自己的简写。像 `unslop that, tighten it` 这样很短的提示词，这个 skill 也能读懂意图。
 
 ## 用 `/no-comments` 清掉注释
 
-注释需要单独过一遍，而且不能由写下它们的那个 agent 来过。作者捍卫自己的注释，方式就像你会捍卫你的注释。所以在 review 之前，把它们交给一双新的眼睛：
+注释要单独过一遍，而且不能让写注释的那个 agent 来过。作者会护着自己写的注释，就像你也会护着你的。所以在审查之前，换一双眼睛来看：
 
 ```text
 /no-comments the diff
 ```
 
-[`/no-comments`](../skills/no-comments/SKILL.md) 会拉起 [Comment Sicko](../agents/comment-sicko.md)。它只读。留下的很少：许可证头、公开 API 的文档注释、用来解释代码本身说不清的事的链接，以及外部依赖逼出来、你改不了的行为。其余都删掉。你自己代码里的意外，不在留下的范围里。注释如果其实是在标一块该重构的代码，会按这个处理。`/no-comments` 对它收下的标记，会到根因上去修。注释如果声称一条约束，比如「do not remove」，这个 skill 会提议把这条约束写成类型、测试或 lint。不管怎样，这条注释都会删掉。
+[`/no-comments`](../skills/no-comments/SKILL.md) 会启动 [Comment Sicko](../agents/comment-sicko.md)。它是只读的审查者，允许留下的注释只有一张很短的清单：许可证头、公开 API 的文档注释、解释代码说不清之处的链接，以及外部依赖强加、你又改不了的行为。其余一律删掉。你自己代码里的反常之处没有这种豁免。这类注释会作为重构信号报回来，`/no-comments` 认可哪一条，就从根因上修哪一条。如果注释声称有某种约束，比如「do not remove」，这个 skill 会提议把这条约束写成类型、测试或 lint。约束写没写成代码，注释都要删。
 
-这套分工值得记清楚。`/deslop` 把 slop 从代码里清掉，`/unslop` 把 slop 从散文里清掉，`/no-comments` 把注释交给一个没有写过它们的审查者。
+这几样工具的分工要记清。`/deslop` 清掉代码里的 slop（AI 写出来的冗余、空洞内容），`/unslop` 清掉文字里的 slop，`/no-comments` 把注释交给一个没写过它们的审查者。
 
-**坑：** 清理不是可选的抛光。一份带着叙述性注释和防御性死重的 diff，在审查者看来是没做完的。多出来的代码，就是下一个 bug 藏身的地方。如果 diff 让人觉得被填胖了，在提交之前说 `deslop it`。不要等 review 把它点出来之后。
+**坑：** 清理不是可做可不做的润色。diff 里留着复述代码的注释和防御性的累赘，审查者看了会觉得活没干完。多出来的代码，正是下一个 bug 藏身的地方。diff 要是看着注了水，提交前就说 `deslop it`，别等审查指出来。
 
 下一篇：[验证并交付](./06-verify-and-ship.md)。
