@@ -1,7 +1,11 @@
 ---
 title: "先理解代码"
 description: "改没看懂的代码，不易察觉的回归就是这样上线的。/how 讲代码现在怎么做，/why 挖出它为什么长这样，/teach 把两者合成一份讲解，/recall 帮你找回近期的上下文。"
-sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/03-understand.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/03-understand.md"
+meta:
+  updated_at: "2026-10-04T10:24:51+08:00"
+  updated_by: "cursor-cloud-agent cursor"
+  triggered_by: "pstack-daily-translate routine"
 ---
 
 > [!NOTE]
@@ -11,7 +15,7 @@ sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f8
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/03-understand/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/03-understand.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/03-understand.md)（提交 `23e4138`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/03-understand.md`](https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/03-understand.md)（提交 `e43c7ee`）
 
 # 改代码前先理解它
 

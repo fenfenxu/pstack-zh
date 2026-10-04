@@ -1,7 +1,11 @@
 ---
 title: "把它变成你的"
 description: "生成你自己的 mode，留下一次会话的教训，写一个只做一件事的 skill，并在信任 skill 改动之前先做盲测。"
-sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/09-make-it-yours.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/09-make-it-yours.md"
+meta:
+  updated_at: "2026-10-04T10:24:51+08:00"
+  updated_by: "cursor-cloud-agent cursor"
+  triggered_by: "pstack-daily-translate routine"
 ---
 
 > [!NOTE]
@@ -11,7 +15,7 @@ sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f8
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/09-make-it-yours/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/09-make-it-yours.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/09-make-it-yours.md)（提交 `23e4138`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/09-make-it-yours.md`](https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/09-make-it-yours.md)（提交 `e43c7ee`）
 
 # 把它变成你的
 

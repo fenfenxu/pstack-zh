@@ -1,7 +1,11 @@
 ---
 title: "写代码前先设计"
 description: "难的设计只试一次，模型最先想到的形状就定死了。/architect 先定类型和边界，/arena 多试几版取长补短，/interrogate 让别的模型来挑错，/swarm 负责分块覆盖。"
-sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/04-design.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/04-design.md"
+meta:
+  updated_at: "2026-10-04T10:24:51+08:00"
+  updated_by: "cursor-cloud-agent cursor"
+  triggered_by: "pstack-daily-translate routine"
 ---
 
 > [!NOTE]
@@ -11,7 +15,7 @@ sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f8
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/04-design/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/04-design.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/04-design.md)（提交 `23e4138`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/04-design.md`](https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/04-design.md)（提交 `e43c7ee`）
 
 # 写代码之前先设计
 

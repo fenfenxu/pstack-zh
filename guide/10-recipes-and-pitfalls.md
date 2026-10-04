@@ -1,7 +1,11 @@
 ---
 title: "配方与坑"
 description: "值得照抄的提示词，加上每个人都会犯一次的错。用的时候，把路径和完结条件换成你自己的。"
-sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/10-recipes-and-pitfalls.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/10-recipes-and-pitfalls.md"
+meta:
+  updated_at: "2026-10-04T10:24:51+08:00"
+  updated_by: "cursor-cloud-agent cursor"
+  triggered_by: "pstack-daily-translate routine"
 ---
 
 > [!NOTE]
@@ -11,7 +15,7 @@ sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f8
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/10-recipes-and-pitfalls/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/10-recipes-and-pitfalls.md`](https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/docs/guide/10-recipes-and-pitfalls.md)（提交 `23e4138`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/10-recipes-and-pitfalls.md`](https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/10-recipes-and-pitfalls.md)（提交 `e43c7ee`）
 
 # 配方与坑
 
