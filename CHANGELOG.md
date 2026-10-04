@@ -2,6 +2,21 @@
 
 这里只记已经放进本仓库的中文内容。
 
+## 2026-10-04
+
+- **新译文。** 插件说明的原文有改动。
+  - [插件说明](./guide/plugin-readme.md)
+- **skill 更新。** hillclimb 这篇 playbook 的原文有改动。
+  - [hillclimb](./skills/poteto-mode/playbooks/hillclimb.md)
+- **skill 更新。** perf-issue 这篇 playbook 的原文有改动。
+  - [perf-issue](./skills/poteto-mode/playbooks/perf-issue.md)
+- **skill 更新。** architect 新增了「Split ownership」、「Two ways to do one task」、「Importable internals」等 4 处。
+  - [architect](./skills/architect/SKILL.md)
+- **skill 更新。** benchmark-checklist 的原文有改动。
+  - [benchmark-checklist](./skills/benchmark-checklist/SKILL.md)
+- **新译文。** 新增了 skill correct。
+  - [correct](./skills/correct/SKILL.md)
+
 ## 2026-10-03
 
 - **译文改进。** 改写了 50 页译文，标题和步骤改成直接说要做什么，例如「阶段 B：画草图」。

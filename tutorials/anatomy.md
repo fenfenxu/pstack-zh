@@ -1,6 +1,10 @@
 ---
 title: 构成与关系
 description: pstack 由哪些零件组成，各干什么，一次 Feature 里谁拉起谁。
+meta:
+  updated_at: "2026-10-04T09:36:02+08:00"
+  updated_by: "cursor-cloud-agent cursor"
+  triggered_by: "pstack-daily-translate routine"
 ---
 
 读完应能口述：有哪些零件、各干什么、一次日常改动里谁调用谁、什么让交付可验证。
@@ -26,7 +30,7 @@ INDEX 标题有时写「22 条原则」。目录里是 23 个 `principle-*`。�
 ```mermaid
 flowchart TB
   subgraph plugin["Cursor 插件 pstack"]
-    S["49 skills<br/>含 24 principle-*"]
+    S["50 skills<br/>含 24 principle-*"]
     A["2 agents"]
     PB["23 playbooks<br/>在 poteto-mode 内"]
   end

@@ -35,7 +35,7 @@ runner 取 `pstack-models.mdc` rule 里的 `architect runners` 这一行，不�
 
 设计两遍。综合之前至少要有两个结构上不同的候选，第一个看起来够用也一样。这就是 **exhaust-the-design-space** 原则 skill 落到实处。要的是整体形态不同的方案，不是在同一个形态里修修补补。
 
-综合之前，拿 [`references/design-red-flags.md`](references/design-red-flags.md) 把每个候选筛一遍。浅模块、信息泄漏、按时间顺序拆分、透传方法，要么改，要么拒。
+综合之前，拿 [`references/design-red-flags.md`](references/design-red-flags.md) 把每个候选筛一遍。假定下一个贡献者是代理，它只看见自己打开的文件，抄最近的例子，走能编译通过的最短路径。优先选这样的设计：从单个文件看起来对的改动，对整个仓库也是对的。
 
 在可行的候选之间比较接口深度。哪个设计用更小、更简单的公开接口藏住更多复杂度，就选哪个。接口能力丰富，可以把能力集中在一处，而不是分散到好几层，调用链反而更短。
 

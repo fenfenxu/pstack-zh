@@ -35,5 +35,5 @@ disable-model-invocation: true
 
 ## 和其他性能资料的分工
 
-- **Perf issue** playbook 负责找出并修好慢的地方，修法由它的几类策略产生。这个 skill 先核查它的基线，那份 playbook 才依据基线做计划。之后的每个数字，也由这个 skill 核查。
+- **Perf issue** playbook 负责找出并修好慢的地方，修法由它第 2 步里的性能口诀产生。这个 skill 先核查它的基线，那份 playbook 才依据基线做计划。之后的每个数字，也由这个 skill 核查。
 - **Hillclimb** playbook 围绕一个指标反复循环。这个 skill 在它的 harness 冻结之前先核查 harness。冻结之后，harness 会打印出错次数和工作量计数，所以每次决定保留还是回退时，第 4 问和第 7 问都顺带查过了。

@@ -12,7 +12,7 @@ Unofficial Chinese translation of poteto's pstack. Not affiliated with Cursor or
 
 ## 目录
 
-- [`skills/`](skills/INDEX.md) 有 49 个 skill 的中文译文，包括 references、playbooks 和 skill 自带脚本。
+- [`skills/`](skills/INDEX.md) 有 50 个 skill 的中文译文，包括 references、playbooks 和 skill 自带脚本。
 - [`agents/`](agents/README.md) 有 2 个子代理的中文译文。
 - [`guide/`](guide/index.md) 是官方指南的中文译文，含第 01 到 10 章、目录和插件说明。
 - [`tutorials/`](tutorials/index.md) 是我们写的「认识 pstack」教程。

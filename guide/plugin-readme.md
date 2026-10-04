@@ -2,6 +2,10 @@
 title: "pstack 插件说明"
 description: "pstack 是 poteto 每天在 Cursor 交付高质量代码时用的那套 skill。它把 Cursor 变成一支真正的工程团队，帮你少写代码、写好代码。"
 sourceUrl: "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/README.md"
+meta:
+  updated_at: "2026-10-04T09:34:38+08:00"
+  updated_by: "cursor-cloud-agent cursor"
+  triggered_by: "pstack-daily-translate routine"
 ---
 
 > [!NOTE]
@@ -135,6 +139,7 @@ morning.
 | [`/make-bot-ui`](../skills/make-bot-ui/SKILL.md) | 你想做一个页面或仪表盘，按上面的按钮就能经 webhook 唤醒一个 Grok Bot，连 sender key（发送方密钥）的交接和 Tailscale 也包括在内。 |
 | [`/setup-pstack`](../skills/setup-pstack/SKILL.md) | 你想给 pstack 的每个角色挑模型。它会检测你有哪些模型，再写一条配置 rule。 |
 | [`/reflect`](../skills/reflect/SKILL.md) | 一个长任务落地了，你想把这次的做法记下来，写成对 skill 的一处修改。 |
+| [`/correct`](../skills/correct/SKILL.md) | 你在反复纠正代理犯同样的错。它从历史里找出错误类别，在够用的最高一层修掉每一类（先架构，再类型，再 lint 和 CI，然后测试，文档放最后），并留一张表，把每条规则和负责卡住它的机制配在一起。 |
 | [`/teach`](../skills/teach/SKILL.md) | 你想真正弄懂一处改动或一个子系统，而不只是看个摘要。它跑 how + why，编成一份平实的讲解，一张图接一张图地搭起来。 |
 | [`/tdd`](../skills/tdd/SKILL.md) | 你在修 bug，本地又能低成本地跑测试。先写会失败的测试，再写修复。 |
 | [`/benchmark-checklist`](../skills/benchmark-checklist/SKILL.md) | 你跑了基准测试，或者测出了提速或退步。在你汇报这个数字或据此行动之前，它先替你核查一遍（限制因素、调优、错误、重复运行、对端到端是否重要）。 |
@@ -188,6 +193,7 @@ tdd:               /tdd implement
 unslop:            can we unslop and tighten the new changes?
 reflect:           /reflect that took too long. capture what we learned so the next run doesn't
                    repeat it.
+correct:           /correct
 show-me-your-work: /show-me-your-work keep a decision trail i can review when i'm back.
 automate-me:       /automate-me
 ```
