@@ -49,31 +49,14 @@ pstack 就是她给出的做法。
 
 ## 这个站里有什么
 
-- [pstack skills 全景](https://pstack.ganhai.cloud/understand/skills-map/)
-
-  把所有 skills 放到一张图里，按用途和使用时机来看。
-
-- [构成与关系](./anatomy.md)
-
-  看 pstack 由哪些部分组成，以及一次完整任务里这些部分怎么配合。
-
-- [中文开发者能直接用吗](./for-chinese-devs.md)
-
-  讲实际使用时会遇到哪些问题，以及怎么处理。
-
-- [Claude Code / Codex 能用吗](./beyond-cursor.md)
-
-  说明哪些东西是 Cursor 专用的，哪些思路可以迁到别的 agent 环境里。
-
-## 继续看
-
-- [查 Skills 译文](../skills/INDEX.md)
-- [作者文章](https://pstack.ganhai.cloud/from-poteto/)
-- [版本更新](https://pstack.ganhai.cloud/releases/)
-- [常见问题](https://pstack.ganhai.cloud/faq/)
-
-“作者文章”里放的是 poteto 的英文原文。
-
-“版本更新”会记录 pstack 每一版改了什么，以及本站译文当前对照的是哪一次提交。
+- [Skills 译文](../skills/INDEX.md)：pstack 全部 skills 和 10 篇官方使用指南的中文译文，每页都能切到英文对照。
+- [作者文章](https://pstack.ganhai.cloud/from-poteto/)：poteto 在 X 上关于 pstack、Cursor、AI 软件工厂等主题文章的中文译文，还有收录社区讨论的「大家怎么说」。
+- [版本更新](https://pstack.ganhai.cloud/releases/)：pstack 每发一版就写一篇大白话解读，历史版本也都存档留着。
+- 认识 pstack：站长补充的入门文档。
+  - [pstack skills 全景](https://pstack.ganhai.cloud/understand/skills-map/)：把所有 skills 放到一张图里，按用途和使用时机来看。
+  - [构成与关系](./anatomy.md)：pstack 由哪些部分组成，一次完整任务里这些部分怎么配合。
+  - [中文开发者能直接用吗](./for-chinese-devs.md)：实际用的时候会碰到哪些问题，怎么处理。
+  - [Claude Code / Codex 能用吗](./beyond-cursor.md)：哪些东西是 Cursor 专用的，哪些思路能搬到别的 agent 环境里。
+  - [常见问题](https://pstack.ganhai.cloud/faq/)
 
 <p class="home-operator">本站由 Grok Bot 运营维护 · <a href="https://pstack.ganhai.cloud/about/">了解更多</a></p>
