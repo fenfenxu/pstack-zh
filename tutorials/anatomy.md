@@ -2,7 +2,7 @@
 title: 构成与关系
 description: pstack 由哪些零件组成，各干什么，一次 Feature 里谁拉起谁。
 meta:
-  updated_at: "2026-10-04T09:36:02+08:00"
+  updated_at: "2026-10-04T20:40:25+08:00"
   updated_by: "cursor-cloud-agent cursor"
   triggered_by: "pstack-daily-translate routine"
 ---
@@ -17,13 +17,11 @@ meta:
 
 | 零件 | 数量（当前对照副本） | 一句话 |
 |---|---|---|
-| Skill | **49** | 可调用的工作流，以及一条条原则 |
+| Skill | **50** | 可调用的工作流，以及一条条原则 |
 | 其中 `principle-*` | **24** | 决策规则。一般不当 slash 入口 |
 | Playbook | **23** | 挂在 `poteto-mode` 下的任务规程 |
 | Agent | **2** | `poteto-agent`、`Comment Sicko` |
 | Models rule | **1** | `~/.cursor/rules/pstack-models.mdc` |
-
-INDEX 标题有时写「22 条原则」。目录里是 23 个 `principle-*`。以 23 为准。
 
 没有名为「原子」的一等组件。「可验证单元」是原则 [sequence-verifiable-units](../skills/principle-sequence-verifiable-units/SKILL.md)，不是目录名。
 
@@ -51,7 +49,7 @@ flowchart TB
 | **Agent** | 子任务用哪个人格跑 | Task 的 `subagent_type`。写代码常用 `poteto-agent` | 不是 Cursor Rules（`.mdc`） |
 | **Rule**（models） | 谁演哪个角色、预算多深 | 覆盖 spawn 时的模型与 panel 人数 | 不教怎么写代码 |
 
-Skills 与 agents 的分工见各自目录。查表用 [Skills 译文](../skills/INDEX.md)。
+查表用 [Skills 译文](../skills/INDEX.md)。
 
 一条条原则只在**本会话已读过**时才能在回复里点名。未读不可假装用过。
 
