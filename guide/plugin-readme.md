@@ -6,6 +6,11 @@ meta:
   updated_at: "2026-10-04T09:34:38+08:00"
   updated_by: "cursor-cloud-agent cursor"
   triggered_by: "pstack-daily-translate routine"
+  translation:
+    model: "grok-4.7"
+    effort: "high"
+    translated_at: "2026-10-04T09:48:53+08:00"
+    source_version: "0.15.9 / e43c7ee"
 ---
 
 > [!NOTE]

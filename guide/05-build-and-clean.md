@@ -6,6 +6,11 @@ meta:
   updated_at: "2026-10-04T10:24:51+08:00"
   updated_by: "cursor-cloud-agent cursor"
   triggered_by: "pstack-daily-translate routine"
+  translation:
+    model: "claude-opus-5-5"
+    effort: "未记录"
+    translated_at: "2026-10-03T20:34:59+08:00"
+    source_version: "0.15.6 / 23e4138"
 ---
 
 > [!NOTE]
