@@ -113,16 +113,6 @@ sequenceDiagram
 
 日常四本是做功能（Feature）、修 bug（Bug fix）、重构（Refactoring）、做原型（Prototype）。只读问题走调查（Investigation）。过夜与程序级（figure-it-out、orchestrate、autopilot）另有阶梯，主课稍后练。
 
-## 三种活，各自能做到哪一步
-
-下面三本都是 `/poteto-mode` 里的 playbook。
-
-- 调查（Investigation）：只看代码、回答问题，不改任何代码。回答要注明依据，比如出自哪个文件哪一行。
-- 盯 PR（Babysit）：把 PR 推到随时可以合并的状态，包括修 CI、处理评审意见，但不能自己点合并。
-- 上线（Shipping）：代码要合进去，必须先让一个没参与写这段代码的 agent 审查，它判定通过才行。CI 全绿只说明测试过了，不等于这段代码没问题。
-
-这个网站的仓库里，`skills/` 和 `content/skills-zh/` 都是给学习用的中文译文。真正跑起来的，永远是你已经安装的 Cursor 插件。不要把这些译文注册成第二套插件。
-
 ## 接下来
 
 - [中文开发者能直接用吗](./for-chinese-devs.md)

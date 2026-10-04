@@ -1,6 +1,10 @@
 ---
 title: Claude Code / Codex 能用吗
 description: 官方插件不能原样装。可移植的是规程与原则。Cursor 专属钩子要重写或降级。
+meta:
+  updated_at: "2026-10-04T23:07:18+08:00"
+  updated_by: "cursor-cloud-agent cursor"
+  triggered_by: "sidebar order"
 ---
 
 ## 结论
