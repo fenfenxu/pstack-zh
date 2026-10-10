@@ -17,7 +17,7 @@ meta:
 
 | 零件 | 数量（当前对照副本） | 一句话 |
 |---|---|---|
-| Skill | **50** | 可调用的工作流，以及一条条原则 |
+| Skill | **51** | 可调用的工作流，以及一条条原则 |
 | 其中 `principle-*` | **24** | 决策规则。一般不当 slash 入口 |
 | Playbook | **23** | 挂在 `poteto-mode` 下的任务规程 |
 | Agent | **2** | `poteto-agent`、`Comment Sicko` |
@@ -28,7 +28,7 @@ meta:
 ```mermaid
 flowchart TB
   subgraph plugin["Cursor 插件 pstack"]
-    S["50 skills<br/>含 24 principle-*"]
+    S["51 skills<br/>含 24 principle-*"]
     A["2 agents"]
     PB["23 playbooks<br/>在 poteto-mode 内"]
   end

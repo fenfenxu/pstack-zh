@@ -29,7 +29,7 @@ meta:
 1. **读用中文，跑用插件。** 先在本站 [Skills 译文](../skills/INDEX.md) 与 [构成与关系](./anatomy.md) 建立地图。真正执行只调用已安装插件。
 2. **跑 `/setup-pstack`。** 按本机可用 slug 写 `~/.cursor/rules/pstack-models.mdc`。模型少时，相关角色设成 `inherit-parent` 或 `auto`，跟父聊天同一模型。
 3. **不要**把这个网站的仓库里的 `skills/` 链进 Cursor，当成第二套插件。对照阅读可以。盖住官方插件的安装路径不行。
-4. **顺着本站练。** [认识 pstack](./index.md) 讲两个入口命令，[构成与关系](./anatomy.md) 讲任务怎么走到 playbook。目标是会用这两个命令，以及怎么把任务送到对应的 playbook，不是背 50 个 slash。
+4. **顺着本站练。** [认识 pstack](./index.md) 讲两个入口命令，[构成与关系](./anatomy.md) 讲任务怎么走到 playbook。目标是会用这两个命令，以及怎么把任务送到对应的 playbook，不是背 51 个 slash。
 
 ## 本站不承诺什么
 
