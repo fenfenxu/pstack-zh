@@ -25,7 +25,7 @@ N 个候选会收到同一份提示词，所以提示词就是契约。
 
 1. 写明每个候选要产出什么。
 2. 定出评分标准。先说清*这个*任务做成是什么样，再把它变成 3 到 6 条可以具体打分的标准。评分标准是阶段 D 挑选时用的工具。候选只看得到任务。
-3. 选 runner（各自独立出方案的模型）。用 `~/.cursor/rules/pstack-models.mdc` 里的 `arena runners` 这一行。如果没有这条 rule 或没有这一行，默认 `claude-opus-5-5-max`、`gpt-5.6-sol-max`、`grok-4.7-xhigh-fast` 各一个。这一行或交叉评判那一行里写 `auto` 或 `inherit-parent` 的条目，指的是父模型，这时省略 `model`。如果 Task 工具拒绝某个配置的条目，这个席位改用同一模型族的默认值，并说明这件事。模型族按前缀分：`claude-*`、`gpt-*`、`grok-*`。哪个族都对不上时，用 `claude-opus-5-5-max`。如果连默认值也被拒，从报错信息里挑同一族里最接近的有效 slug。arena 要覆盖好几个设计方向时，多开几个。工作主要受生成量限制、不太考验判断时，同一个模型跑 N 次。
+3. 选 runner（各自独立出方案的模型）。用 `~/.cursor/rules/pstack-models.mdc` 里的 `arena runners` 这一行。如果没有这条 rule 或没有这一行，默认 `claude-opus-5-5-xhigh` 和 `grok-4.7-xhigh-fast` 各一个。这一行或交叉评判那一行里写 `auto` 或 `inherit-parent` 的条目，指的是父模型，这时省略 `model`。如果 Task 工具拒绝某个配置的条目，这个席位改用同一模型族的默认值，并说明这件事。模型族按前缀分：`claude-*` 和 `grok-*`。哪个族都对不上时，用 `claude-opus-5-5-xhigh`。如果连默认值也被拒，从报错信息里挑同一族里最接近的有效 slug。arena 要覆盖好几个设计方向时，多开几个。工作主要受生成量限制、不太考验判断时，同一个模型跑 N 次。
 4. 分配输出路径。按 **separate-before-serializing-shared-state** 原则 skill，每个候选写到自己的位置（能用 git worktree 就用，否则用 `/tmp/arena-<slug>/candidate-<n>/`）。
 
 ## 阶段 B：扇出
@@ -38,7 +38,7 @@ N 个候选会收到同一份提示词，所以提示词就是契约。
 
 ## 阶段 C：交叉评判
 
-阶段 B 的候选全部完成后，从 `~/.cursor/rules/pstack-models.mdc` 的 `arena cross-judge pool` 这一行里选一个模型。如果没有这条 rule 或没有这一行，就从 `claude-opus-5-5-max`、`gpt-5.6-sol-max`、`grok-4.7-xhigh-fast` 里选。尽量选和父模型不同族的。在这个模型上开一个只读的评判子代理。它看得到评分标准，看到的候选只有路径标签，逐条打分，并推荐一个基底、给出理由。它和阶段 D 里父代理的阅读同时进行，不和候选同时跑。候选还在写的时候，不要开评判。
+阶段 B 的候选全部完成后，从 `~/.cursor/rules/pstack-models.mdc` 的 `arena cross-judge pool` 这一行里选一个模型。如果没有这条 rule 或没有这一行，就从 `claude-opus-5-5-xhigh` 和 `grok-4.7-xhigh-fast` 里选。尽量选和父模型不同族的。在这个模型上开一个只读的评判子代理。它看得到评分标准，看到的候选只有路径标签，逐条打分，并推荐一个基底、给出理由。它和阶段 D 里父代理的阅读同时进行，不和候选同时跑。候选还在写的时候，不要开评判。
 
 ## 阶段 D：选基底
 

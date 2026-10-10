@@ -2,6 +2,47 @@
 
 这里只记已经放进本仓库的中文内容。
 
+## 2026-10-10
+
+- **新译文。** 官方指南「安装 pstack」新增了「Keep the cost in check」。
+  - [官方指南「安装 pstack」](./guide/01-setup.md)
+- **新译文。** 官方指南「交给 /poteto-mode」新增了「What goes in a prompt」、「Follow up short」、「Give parallel work its own machine」，删去了「Give parallel work its own worktree」。
+  - [官方指南「交给 /poteto-mode」](./guide/02-poteto-mode.md)
+- **新译文。** 官方指南「先理解代码」新增了「Start with a read-only investigation」。
+  - [官方指南「先理解代码」](./guide/03-understand.md)
+- **新译文。** 官方指南「写代码前先设计」新增了「Prototype instead of debating」、「Write the README first for shared code」、「Plan after the design settles」。
+  - [官方指南「写代码前先设计」](./guide/04-design.md)
+- **新译文。** 官方指南「构建并清理 diff」新增了「Load the TypeScript rules by name」，删去了「Let the TypeScript rules load themselves」。
+  - [官方指南「构建并清理 diff」](./guide/05-build-and-clean.md)
+- **新译文。** 官方指南「验证结果并开 PR」新增了「Vet a measured number with `/benchmark-checklist`」。
+  - [官方指南「验证结果并开 PR」](./guide/06-verify-and-ship.md)
+- **新译文。** 官方指南「睡觉时让工作继续跑」新增了「Earn the trust before the loop」、「Run many projects in parallel」、「Let loops start themselves」。
+  - [官方指南「睡觉时让工作继续跑」](./guide/07-overnight.md)
+- **新译文。** 官方指南「用原则名来转向」的原文有改动。
+  - [官方指南「用原则名来转向」](./guide/08-principles.md)
+- **新译文。** 官方指南「把它变成你的」新增了「Fix the environment with `/correct`」、「Build a bot UI with `/make-bot-ui`」。
+  - [官方指南「把它变成你的」](./guide/09-make-it-yours.md)
+- **新译文。** 官方指南「配方与坑」新增了「Restate a noisy report before touching code」、「Prototype before you pick」、「Turn a settled design into a plan」等 7 处。
+  - [官方指南「配方与坑」](./guide/10-recipes-and-pitfalls.md)
+- **新译文。** 官方指南「pstack 指南」的原文有改动。
+  - [官方指南「pstack 指南」](./guide/index.md)
+- **skill 更新。** architect 的原文有改动。
+  - [architect](./skills/architect/SKILL.md)
+- **skill 更新。** arena 的原文有改动。
+  - [arena](./skills/arena/SKILL.md)
+- **skill 更新。** blast-radius 的原文有改动。
+  - [blast-radius](./skills/blast-radius/SKILL.md)
+- **skill 更新。** how 的原文有改动。
+  - [how](./skills/how/SKILL.md)
+- **skill 更新。** interrogate 的原文有改动。
+  - [interrogate](./skills/interrogate/SKILL.md)
+- **skill 更新。** poteto-mode 的原文有改动。
+  - [poteto-mode](./skills/poteto-mode/SKILL.md)
+- **skill 更新。** reflect 的原文有改动。
+  - [reflect](./skills/reflect/SKILL.md)
+- **skill 更新。** why 的原文有改动。
+  - [why](./skills/why/SKILL.md)
+
 ## 2026-10-04
 
 - **新译文。** 插件说明的原文有改动。

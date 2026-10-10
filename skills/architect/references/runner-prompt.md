@@ -2,7 +2,7 @@
 
 阶段 B 里，编排者把这个文件原样交给每个并行出方案的 runner，并在它前后填上可变的输入：任务、阶段 A 摸清问题时产出的材料、隔离的工作目录，以及输出要写到的路径。工作目录能用 git worktree 就用 worktree，否则用草图目录下每个 runner 各自的子目录。要紧的是候选之间互相独立。
 
-你在 architect 的并行探索里产出一份候选设计。先把 **architect** skill 完整读一遍，那就是你所在的工作流程。产出一份候选设计包：类型草图、函数签名、模块图，以及按 [`rationale-template.md`](rationale-template.md) 结构写的 rationale 说明。
+你在 architect 的并行探索里产出一份候选设计。先把 **architect** skill 完整读一遍，那就是你所在的工作流程。产出一份候选设计包：类型草图、函数签名、模块图，以及按 [`rationale-template.md`](./rationale-template.md) 结构写的 rationale 说明。
 
 遵守下面这些要求。编排者会按这几个方面比较候选，从中选出基底。
 
@@ -17,4 +17,4 @@
 - 适用的地方，按 **make-operations-idempotent** 原则 skill，让状态转换幂等。问一句：操作跑两遍，或者跑到一半崩了，会怎样。
 - 调用链要短。如果追一遍流程要翻三个以上的文件，按 **laziness-protocol** 和 **minimize-reader-load** 原则 skill，把层级压平。
 
-你是几个 runner 之一，每个 runner 用的模型不同。拿出你的模型能做出的最好设计。不要为了照顾其他候选而留余地。候选之间的差异，正是用来挑基底、做嫁接的信号。都往看起来稳妥的中间靠，探索就白做了。
+你是并行 runner 之一，每个 runner 用的模型不同。拿出你的模型能做出的最好设计。不要为了照顾其他候选而留余地。候选之间的差异，正是用来挑基底、做嫁接的信号。都往看起来稳妥的中间靠，探索就白做了。

@@ -1,16 +1,16 @@
 ---
 title: "构建并清理 diff"
 description: "你说清看到了什么，证据由构建类 playbook 去要。本页讲常见构建任务的提示词怎么写，以及让 diff 好审的清理习惯。"
-sourceUrl: "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/05-build-and-clean.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/05-build-and-clean.md"
 meta:
-  updated_at: "2026-10-04T10:24:51+08:00"
-  updated_by: "cursor-cloud-agent cursor"
-  triggered_by: "pstack-daily-translate routine"
+  updated_at: "2026-10-10T13:49:04+08:00"
+  updated_by: "cursor-cloud-agent grok-4.6"
+  triggered_by: "liu xu"
   translation:
-    model: "claude-opus-5-5"
-    effort: "未记录"
-    translated_at: "2026-10-03T20:34:59+08:00"
-    source_version: "0.15.6 / 23e4138"
+    model: "grok-4.6"
+    effort: "high"
+    translated_at: "2026-10-10T13:49:04+08:00"
+    source_version: "0.15.15 / d73344b"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/05-build-and-clean/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/05-build-and-clean.md`](https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/05-build-and-clean.md)（提交 `e43c7ee`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/05-build-and-clean.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/05-build-and-clean.md)（提交 `d73344b`）
 
 # 构建这次改动，并清理 diff
 
@@ -56,6 +56,14 @@ meta:
 
 要让某一个数字持续变好，就用 [Hillclimb playbook](../skills/poteto-mode/playbooks/hillclimb.md)。告诉它指标、目标，以及最少要试多少次。它一轮只试一个假设，测量用的 harness（包在被测代码外面，负责运行和测量的程序）全程不动。有用的改动留下，其余全部撤回。
 
+两个性能 playbook 都会对自己的数字跑 [`/benchmark-checklist`](../skills/benchmark-checklist/SKILL.md)。Perf issue 核对自己的基线和之后每一个数字，Hillclimb 在冻结 harness 之前先核对它。[验证并交付](./06-verify-and-ship.md#vet-a-measured-number-with-benchmark-checklist) 讲了什么时候该自己键入。
+
+有时你只要原因，先不要修复。活着的症状，比如泄漏、空闲时 CPU 空转，或画面异常，交给 [Runtime forensics playbook](../skills/poteto-mode/playbooks/runtime-forensics.md) 给正在跑的进程加探针。已经抓到的剖析文件，交给 [Trace forensics playbook](../skills/poteto-mode/playbooks/trace-forensics.md) 读这份产物，把热点帧对到源码。两份交回的都是诊断，不是修复：
+
+```text
+/poteto-mode here's a cpuprofile from the slow startup. tell me where the time goes and which source lines own it. no fix yet.
+```
+
 ## 用 `/tdd` 先写失败的测试
 
 如果一个 bug 在本地很容易测，整条提示词可以只有两个词：
@@ -66,9 +74,9 @@ meta:
 
 有对话里的上下文，这就够了。[`/tdd`](../skills/tdd/SKILL.md) 先写一个最小的测试，让它因为预期的原因失败，接着写修复，再重跑这个测试。如果写测试要先搭一大套 harness，或者得靠脆弱的 mock，这个 skill 会直接说明，改用最接近的可执行检查。真实命令能给出更强的证据时，别硬写测试。
 
-## 写 TypeScript 时自动带上规则
+## 按名字加载 TypeScript 规则
 
-[`typescript-best-practices`](../skills/typescript-best-practices/SKILL.md) 用不着你敲斜杠命令。agent 一碰 `.ts` 或 `.tsx` 文件，它就自动加载，把类型系统的原则落成具体规则：可辨识联合、边界处用 `unknown`、穷尽所有变体、从 schema 推导类型。
+[`typescript-best-practices`](../skills/typescript-best-practices/SKILL.md) 把类型系统的原则落成具体规则：可辨识联合、边界处用 `unknown`、穷尽所有变体、从 schema 推导类型。它不会自己加载。任务碰到 `.ts` 或 `.tsx` 文件时，键入 `/typescript-best-practices`。
 
 ## 提交前先清理
 

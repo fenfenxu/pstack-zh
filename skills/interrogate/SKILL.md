@@ -33,20 +33,19 @@ disable-model-invocation: true
 
 ## 第 3 步：开出评审者
 
-用 Task 工具在一条消息里启动全部评审者。用 `~/.cursor/rules/pstack-models.mdc` 里的 `interrogate reviewers` 这一行，每个条目一个评审者，把下面 Reviewer A/B/C 的标签按配置的条目数增减。如果没有这条 rule 或没有这一行，用表里的默认值。
+用 Task 工具在一条消息里启动全部评审者。用 `~/.cursor/rules/pstack-models.mdc` 里的 `interrogate reviewers` 这一行，每个条目一个评审者，把下面 Reviewer A/B 的标签按配置的条目数增减。如果没有这条 rule 或没有这一行，用表里的默认值。
 
 | 子代理 | 默认模型 |
 |----------|---------------|
-| Reviewer A | `claude-opus-5-5-max` |
-| Reviewer B | `gpt-5.6-sol-max` |
-| Reviewer C | `grok-4.7-xhigh-fast` |
+| Reviewer A | `claude-opus-5-5-xhigh` |
+| Reviewer B | `grok-4.7-xhigh-fast` |
 
 每个评审者：
 - `subagent_type`：`generalPurpose`
 - `model`：配置的 `interrogate reviewers` 条目；没有配置这一行时用表里的默认值。条目是 `auto` 或 `inherit-parent` 时，省略 `model`，让这个评审者跑在父模型上。
 - `readonly`：`true`
 
-如果 Task 工具拒绝某个配置的条目，这个评审者改用同一模型族在表里的默认值，并说明这件事。模型族按前缀分：`claude-*`、`gpt-*`、`grok-*`。哪个族都对不上时，用 Reviewer A 的默认值。如果连表里的默认值也被拒，就看 Task 工具报错信息里列出的有效 slug，挑最接近的等价模型（优先同一族里推理档位最高的），用它开评审者，另开一个 PR 更新默认值表。不要因为 slug 的问题卡住评审。别名条目绝不当作被拒的 slug，两种回退都不用在它身上。
+如果 Task 工具拒绝某个配置的条目，这个评审者改用同一模型族在表里的默认值，并说明这件事。模型族按前缀分：`claude-*` 和 `grok-*`。哪个族都对不上时，用 Reviewer A 的默认值。如果连表里的默认值也被拒，就看 Task 工具报错信息里列出的有效 slug，挑最接近的等价模型（优先同一族、同一推理档位），用它开评审者，另开一个 PR 更新默认值表。不要因为 slug 的问题卡住评审。别名条目绝不当作被拒的 slug，两种回退都不用在它身上。
 
 读 `references/reviewer-prompt.md`，把模板填上：
 1. 写明的意图

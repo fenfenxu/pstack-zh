@@ -1,16 +1,16 @@
 ---
 title: "用原则名来转向"
 description: "pstack 自带 24 条原则，每条都是单独的 skill。任务中途报出原则名，就能给 agent 改方向，一句话比一大段指示更准。"
-sourceUrl: "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/08-principles.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/08-principles.md"
 meta:
-  updated_at: "2026-10-04T10:24:51+08:00"
-  updated_by: "cursor-cloud-agent cursor"
-  triggered_by: "pstack-daily-translate routine"
+  updated_at: "2026-10-10T13:49:04+08:00"
+  updated_by: "cursor-cloud-agent grok-4.6"
+  triggered_by: "liu xu"
   translation:
-    model: "claude-opus-5-5"
-    effort: "未记录"
-    translated_at: "2026-10-03T20:34:59+08:00"
-    source_version: "0.15.6 / 23e4138"
+    model: "grok-4.6"
+    effort: "high"
+    translated_at: "2026-10-10T13:49:04+08:00"
+    source_version: "0.15.15 / d73344b"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/08-principles/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/08-principles.md)（提交 `e43c7ee`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/08-principles.md)（提交 `d73344b`）
 
 # 用原则名来转向
 
@@ -63,7 +63,7 @@ separate before serializing shared state. give each attempt its own worktree, no
 - [Outcome-Oriented Execution](../skills/principle-outcome-oriented-execution/SKILL.md) 重写时直奔目标设计，不去保留用完就扔的兼容状态。
 - [Experience First](../skills/principle-experience-first/SKILL.md) 用户得到的结果优先，实现上的方便靠后。
 - [Exhaust the Design Space](../skills/principle-exhaust-the-design-space/SKILL.md) 没有先例可循时，做两三个互相竞争的原型。
-- [Build the Lever](../skills/principle-build-the-lever/SKILL.md) 写出能完成或证明这项工作的脚本，让审查者能重跑。
+- [Build the Lever](../skills/principle-build-the-lever/SKILL.md) 写出能完成或证明这项工作的脚本，让审查者能重跑。agent 老是拿手做同一件事时，让它写出自己希望手里有的那个工具或 skill。某一步每次都能用脚本做成一样，就用脚本，把 agent 留给要判断的地方。
 
 架构原则决定状态、校验和兼容逻辑放在哪里：
 
@@ -80,7 +80,7 @@ separate before serializing shared state. give each attempt its own worktree, no
 - [Fix Root Causes](../skills/principle-fix-root-causes/SKILL.md) 改代码之前，先复现问题，追到根因。
 - [Sequence Work into Verifiable Units](../skills/principle-sequence-verifiable-units/SKILL.md) 每个小单元都以一次检查收尾，然后才开始下一个。
 - [Test Behavior, Not Implementation](../skills/principle-test-behavior-not-implementation/SKILL.md) 像使用者那样调用代码，断言一个写死的期望值。如果所有导入的函数都返回 `undefined`，测试照样能过，就删掉这个测试。
-- [Explain the Number](../skills/principle-explain-the-number/SKILL.md) 测出一个数字后，先说清是什么在限制它，再排除它其实测到了别的东西，然后才轮到有人相信或汇报它。
+- [Explain the Number](../skills/principle-explain-the-number/SKILL.md) 测出一个数字后，先说清是什么在限制它，再排除它其实测到了别的东西，然后才轮到有人相信或汇报它。[`/benchmark-checklist`](../skills/benchmark-checklist/SKILL.md) 把它落成七个问题，答案都要从真实跑出来的结果里来。
 
 委派原则让并行工作不至于乱套：
 
@@ -89,7 +89,7 @@ separate before serializing shared state. give each attempt its own worktree, no
 
 还有一条元原则：
 
-- [Encode Lessons in Structure](../skills/principle-encode-lessons-in-structure/SKILL.md) 同一条建议你说过两遍，就把它变成 lint、检查或脚本。
+- [Encode Lessons in Structure](../skills/principle-encode-lessons-in-structure/SKILL.md) 同一条建议你说过两遍，就把它变成 lint、检查或脚本。[`/correct`](../skills/correct/SKILL.md) 把这条用到整个仓库，见[把它变成你的](./09-make-it-yours.md#fix-the-environment-with-correct)。
 
 这份列表不用背。现在扫一眼就行。等哪天你发现 agent 在做的事，本来报一个这里的名字就能拦住，再回来看。这些名字就是这么记牢的。
 

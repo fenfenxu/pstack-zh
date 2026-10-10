@@ -1,16 +1,16 @@
 ---
 title: "验证结果并开 PR"
-description: "能编译不等于有证据。本页讲怎么写明完结条件、为应用生成验证 skill、开 PR，再把 PR 一路推到合并。"
-sourceUrl: "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/06-verify-and-ship.md"
+description: "能编译不等于有证据。本页讲怎么写明完结条件、核对测出来的数字、为应用生成验证 skill、开 PR，再把 PR 一路推到合并。"
+sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/06-verify-and-ship.md"
 meta:
-  updated_at: "2026-10-04T10:24:51+08:00"
-  updated_by: "cursor-cloud-agent cursor"
-  triggered_by: "pstack-daily-translate routine"
+  updated_at: "2026-10-10T13:49:04+08:00"
+  updated_by: "cursor-cloud-agent grok-4.6"
+  triggered_by: "liu xu"
   translation:
-    model: "claude-opus-5-5"
-    effort: "未记录"
-    translated_at: "2026-10-03T20:34:59+08:00"
-    source_version: "0.15.6 / 23e4138"
+    model: "grok-4.6"
+    effort: "high"
+    translated_at: "2026-10-10T13:49:04+08:00"
+    source_version: "0.15.15 / d73344b"
 ---
 
 > [!NOTE]
@@ -20,11 +20,13 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/06-verify-and-ship/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/06-verify-and-ship.md`](https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/06-verify-and-ship.md)（提交 `e43c7ee`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/06-verify-and-ship.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/06-verify-and-ship.md)（提交 `d73344b`）
 
 # 验证结果并开 PR
 
-「能编译」不是证据。[Prove It Works 原则](../skills/principle-prove-it-works/SKILL.md) 要求 agent 先检查真实产物，再报告成功。你的任务，是让这个「真实产物」有办法检查。本页讲四件事：写明完结条件，为你的应用生成验证 skill，开 PR，再把 PR 一路推到合并。
+「能编译」不是证据。[Prove It Works 原则](../skills/principle-prove-it-works/SKILL.md) 要求 agent 先检查真实产物，再报告成功。你的任务，是让这个「真实产物」有办法检查。本页讲五件事：写明完结条件，核对测出来的数字，为你的应用生成验证 skill，开 PR，再把 PR 一路推到合并。
+
+验证通常是 agent 工作里最慢的一步，因为这一步常常在等人。让 agent 自己做，你就不再是瓶颈。跳过它，多开几个 agent，只是多出几份没核对过的活要审。
 
 ![一架原型机在真实的试飞航线上飞行。她拿着秒表计时，几个机器人在拍摄，并对照清单逐项核对这次试飞。终端上显示 verify: pass, evidence: captured。](https://pstack.ganhai.cloud/guide/verification.jpg)
 
@@ -41,12 +43,35 @@ meta:
 检查要跟改动对得上：
 
 - CLI 改动，就跑真实的命令。
-- UI 改动，就在运行中的应用里把改过的流程走一遍。
+- UI 改动，就在运行中的应用里把改过的流程走一遍。必须跟参考图一个像素都不差时，[Visual parity playbook](../skills/poteto-mode/playbooks/visual-parity.md) 拿截图跟冻结的基线比，不靠肉眼判断。
 - 解析器或迁移，就拿一份存好的输入重放一遍。
 - 性能改动，就对比改动前后的性能剖析。
 - 存储改动，就把写进去的值读回来。
 
+证据要一份你自己能打开看的产物：先失败再通过的测试、改动前后的视频、trace、截图。修复已经合并了，就在主干上再跑一遍同样的检查。产物比一套说得通的解释强，因为你可以质疑它，而不必把整次运行重来一遍。
+
 如果有一份小 diff 你不完全放心，[`/blast-radius`](../skills/blast-radius/SKILL.md) 会找出它可能在别处弄坏什么。它挑出让这次改动安全的那一个事实，然后跑代码证明它，而不是写一篇长文来论证。
+
+<a id="vet-a-measured-number-with-benchmark-checklist"></a>
+## 用 `/benchmark-checklist` 核对数
+
+改动前后的数字，最容易一不小心就量错。一边是热缓存，一边是 debug 构建，或者计时区间里根本没跑到那份活，都能造出一份看起来很像的加速。在你汇报或依据一个数字行动之前，键入：
+
+```text
+/benchmark-checklist vet the export speedup before it goes in the pr
+```
+
+[`/benchmark-checklist`](../skills/benchmark-checklist/SKILL.md) 问七个问题，每个都要一次真实跑出来的证据：
+
+1. 是什么在限制这个数字，它为什么不是两倍？
+2. 每一边都按生产环境那样调过了吗？
+3. 结果有没有打破物理上限，比如磁盘带宽或核心数？
+4. 有没有报错，或返回了错的输出？
+5. 交替跑几轮还能复现吗？中位数和范围是多少？
+6. 放到用户真正等的那条路径上，端到端还重要吗？
+7. 被测的活真的发生在计时区间里了吗？
+
+结论是更快、更慢、测不出差别，或 inconclusive，并带上跑了几轮、范围，以及限制因素。说不清限制因素，或某一边没按生产那样调，就报 inconclusive。`/poteto-mode` 已经在 Perf issue 和 Hillclimb playbook 里跑这份清单。你自己键入，是在它们外面量了什么，或者别人的数字看起来太好看。它就是 [Explain the Number 原则](../skills/principle-explain-the-number/SKILL.md) 的干活形态。
 
 <a id="create-a-project-verification-skill"></a>
 
@@ -62,13 +87,32 @@ meta:
 
 它会写出 `.cursor/skills/verify-<app>/`。里面是写给 agent 看的说明，分成 Launch、Doctor、Drive、Evidence、Cleanup 几节，每节都写得很具体。`features/` 下面还有一份 feature map，列出应用的各项功能，以及每项功能用什么结果来证明可用。这个 skill 自带一份[完整的 feature map 示例](../skills/create-verification-skill/references/feature-map-example/README.md)，包括一个 README 索引，每个功能一个文件，每个文件都用规定的四个二级标题。交给你之前，生成器会把这个 skill 从头到尾跑通一次：启动，doctor 检查，操作一个功能，采集证据，清理。这一遍没跑通，就别用它生成的东西。
 
-从此以后，在这个仓库里，「在应用里验证一下」就成了任何 agent 都能执行的一步，不用先聊一轮怎么配置。
+从此以后，在这个仓库里，「在应用里验证一下」就成了任何 agent 都能执行的一步，不用先聊一轮怎么配置。想要某种具体形态的证据时，在提示词里点名：
 
-验证 skill 能用以后，可以让 [`/swarm`](../skills/swarm/SKILL.md) 按 feature map 的条目把一整轮验证拆开，再汇总结果。
+```text
+/poteto-mode build the bulk-archive action. use /verify-<app> to verify your changes and show me a video and screenshots as proof.
+```
+
+```text
+/poteto-mode repro this with /verify-<app>. if it repros on main, fix it and show me a video as proof.
+```
+
+验证 skill 能用以后，可以让 [`/swarm`](../skills/swarm/SKILL.md) 按 feature map 的条目把一整轮验证拆开，再汇总结果。一群验证者还能在够大的样本上确认一次性能提升，或在 PR 交付前对应用做 fuzz，找回归。
+
+把验证 skill 当成基础设施，不是一次性的东西。把它提交进去，团队里每个人、每个 agent 都用同一套办法操作应用。然后[做出杠杆](../skills/principle-build-the-lever/SKILL.md)。agent 老是写用完就扔的脚本去点应用时，要一个小的 control CLI，让 skill 去调它。agent 少花 token，每一次跑都变得可重复。agent 用得顺的 CLI 有这些特点：
+
+- 少数几条能组合的命令，每一条都干真活，不要很多薄命令。
+- 会破坏东西的操作都带 `--dry-run`。
+- 子命令逐步露出功能，不要一次摊开。
+- 报错说明接下来该做什么。
+- `--help` 写得充分。
+- 机器能读的输出，比如 JSON。
+
+既然在做这件事，也把开发环境做成可重复的：种好的数据、测试用户，以及一条每次都能把环境拉起来的命令。
 
 ## 让验证 skill 跟上应用
 
-应用会变，feature map 会过时。你的这份跟不上了，就运行：
+应用会变，feature map 会过时。至少每天跑一次。最好交给定时自动化，这样就没人需要记着：
 
 ```text
 /maintain-verification-skill

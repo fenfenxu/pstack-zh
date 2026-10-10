@@ -1,16 +1,16 @@
 ---
 title: "配方与坑"
 description: "值得照抄的提示词，加上每个人都会犯一次的错。用的时候，把路径和完结条件换成你自己的。"
-sourceUrl: "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/10-recipes-and-pitfalls.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/10-recipes-and-pitfalls.md"
 meta:
-  updated_at: "2026-10-04T10:24:51+08:00"
-  updated_by: "cursor-cloud-agent cursor"
-  triggered_by: "pstack-daily-translate routine"
+  updated_at: "2026-10-10T13:49:04+08:00"
+  updated_by: "cursor-cloud-agent grok-4.6"
+  triggered_by: "liu xu"
   translation:
-    model: "claude-opus-5-5"
-    effort: "未记录"
-    translated_at: "2026-10-03T20:34:59+08:00"
-    source_version: "0.15.6 / 23e4138"
+    model: "grok-4.6"
+    effort: "high"
+    translated_at: "2026-10-10T13:49:04+08:00"
+    source_version: "0.15.15 / d73344b"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/10-recipes-and-pitfalls/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/10-recipes-and-pitfalls.md`](https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/docs/guide/10-recipes-and-pitfalls.md)（提交 `e43c7ee`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/10-recipes-and-pitfalls.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/10-recipes-and-pitfalls.md)（提交 `d73344b`）
 
 # 配方与坑
 
@@ -35,6 +35,30 @@ use /how first to understand how this initialization works. then use /why to fig
 ```
 
 先看机制，再看历史。每个 skill 的报告都会写明它查了哪些来源，你就知道答案依据的是什么。
+
+## 先重述吵闹的报告，再碰代码
+
+```text
+/poteto-mode read this thread. restate the underlying issue in your own words, in plain english. don't change any code yet.
+```
+
+读错了，会先出现在重述里，纠正只要一条消息。你自己的猜测先留着，等 agent 说出它自己的理解。
+
+## 先做原型再挑选
+
+```text
+/poteto-mode prototype a few options for the settings layout. put them behind a switcher and send me screenshots of each.
+```
+
+你从跑起来的东西里挑，不从描述里挑。布局和耗时这类问题，agent 会沿路自己回答。
+
+## 把已经定下的设计写成计划
+
+```text
+/poteto-mode turn this design into a plan. small verifiable PRs, each with its own proof.
+```
+
+等设计定了再要。计划就是交付物，它会点名接下来执行用的 playbook。
 
 ## 给设计再要一个意见
 
@@ -67,6 +91,38 @@ ask /arena for a second opinion on this thread and our approach
 ```
 
 「if there's a cheap test path」这句很要紧。靠脆弱的 mock 硬凑出来的测试，证明的东西还不如直接跑一遍真实命令。playbook 也有权直说这一点。
+
+## 复现并带着证据修好一份报告
+
+```text
+/poteto-mode repro this with /verify-<app>. if it repros on main, fix it and show me a video as proof.
+```
+
+「if it repros on main」让 bug 已经不在时，这次运行可以早停。视频让你在读 diff 之前，先核对这次修复。
+
+## 发出去之前先核对数
+
+```text
+/benchmark-checklist vet this 40% speedup before it goes in the pr description
+```
+
+你会得到更快、更慢、测不出差别，或 inconclusive，并带上跑了几轮、范围，以及是什么在限制这个数字。
+
+## 别再手改同一个错
+
+```text
+/correct agents keep adding new config flags without registering them in the schema
+```
+
+修复会落在仓库里，变成架构、类型、lint 或测试，下一个 agent 就犯不了这个错。
+
+## 先问怎么做，先不动手
+
+```text
+/poteto-help how do i get poteto-mode to stay on every turn?
+```
+
+你会得到一份回答、一条可以发出去的提示词，以及一条指到来源的链接。那条提示词发出去之前，什么都不会跑。
 
 ## 你离开时让运行保持诚实
 
@@ -106,7 +162,13 @@ apply prove it works. show me the real output, not the build log.
 
 - **在提示词里把 skill 一个个列出来。** 「use /how then /architect then /arena」会打乱 playbook 已经排好的步骤。说清目标和约束就行。只有想改掉某个默认选择时，才点名 skill。
 - **完结条件含糊。** 「make it better」没给 `/loop` 留下任何可检查的东西。给一个能判定通过或失败的命令或产物。
-- **几个并行的 agent 挤在同一个 worktree（Git 的独立工作目录）里。** 它们会互相覆盖，diff 会变成考古现场。说一句「own worktree per attempt」，就能免费得到隔离。
+- **一上来就抛出你对原因的猜测。** agent 会往你指到的地方搜。先让它重述问题，再分享你的直觉。
+- **接住第一版设计。** 只试一次，模型最先想到的形状就定死了。要几份原型或 `/architect`，再从证据里挑。
+- **打磨一份抽象计划。** 对着还没有代码的计划做对抗审查，会编出永远不会发生的风险。先用原型把还没定的问题定下来，再审已经做出来的东西。
+- **几个并行的 agent 挤在同一个 worktree（Git 的独立工作目录）里。** 它们会互相覆盖，diff 会变成考古现场。把它们当成 cloud agent 来跑，或者说一句「own worktree per attempt」。
+- **还信不过循环就开循环。** 不能自己验证工作的循环，只会更快地造出没核对过的活。先把验证 skill 跑起来。
+- **相信一个没核对过的数字。** 热缓存或一条没跑到的代码路径，都能假造加速。数字发出去之前，先跑 `/benchmark-checklist`。
+- **同一个错靠手改。** 聊天里纠正一次，只帮这一轮。`/correct` 改仓库，后面的运行就不会再犯。
 - **拿 `/arena` 做覆盖检查。** `/arena` 把同一份设计或代码简报重复跑几遍，再选一份作基座，把最好的部分嫁接上去。`/swarm` 把工作拆成切片，或按事先声明的几路竞速分开跑，最后汇总成一份报告。
 - **审查意见照单全收。** 不管是机器人还是人，交上来的清单里都是真问题和噪声混在一起。`/interrogate` 会把 finding 分成「要处理」和「驳回」两堆，每条都附上理由。哪一条你都可以改判到另一堆。
 - **把 `auto` 当成模型 slug。** `auto` 和 `inherit-parent` 的意思是「不填 model 字段，让子代理沿用父对话的模型」。[安装那一页](./01-setup.md) 讲了这些角色。

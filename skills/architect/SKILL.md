@@ -31,11 +31,11 @@ disable-model-invocation: true
 
 运行 **arena** skill，任务是画设计草图，并带上阶段 A 摸清问题时产出的材料。把 `references/runner-prompt.md` 作为每个 runner（各自独立出方案的模型）的提示词。每个候选按 `references/rationale-template.md` 的结构产出一份设计包。
 
-runner 取 `pstack-models.mdc` rule 里的 `architect runners` 这一行，不用 `arena runners` 那一行。如果没有这条 rule 或没有这一行，就用 `claude-opus-5-5-max`、`gpt-5.6-sol-max`、`grok-4.7-xhigh-fast`。别名和被拒的条目，按 **arena** skill 阶段 A 里的 runner 规则处理。
+runner 取 `pstack-models.mdc` rule 里的 `architect runners` 这一行，不用 `arena runners` 那一行。如果没有这条 rule 或没有这一行，就用 `claude-opus-5-5-xhigh` 和 `grok-4.7-xhigh-fast`。别名和被拒的条目，按 **arena** skill 阶段 A 里的 runner 规则处理。
 
 设计两遍。综合之前至少要有两个结构上不同的候选，第一个看起来够用也一样。这就是 **exhaust-the-design-space** 原则 skill 落到实处。要的是整体形态不同的方案，不是在同一个形态里修修补补。
 
-综合之前，拿 [`references/design-red-flags.md`](references/design-red-flags.md) 把每个候选筛一遍。假定下一个贡献者是代理，它只看见自己打开的文件，抄最近的例子，走能编译通过的最短路径。优先选这样的设计：从单个文件看起来对的改动，对整个仓库也是对的。
+综合之前，拿 [`references/design-red-flags.md`](./references/design-red-flags.md) 把每个候选筛一遍。假定下一个贡献者是代理，它只看见自己打开的文件，抄最近的例子，走能编译通过的最短路径。优先选这样的设计：从单个文件看起来对的改动，对整个仓库也是对的。
 
 在可行的候选之间比较接口深度。哪个设计用更小、更简单的公开接口藏住更多复杂度，就选哪个。接口能力丰富，可以把能力集中在一处，而不是分散到好几层，调用链反而更短。
 

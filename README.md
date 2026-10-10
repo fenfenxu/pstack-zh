@@ -8,7 +8,7 @@ Unofficial Chinese translation of poteto's pstack. Not affiliated with Cursor or
 
 这些译文不能代替官方插件。在 Cursor 里执行时，安装官方 pstack。本仓库与 Cursor、Lauren Tan 没有隶属关系。
 
-英文原文在 [cursor/plugins 的 `pstack` 目录](https://github.com/cursor/plugins/tree/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack)，版本 0.15.9，提交 `e43c7ee`。
+英文原文在 [cursor/plugins 的 `pstack` 目录](https://github.com/cursor/plugins/tree/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack)，版本 0.15.15，提交 `d73344b`。
 
 ## 目录
 

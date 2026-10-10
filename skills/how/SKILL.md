@@ -34,7 +34,7 @@ disable-model-invocation: true
 启动一个 Task 子代理，一次完成探索和讲解：
 
 - `subagent_type`：`generalPurpose`
-- `model`：`how explainer` 那一行，默认 `claude-opus-5-5-max`
+- `model`：`how explainer` 那一行，默认 `claude-opus-5-5-xhigh`
 - `readonly`：`true`
 
 用 `references/explainer-prompt.md` 拼出它的提示词，去掉探索者的 finding（探索中查到的事实和结论）那一节。转到第 4 步。
@@ -44,7 +44,7 @@ disable-model-invocation: true
 所有探索者都返回后，启动一个 Task 子代理，把它们的 finding 综合成一份讲解：
 
 - `subagent_type`：`generalPurpose`
-- `model`：`how explainer` 那一行，默认 `claude-opus-5-5-max`
+- `model`：`how explainer` 那一行，默认 `claude-opus-5-5-xhigh`
 - `readonly`：`true`
 
 用 `references/explainer-prompt.md` 拼出它的提示词，填入每个探索者的 finding。

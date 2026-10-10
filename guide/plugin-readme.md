@@ -1,16 +1,16 @@
 ---
 title: "pstack 插件说明"
 description: "pstack 是 poteto 每天在 Cursor 交付高质量代码时用的那套 skill。它把 Cursor 变成一支真正的工程团队，帮你少写代码、写好代码。"
-sourceUrl: "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/README.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/README.md"
 meta:
-  updated_at: "2026-10-04T09:34:38+08:00"
-  updated_by: "cursor-cloud-agent cursor"
-  triggered_by: "pstack-daily-translate routine"
+  updated_at: "2026-10-10T13:35:00+08:00"
+  updated_by: "cursor-cloud-agent grok-4.6"
+  triggered_by: "liu xu"
   translation:
-    model: "grok-4.7"
+    model: "grok-4.6"
     effort: "high"
-    translated_at: "2026-10-04T09:48:53+08:00"
-    source_version: "0.15.9 / e43c7ee"
+    translated_at: "2026-10-10T13:35:00+08:00"
+    source_version: "0.15.15 / d73344b"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/plugin-readme/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/README.md)（提交 `e43c7ee`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/README.md)（提交 `d73344b`）
 
 # pstack
 
@@ -49,9 +49,9 @@ fork 它。改进它。把它变成你自己的。欢迎提 PR！
 1. 运行 [`/setup-pstack`](../skills/setup-pstack/SKILL.md)，选一个推理预算，再挑好你要用的模型。
 2. 只要手上的事需要严谨，就用 [`/poteto-mode`](../skills/poteto-mode/SKILL.md)。
 
-刚接触 pstack？[pstack 指南](./index.md)会带你做完第一个真实任务，从安装配置、写提示词，一直到验证和过夜运行。
+刚接触 pstack？[pstack 指南](./index.md)会带你做完第一个真实任务，从安装配置、写提示词，一直到验证和过夜运行。卡住了，或不清楚该用哪个 skill？问 [`/poteto-help`](../skills/poteto-help/SKILL.md)。
 
-就这些。其他 skill 看场合用，这个 mode skill 会在需要时替你调用。默认配置下，它按模型的长处分活：写代码的子代理（feature、refactoring、bug fix、perf、hillclimb）用 grok，最难的改动、文字和判断用 opus 5.5。默认的评审团是 opus 5.5 / sol / grok。这些都能用 [`/setup-pstack`](../skills/setup-pstack/SKILL.md) 改。
+就这些。其他 skill 看场合用，这个 mode skill 会在需要时替你调用。默认配置下，它按模型的长处分活：写代码的子代理（feature、refactoring、bug fix、perf、hillclimb）用 grok，最难的改动、文字和判断用 opus 5.5。默认的评审团是 opus 5.5 / grok。这些都能用 [`/setup-pstack`](../skills/setup-pstack/SKILL.md) 改。
 
 ## 用法
 
@@ -110,7 +110,7 @@ morning.
 
 完整的 rule 和 playbook 都在 [`skills/poteto-mode/SKILL.md`](../skills/poteto-mode/SKILL.md) 里。
 
-[`/poteto-mode`](../skills/poteto-mode/SKILL.md) 还是一个会一直开着的 mode。进入以后，接下来每一轮对话它都在。有 playbook 对得上、或者任务需要严谨时，它自己起作用；其他时候它不碍事。想退出，随时说一声就行。
+要让 [`/poteto-mode`](../skills/poteto-mode/SKILL.md) 在接下来每一轮都开着，从 `/` 菜单里选它，然后按 option+enter（mac）或 alt+enter（windows），不要按 enter。这样就成了 [custom mode](https://cursor.com/docs/skills)。Cursor 在 agents 窗口和 CLI 里都提供这个。它每一轮都留在上下文里。有 playbook 对得上、或者任务需要严谨时，它自己起作用；其他时候它不碍事。只按 enter，它只挂在这一条消息上。想退出就说一声，或者退出这个 mode 把它关掉。
 
 [`/poteto-mode`](../skills/poteto-mode/SKILL.md) 和 Cursor 的 `/loop` 命令配合得特别好。你可以让 Cursor 一连干好几个小时，严谨一点不打折扣。
 
@@ -132,6 +132,7 @@ morning.
 | skill | 什么时候用 |
 |---|---|
 | [`/poteto-mode`](../skills/poteto-mode/SKILL.md) | 任何不简单的任务，默认都从这里开始。 |
+| [`/poteto-help`](../skills/poteto-help/SKILL.md) | 你刚接触 pstack，或不清楚该用哪个 skill、playbook 或原则。它先弄清你想做什么，回答这一部分，再给你一条可以输入的提示词。只有你输入 `/poteto-help` 时才会跑。 |
 | [`/how`](../skills/how/SKILL.md) | 你想要一份讲解，带你走一遍某个子系统是怎么工作的。 |
 | [`/why`](../skills/why/SKILL.md) | 你想知道某样东西为什么这样建。它在运行时找出能用的 MCP，并行查询每一类证据（版本控制、问题跟踪、长篇文档、即时聊天、基础设施可观测性、错误跟踪、分析数据仓库）。 |
 | [`/recall`](../skills/recall/SKILL.md) | 你正要开始或接着干活，想从自己的聊天记录和共享记录里，把某个主题最近的上下文重建起来，最后拿到一份精炼的现状简报。 |
@@ -139,7 +140,7 @@ morning.
 | [`/architect`](../skills/architect/SKILL.md) | 你马上要写跨函数边界的代码，想先把调用方的用法、类型和模块形状定下来。 |
 | [`/arena`](../skills/arena/SKILL.md) | 你想让同一件事并行做 N 次，再从每一份里挑出最好的部分。 |
 | [`/swarm`](../skills/swarm/SKILL.md) | 你想开 N 路并行，分头处理不同切片，或者同题竞赛，最后汇总成一份报告。 |
-| [`/interrogate`](../skills/interrogate/SKILL.md) | 你有一份 diff，想让几个不同的模型想办法把它攻破，其中一个视角专门严查代码质量。 |
+| [`/interrogate`](../skills/interrogate/SKILL.md) | 你有一份 diff，想让不同的模型想办法把它攻破，其中一个视角专门严查代码质量。 |
 | [`/automate-me`](../skills/automate-me/SKILL.md) | 你想要一个自己的 `-mode` skill，照你实际的工作方式起草。 |
 | [`/make-bot-ui`](../skills/make-bot-ui/SKILL.md) | 你想做一个页面或仪表盘，按上面的按钮就能经 webhook 唤醒一个 Grok Bot，连 sender key（发送方密钥）的交接和 Tailscale 也包括在内。 |
 | [`/setup-pstack`](../skills/setup-pstack/SKILL.md) | 你想给 pstack 的每个角色挑模型。它会检测你有哪些模型，再写一条配置 rule。 |
@@ -201,6 +202,7 @@ reflect:           /reflect that took too long. capture what we learned so the n
 correct:           /correct
 show-me-your-work: /show-me-your-work keep a decision trail i can review when i'm back.
 automate-me:       /automate-me
+help:              /poteto-help which skill should i use to review this branch?
 ```
 
 </details>
@@ -271,7 +273,7 @@ Cursor 已经有一个很好用的 plan mode，和 pstack 配合得也很好。�
 
 模型也能配。输入 [`/setup-pstack`](../skills/setup-pstack/SKILL.md)。它会检测你能用哪些模型，写一条小小的 always-applied rule（始终生效的 rule），给每个角色（写代码、判断、各个评审团）指定一个模型。每个 skill 都会读这条 rule；rule 不在时，就退回合理的默认值。所以你只需要改想改的那几项。
 
-0.15.3 之前写的 rule，把模型锁在了旧的默认值上。删掉那几行角色设置，或者干脆删掉整个文件，再跑一次 `/setup-pstack`。重跑时，模型和默认值不同的角色都会保留。
+默认值一变，之前写的 rule 仍把模型锁在旧的默认值上。删掉那几行角色设置，或者干脆删掉整个文件，再跑一次 `/setup-pstack`。重跑时，模型和默认值不同的角色都会保留。
 
 ## 自动化
 

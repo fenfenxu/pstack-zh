@@ -125,7 +125,7 @@ spawn 调查员之前，列出 Cursor 环境中可用的 MCP。若有 available-
 spawn 一名合成器子 agent：
 
 - `subagent_type`：`generalPurpose`
-- `model`：`why synthesizer` 行，默认 `claude-opus-5-5-max`
+- `model`：`why synthesizer` 行，默认 `claude-opus-5-5-xhigh`
 - `readonly`：`false`（agent 模式）。合成器质量检查会抽查验证引用，可能需要 MCP。Readonly/Ask 会剥离 MCP 并破坏这一点。
 
 合成器获得：

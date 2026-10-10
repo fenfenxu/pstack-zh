@@ -34,15 +34,15 @@ ls -t <agent-transcripts>/*.jsonl <agent-transcripts>/*/*.jsonl <agent-transcrip
 
 | 视角 | 角色行 | 默认 `model` | Prompt 模板 |
 |---|---|---|---|
-| 判断 | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-max` | `references/judgment-reviewer.md` |
-| 工具 | `reflect tooling` | `gpt-5.6-sol-max` | `references/tooling-reviewer.md` |
-| 发散 | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-max` | `references/divergent-reviewer.md` |
+| 判断 | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-xhigh` | `references/judgment-reviewer.md` |
+| 工具 | `reflect tooling` | `grok-4.7-xhigh-fast` | `references/tooling-reviewer.md` |
+| 发散 | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-xhigh` | `references/divergent-reviewer.md` |
 
 各模板原样传入，在标记处替换 transcript 路径或摘要。评审者在 `Task` 响应体中返回发现。
 
 ### 3. 合成
 
-一次 `Task` 调用，`subagent_type: generalPurpose`，`model` 来自 `reflect judgment, divergent, synthesizer` 行（默认 `claude-opus-5-5-max`），agent 模式（`readonly: false`）。合成器质量检查含抽查验证引用，可能需要 MCP。Readonly 会剥离 MCP。原样使用 `references/synthesizer.md`，在标记处内联各评审者完整输出。合成器返回结构化 Accepted / Rejected / Backlog 列表。
+一次 `Task` 调用，`subagent_type: generalPurpose`，`model` 来自 `reflect judgment, divergent, synthesizer` 行（默认 `claude-opus-5-5-xhigh`），agent 模式（`readonly: false`）。合成器质量检查含抽查验证引用，可能需要 MCP。Readonly 会剥离 MCP。原样使用 `references/synthesizer.md`，在标记处内联各评审者完整输出。合成器返回结构化 Accepted / Rejected / Backlog 列表。
 
 ### 4. 结构性强制检查
 
