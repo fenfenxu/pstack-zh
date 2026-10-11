@@ -1,7 +1,7 @@
 ---
 title: "交给 /poteto-mode"
 description: "/poteto-mode 是总入口。你给它一个目标，它从二十三个 playbook 里挑出一个，把步骤抄进 todo 列表，需要时再调用其他 skills。"
-sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/02-poteto-mode.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/02-poteto-mode.md"
 meta:
   updated_at: "2026-10-10T13:49:04+08:00"
   updated_by: "cursor-cloud-agent grok-4.6"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/02-poteto-mode/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/02-poteto-mode.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/02-poteto-mode.md)（提交 `d73344b`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/02-poteto-mode.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/02-poteto-mode.md)（提交 `978ca6e`）
 
 # 把工作交给 `/poteto-mode`
 

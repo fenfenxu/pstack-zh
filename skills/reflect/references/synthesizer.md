@@ -18,8 +18,8 @@
 - 收敛：2+ 评审者重复的发现置信更高。单条须在其它标准上更高门槛。
 - 改变决策：未来 agent 因编辑而做不同事，非仅多读文字。
 - 结构机制检查：lint 规则、脚本、metadata 标志或运行时检查已强制或能低成本强制时路由到 Backlog。Skill 正文给机制强制不了的东西。
-- 曾使用 skill：只接受路由到父 agent 在 transcript 中实际调用的 skill、工具或 MCP 的发现。若 skill 未用但本应用，路由 `tune description: <skill path>` 以便下次触发。否则以 `skill-not-used` 驳回。
-- 已覆盖：接受任何正文编辑行前读目标 skill。若提议重复清晰、位置合适的既有指导，以 `already-covered` 驳回。问题是执行非 skill。若既有指导被埋没、薄弱或易跳过，接受但将提议 改写成 为措辞/位置改进使其生效（非重复添加）。
+- 曾使用 skill：只接受路由到父 agent 在 transcript 里调用过的 skill、工具或 MCP 的发现。若 skill 未用但本应用，路由到 `tune description: <skill path>`。两者都不是，就以 `skill-not-used` 驳回。
+- 已覆盖：接受任何正文编辑行之前，先读目标 skill。若提议重复的是已经写清楚、位置也合适的既有指导，以 `already-covered` 驳回，因为问题在执行，不在 skill。若既有指导被埋没、薄弱或容易被跳过，接受这一行，但把提议改成措辞或位置上的改进，让它能生效（不是再加一条重复的）。
 
 丢弃（会随代码漂移的实现细节）：
 - 「linter 在 SHA `bd91aa7` 用 chars/4 启发式」

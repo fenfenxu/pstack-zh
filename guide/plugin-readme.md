@@ -1,16 +1,17 @@
 ---
 title: "pstack 插件说明"
 description: "pstack 是 poteto 每天在 Cursor 交付高质量代码时用的那套 skill。它把 Cursor 变成一支真正的工程团队，帮你少写代码、写好代码。"
-sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/README.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/README.md"
 meta:
-  updated_at: "2026-10-10T13:35:00+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-11T09:37:01+08:00"
+  updated_by: "cursor-cloud-agent grok-4.7"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
+    model: "grok-4.7"
     effort: "high"
-    translated_at: "2026-10-10T13:35:00+08:00"
-    source_version: "0.15.15 / d73344b"
+    translated_at: "2026-10-11T09:37:01+08:00"
+    source_commit: "978ca6e9c0e012047cd5058b8e829240336e704e"
+    source_version: "0.15.17 / 978ca6e"
 ---
 
 > [!NOTE]
@@ -20,7 +21,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/plugin-readme/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/README.md)（提交 `d73344b`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/README.md)（提交 `978ca6e`）
 
 # pstack
 
@@ -136,6 +137,7 @@ morning.
 | [`/how`](../skills/how/SKILL.md) | 你想要一份讲解，带你走一遍某个子系统是怎么工作的。 |
 | [`/why`](../skills/why/SKILL.md) | 你想知道某样东西为什么这样建。它在运行时找出能用的 MCP，并行查询每一类证据（版本控制、问题跟踪、长篇文档、即时聊天、基础设施可观测性、错误跟踪、分析数据仓库）。 |
 | [`/recall`](../skills/recall/SKILL.md) | 你正要开始或接着干活，想从自己的聊天记录和共享记录里，把某个主题最近的上下文重建起来，最后拿到一份精炼的现状简报。 |
+| [`/ketchup`](../skills/ketchup/SKILL.md) | 你想用大白话了解这次对话里、你上一条消息之后发生的一切。每件要你拍板的事项都有一份摘要，上下文够你做决定。 |
 | [`/blast-radius`](../skills/blast-radius/SKILL.md) | 你有一处看着很小的改动，想知道它还可能弄坏什么。它之所以安全，靠的是某一条事实；这条事实要跑代码来证明，不能只凭断言。 |
 | [`/architect`](../skills/architect/SKILL.md) | 你马上要写跨函数边界的代码，想先把调用方的用法、类型和模块形状定下来。 |
 | [`/arena`](../skills/arena/SKILL.md) | 你想让同一件事并行做 N 次，再从每一份里挑出最好的部分。 |

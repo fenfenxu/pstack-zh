@@ -6,26 +6,13 @@ disable-model-invocation: true
 
 # 类型系统纪律
 
-类型检查器是证明助手。用它消除不可能状态、错配原始类型与未处理变体。类型让你忽略的分支，会变成编译器本可阻止的运行时失败。优先把错误与特例定义到不存在，而非增殖 handler。无法表示的状态、全函数与接口 redesign（下文模式）是工具。
+让编译器拒绝不可能的状态、对不上的原始类型，以及没处理的变体。优先把错误和特例定义成不存在，而不是不断加处理分支。TypeScript 的具体写法见 `typescript-best-practices` skill。
 
-适用于任意 typed 语言。`typescript-best-practices` 等 skill 将其落地到具体语法。
-
-**模式：**
-
-- **使非法状态无法表示。** 变体建模为 sum type：TypeScript 可区分联合、Rust/Swift/Kotlin 带 payload 的 enum、Scala sealed class、Haskell/OCaml ADT。不要把状态建模为 contradictory 组合仍可编译的可选字段袋。 subtle 反模式：`{ completed: boolean; completedAt?: Date }` 允许 `completed: true; completedAt: undefined`，无意义。从单一来源如 `completedAt !== null` 推导 boolean，或显式建模变体 `{ kind: 'open' } | { kind: 'done'; at: Date }`。若 bug 迫使你问「这组合真能发生吗？」，类型太松。
-- **类型是构造，不是限制。** 从想要的值构造类型，而非从更松类型 carve 再检查。似乎需要 refinement 的 invariant 通常是构造一步之遥。非空列表是 head 加 rest，不是带 length 检查的 list。有效时间区间是 start 加 duration，不是须保持有序的两个 timestamp。无 privileged 表示。pair 列表若如此解释就是偶长 list，选无法构造非法值的形状，再暴露调用方需要的接口。
-- **标记语义原始类型。** `UserId` 与 `OrderId` 底层是 string 但不可互换。Rust newtype、Swift opaque type、Kotlin value class、Haskell phantom type、TypeScript branded intersection。创建时校验一次，下游信任类型。
-- **外部数据在 parse 前无类型。** RPC payload、JSON、IPC 消息、CLI 参数、配置文件、环境变量、数据库行。每个边界有 parse 函数，把非结构化输入变成 typed 模型。见 **boundary-discipline** 原则 skill 的校验位置。
-- **不要欺骗类型系统。** 强转、unsafe coercion、绕过编译器的 assertion function 是 latent 运行时崩溃。编译器证不出就证明它（校验、收窄、细化模型），或接受强转是 hazard。
-- **穷尽匹配是编译器的工作。** 对 sum type 匹配时，新增变体未处理须编译失败。用各语言 idiom：TypeScript `never` 绑定、Rust 无注解 `match`、Haskell `-Wincomplete-patterns`、Kotlin sealed class 穷尽性。
-- **从权威 schema 派生类型。** proto、OpenAPI、GraphQL schema、数据库 migration 或 design-system token 文件定义形状时，从中派生，不要手写平行类型。见 **encode-lessons-in-structure** 原则 skill。
-- **仅在出现 partiality 处加强类型。** 运行时断言、null 检查或「不应发生」的 throw 标记类型太弱之处。把检查上推入类型。然后停。类型系统的工作是跟踪各 use site 须处理的 case，不是尽可能精确描述数据。优先全函数。空 list 的 `sum` 是 0，故取 plain list。空 list 的 `head` 无答案，故要求 non-empty。若否则会 panic，才加强；若无则保持 plain type。
-
-**自检：**
-
-- 「能否写注释说明这组字段何时有效？」若能，类型太松。拆成 sum type。
-- 「两个参数同 primitive 类型但含义不同？」标记它们。
-- 「这个 `any`、`as`、`assertNotNull` 从哪来？」追到边界并在那里校验。
-- 「下月加新变体，编译器会告诉下一个 agent 在哪加 case 吗？」若否，匹配未穷尽。
-- 「这类型是否在重复另一文件拥有的形状？」派生，不要重复。
-- 「加强类型是为保持操作全函数，还是仅为更精确？」若无否则会 panic，保持 plain type。
+- **让非法状态无法表示。** 变体用 sum type 来建模（可区分联合、带 payload 的 enum、sealed class），不要用一袋可选字段，让互相矛盾的组合也能编译。`{ completed: boolean; completedAt?: Date }` 允许 `completed: true` 却没有日期。从 `completedAt` 推导这个布尔值，或者建成 `{ kind: 'open' } | { kind: 'done'; at: Date }`。如果你能写一条注释说明这组字段什么时候才有效，就把它拆成 sum type。
+- **类型是构造出来的，不是限制出来的。** 从你想要的值把类型搭起来，不要从一个更松的类型里用检查去抠。非空列表是一个头加上剩下的部分。有效的时间区间是起点加上时长。选一个造不出非法值的形状，再在上面露出调用方需要的接口。
+- **给语义不同的原始类型各自的类型。** `UserId` 和 `OrderId` 底下都是字符串，但不该能互换。各自给一个类型，比如 TypeScript 里的 branded intersection，或者其他语言里的 newtype。创建时校验一次，之后信任这个类型。如果两个参数是同一种原始类型、意思却不同，就给它们各自的类型。
+- **外部数据在解析之前没有类型。** RPC 载荷、JSON、IPC 消息、CLI 参数、配置文件、环境变量、数据库行。每个边界都要有一个解析函数，把没有结构的输入变成带类型的模型。校验放在哪，看 **boundary-discipline** 原则 skill。
+- **不要骗类型系统。** 强制转换、不安全的强制，以及绕过编译器的断言函数，都是潜伏的运行时崩溃。编译器证不了的事实，要么你自己证明（校验、收窄、把模型改细），要么承认这次转换是隐患。每个 `any`、`as` 或 `assertNotNull` 都追到边界，在那里校验。
+- **穷尽匹配是编译器的事。** 对 sum type 做匹配时，新增变体却没处理，必须编译失败，这样编译器会告诉下一个 agent 该在哪加分支。用你这门语言的写法：TypeScript 里绑一个 `never` 类型，Rust 里不写注解的 `match`，Haskell 的 `-Wincomplete-patterns`，Kotlin 里 sealed class 的穷尽匹配。
+- **类型从权威的 schema 派生。** protocol buffer、OpenAPI spec、GraphQL schema、数据库 migration、design-token 文件，或其他文件已经拥有这个形状时，从它派生，不要手写一份平行的类型。见 **encode-lessons-in-structure** 原则 skill。
+- **只在出现做不到的地方收紧类型。** 运行时断言、null 检查，或一句「这不该发生」的 throw，标出类型太松的地方。把这个检查推进类型里。然后停。类型系统要跟踪的是每个使用点必须处理的情况，不是把数据描述得越精确越好。优先全函数。空列表的 `sum` 是 0，所以它接受普通列表。空列表的 `head` 没有答案，所以它要求非空列表。如果没有这个收紧也不会 panic，就保持普通类型。

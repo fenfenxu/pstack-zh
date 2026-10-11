@@ -1,7 +1,7 @@
 ---
 title: "睡觉时让工作继续跑"
 description: "能自己验证结果的 agent，才能放心把难活留给它过夜。靠的是可检查的完结条件、隔离的 worktree 或 cloud agent，和一份早上能审的决策日志。"
-sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/07-overnight.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/07-overnight.md"
 meta:
   updated_at: "2026-10-10T13:49:04+08:00"
   updated_by: "cursor-cloud-agent grok-4.6"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/07-overnight/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/07-overnight.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/07-overnight.md)（提交 `d73344b`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/07-overnight.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/07-overnight.md)（提交 `978ca6e`）
 
 # 睡觉时让工作继续跑
 
@@ -138,7 +138,7 @@ flowchart TD
 - 每一阶段都能把整条线停住。分拣可以判定这份报告是预期行为，复现可以复现不出来，修复者可以判定这次改动风险太大。这些结果都有用，因为它们拦住坏活流到下一阶段。到了下一阶段，撤回的代价更高。
 - 每一阶段都交出证据。复现附上坏掉状态的截图和视频，修复附上改动前后的证明。人可以先确认 agent 修对了东西，再去读一行代码。
 
-pstack 把这套做成一份休眠的 [automation pack](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/automations/benny/README.md)，用来接 Slack 上的问题报告。一份自动化分拣每条报告。另一份复现已确认的 bug，也可能准备一份很小的草稿修复。让 agent 去看它的 [`FOR_AGENTS.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/automations/benny/FOR_AGENTS.md)，并点名目标仓库，就能搭起来。
+pstack 把这套做成一份休眠的 [automation pack](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/automations/benny/README.md)，用来接 Slack 上的问题报告。一份自动化分拣每条报告。另一份复现已确认的 bug，也可能准备一份很小的草稿修复。让 agent 去看它的 [`FOR_AGENTS.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/automations/benny/FOR_AGENTS.md)，并点名目标仓库，就能搭起来。
 
 **坑：** 时长不是完结条件。「work on this for 4 hours」没给 agent 任何能检查的东西，你醒来只会看到它忙活了四个小时，却没有结果。给 `/loop` 一个能判定通过或失败的条件。
 

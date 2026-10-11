@@ -1,7 +1,7 @@
 ---
 title: "先理解代码"
 description: "改没看懂的代码，不易察觉的回归就是这样上线的。先做只读调查，再用 /how、/why、/teach 和 /recall。每种都会让 agent 用你能核对的话解释自己。"
-sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/03-understand.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/03-understand.md"
 meta:
   updated_at: "2026-10-10T13:49:04+08:00"
   updated_by: "cursor-cloud-agent grok-4.6"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/03-understand/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/03-understand.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/03-understand.md)（提交 `d73344b`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/03-understand.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/03-understand.md)（提交 `978ca6e`）
 
 # 改代码前先理解它
 

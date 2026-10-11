@@ -6,13 +6,10 @@ disable-model-invocation: true
 
 # 先减后加
 
-演进系统时，先移除复杂度，再构建。
-
-**原因：** 在复杂系统上加东西会 compound 复杂度。先移除留下更少代码、显露 essential structure，通常让下一设计显而易见。默认 subtraction。
+演进系统时，先移除复杂度，再构建。默认 subtraction。
 
 把 simplification 当作持续投资。离开时设计应略更简单、能力相当或更强，surface 相同或更小。
 
-**模式：**
 - 构造前先 sequence removal
 - 先 cut 再 polish（在投 quality 前先达到 minimum）
 - 为 observed usage 设计，不为 speculative edge case

@@ -2,6 +2,61 @@
 
 这里只记已经放进本仓库的中文内容。
 
+## 2026-10-11
+
+- **新译文。** 插件说明的原文有改动。
+  - [插件说明](./guide/plugin-readme.md)
+- **skill 更新。** opening-a-pr 这篇 playbook 的原文有改动。
+  - [opening-a-pr](./skills/poteto-mode/playbooks/opening-a-pr.md)
+- **skill 更新。** trace-forensics 这篇 playbook 的原文有改动。
+  - [trace-forensics](./skills/poteto-mode/playbooks/trace-forensics.md)
+- **skill 更新。** architect 的原文有改动。
+  - [architect](./skills/architect/SKILL.md)
+- **skill 更新。** arena 删去了「Start」。
+  - [arena](./skills/arena/SKILL.md)
+- **skill 更新。** benchmark-checklist 新增了「Other perf material」，删去了「How this fits the other perf material」。
+  - [benchmark-checklist](./skills/benchmark-checklist/SKILL.md)
+- **skill 更新。** figure-it-out 的原文有改动。
+  - [figure-it-out](./skills/figure-it-out/SKILL.md)
+- **skill 更新。** how 新增了「1. Assess complexity」、「2. Explore (complex only)」、「3. Synthesize (complex only)」等 5 处，删去了「Step 1. Assess Complexity」、「Step 2a. Explore (complex questions only)」、「Step 2b. Direct Explain (simple questions)」等 6 处。
+  - [how](./skills/how/SKILL.md)
+- **skill 更新。** interrogate 新增了「Step 1, Scope」、「Step 2, Intent」，删去了「Step 1, Determine Scope」、「Step 2, State the Intent」、「What Makes a Good Finding」等 4 处。
+  - [interrogate](./skills/interrogate/SKILL.md)
+- **新译文。** 新增了 skill ketchup。
+  - [ketchup](./skills/ketchup/SKILL.md)
+- **skill 更新。** poteto-help 的原文有改动。
+  - [poteto-help](./skills/poteto-help/SKILL.md)
+- **skill 更新。** poteto-mode 的原文有改动。
+  - [poteto-mode](./skills/poteto-mode/SKILL.md)
+- **skill 更新。** principle-build-the-lever 的原文有改动。
+  - [principle-build-the-lever](./skills/principle-build-the-lever/SKILL.md)
+- **skill 更新。** principle-encode-lessons-in-structure 的原文有改动。
+  - [principle-encode-lessons-in-structure](./skills/principle-encode-lessons-in-structure/SKILL.md)
+- **skill 更新。** principle-explain-the-number 的原文有改动。
+  - [principle-explain-the-number](./skills/principle-explain-the-number/SKILL.md)
+- **skill 更新。** principle-minimize-reader-load 的原文有改动。
+  - [principle-minimize-reader-load](./skills/principle-minimize-reader-load/SKILL.md)
+- **skill 更新。** principle-model-the-domain 的原文有改动。
+  - [principle-model-the-domain](./skills/principle-model-the-domain/SKILL.md)
+- **skill 更新。** principle-never-block-on-the-human 的原文有改动。
+  - [principle-never-block-on-the-human](./skills/principle-never-block-on-the-human/SKILL.md)
+- **skill 更新。** principle-redesign-from-first-principles 的原文有改动。
+  - [principle-redesign-from-first-principles](./skills/principle-redesign-from-first-principles/SKILL.md)
+- **skill 更新。** principle-subtract-before-you-add 的原文有改动。
+  - [principle-subtract-before-you-add](./skills/principle-subtract-before-you-add/SKILL.md)
+- **skill 更新。** principle-test-behavior-not-implementation 的原文有改动。
+  - [principle-test-behavior-not-implementation](./skills/principle-test-behavior-not-implementation/SKILL.md)
+- **skill 更新。** principle-type-system-discipline 的原文有改动。
+  - [principle-type-system-discipline](./skills/principle-type-system-discipline/SKILL.md)
+- **skill 更新。** reflect 新增了「1. Locate the active transcript」、「2. Spawn three reviewers in parallel」、「3. Synthesize」等 6 处，删去了「When to invoke」、「Process」、「1. Locate the active transcript」等 8 处。
+  - [reflect](./skills/reflect/SKILL.md)
+- **skill 更新。** technical-writing 的原文有改动。
+  - [technical-writing](./skills/technical-writing/SKILL.md)
+- **skill 更新。** unslop 删去了「Process」。
+  - [unslop](./skills/unslop/SKILL.md)
+- **skill 更新。** why 新增了「Step 3. Spawn Parallel Investigators」、「Investigator roster, one per available evidence category」、「Avoid Rationalization」等 10 处，删去了「Blame target lines for last-touch commits」、「Full file history, with patches, through renames」、「Last N commits touching the file, PR numbers visible」等 22 处。
+  - [why](./skills/why/SKILL.md)
+
 ## 2026-10-10
 
 - **新译文。** 官方指南「安装 pstack」新增了「Keep the cost in check」。

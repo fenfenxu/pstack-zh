@@ -1,7 +1,7 @@
 ---
 title: "pstack 指南"
 description: "别再一步一步地指挥 agent。说清你要什么、怎样算做完，/poteto-mode 会挑 playbook、调用其他 skills，再把证据拿给你看。"
-sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/README.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/README.md"
 meta:
   updated_at: "2026-10-10T13:49:04+08:00"
   updated_by: "cursor-cloud-agent grok-4.6"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/README.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/README.md)（提交 `d73344b`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/README.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/README.md)（提交 `978ca6e`）
 
 # pstack 指南
 

@@ -1,12 +1,12 @@
 ---
 name: principle-redesign-from-first-principles
-description: "将新需求集成进现有设计时适用。按该需求从第一天就是 foundational assumption 来 redesign，而不是 bolt-on。"
+description: "将新需求集成进现有设计时适用。"
 disable-model-invocation: true
 ---
 
 # 从第一性原理 Redesign
 
-集成变更时，不要 bolt-on 到现有设计。按该需求从一开始就在的方式 redesign。
+集成变更时，不要 bolt-on 到现有设计。按该需求从一开始就是基础假设的方式 redesign。
 
 - 读所有受影响文件并理解当前设计
 - 问：「若我们从零写这个且带这个新需求，会建什么？」

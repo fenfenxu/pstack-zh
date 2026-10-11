@@ -1,7 +1,7 @@
 ---
 title: "构建并清理 diff"
 description: "你说清看到了什么，证据由构建类 playbook 去要。本页讲常见构建任务的提示词怎么写，以及让 diff 好审的清理习惯。"
-sourceUrl: "https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/05-build-and-clean.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/05-build-and-clean.md"
 meta:
   updated_at: "2026-10-10T13:49:04+08:00"
   updated_by: "cursor-cloud-agent grok-4.6"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/05-build-and-clean/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/05-build-and-clean.md`](https://github.com/cursor/plugins/blob/d73344bee8cf22e53b9d5f4cf5749d38ba38c174/pstack/docs/guide/05-build-and-clean.md)（提交 `d73344b`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/05-build-and-clean.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/05-build-and-clean.md)（提交 `978ca6e`）
 
 # 构建这次改动，并清理 diff
 

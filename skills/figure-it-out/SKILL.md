@@ -1,6 +1,6 @@
 ---
 name: figure-it-out
-description: "没有更具体的 playbook 适用时，设计一份可审计的 playbook。比如大规模迁移、目标宏大且分好几部分的改动，或要等人离开一阵、回来再审的工作。按任务调整严谨程度，跑假设循环，并用 show-me-your-work 记录决策。用于 /figure-it-out、「figure it out」、大规模迁移，或没有更具体的 playbook 适用时。"
+description: "没有更具体的 playbook 适用时，设计一份可审计的 playbook。比如大规模迁移、目标宏大且分好几部分的改动，或要等人离开一阵、回来再审的工作。按任务调整严谨程度，跑假设循环，并记录决策。用于 /figure-it-out 或「figure it out」。"
 disable-model-invocation: true
 ---
 
@@ -31,7 +31,7 @@ disable-model-invocation: true
 - 决定哪些部分扇出。只在能干净切开的地方并行，每个执行者各用自己的 worktree 或分支（**separate-before-serializing-shared-state** 原则 skill）。不要扇出过多。
 - 把设计出的阶段清单写下来。人要评审的就是这份清单。
 
-然后按设计执行。把设计里的步骤作为具体条目加进 todo 列表，放在阶段 C 那一项之后、阶段 D 之前。每一步都按阶段 C 的循环规矩来跑。阶段 D 的日志穿插在这些步骤中间，每落地一步记一行，不要把整条 trail 攒到最后才写。
+然后按设计执行。把设计里的步骤作为具体条目加进 todo 列表，放在阶段 C 和阶段 D 两项之间。每一步都按阶段 C 的循环规矩来跑。阶段 D 的日志穿插在这些步骤中间，每落地一步记一行，不要把整条 trail 攒到最后才写。
 
 ## 阶段 C：跑循环
 

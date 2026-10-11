@@ -71,6 +71,7 @@ pstack 是为 Cursor 做的。它的 skill 用的是 Agent Skills 格式，别�
 | 弄清代码为什么是这个形状，或某个数字从哪来 | [`/why`](../why/SKILL.md) |
 | 用大白话弄懂一次改动或一个子系统 | [`/teach`](../teach/SKILL.md) |
 | 弄清自己最近在某个话题上的工作 | [`/recall`](../recall/SKILL.md) |
+| 补上这次对话里、自己上一条消息之后的一切，上下文够给每件待拍板事项做决定 | [`/ketchup`](../ketchup/SKILL.md) |
 | 弄清一小段 diff 可能在自身以外弄坏什么 | [`/blast-radius`](../blast-radius/SKILL.md) |
 | 跨函数边界的代码动手前，先定下类型和模块形状 | [`/architect`](../architect/SKILL.md) |
 | 同一份简报多试几次，再合成最好的那一份 | [`/arena`](../arena/SKILL.md) |
@@ -102,7 +103,7 @@ pstack 是为 Cursor 做的。它的 skill 用的是 Agent Skills 格式，别�
 - `/arena` 给每个 worker 同一份简报，再合成最好的部分。`/swarm` 把工作拆成切片或一场竞速，交回一份报告。
 - `/architect` 定下设计后马上实现。加上「with checkpoint」，就能在它写代码之前先审设计。
 - `/interrogate` 审这份 diff。`/blast-radius` 找 diff 以外会坏的地方，并证明那一件能让这次改动安全的事实。
-- `/recall` 从最近的聊天里重建上下文。接着某一个具体的聊天或分支往下做，用的是 Session pickup playbook。
+- `/recall` 从最近的聊天里重建上下文。`/ketchup` 只覆盖这次对话里、用户上一条消息之后的部分。接着某一个具体的聊天或分支往下做，用的是 Session pickup playbook。
 - `/figure-it-out` 设计一次严谨的运行。Orchestrate playbook 跑一个跨好几天、许多 PR 的项目。Autonomous run playbook 把一个任务推到完结条件。
 
 不在 pstack 里：
