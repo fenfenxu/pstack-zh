@@ -28,7 +28,7 @@ disable-model-invocation: true
 
 - 开工之前先搭好验证 harness（运行被测代码、检查结果的测试装置）。基线取自改动前的状态，这样检查结果读起来就是「旧值对比新值」。
 - 遇到单向门式的设计决定，跑 **architect** skill（它会跑 **arena**）。机械性的工作，形态已经具体了，就跳过这一步。设计已经定下来还再跑一轮 arena，属于过度设计（**laziness-protocol** 原则 skill）。
-- 决定哪些部分扇出。只在能干净切开的地方并行，每个执行者各用自己的 worktree 或分支（**separate-before-serializing-shared-state** 原则 skill）。不要扇出过多。
+- 决定哪些部分扇出。只在能干净切开的地方并行，每个执行者各用自己的 worktree 或分支（**separate-before-serializing-shared-state** 原则 skill）。不要扇出过多。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 **poteto-mode** skill 的 Subagents 一节。
 - 把设计出的阶段清单写下来。人要评审的就是这份清单。
 
 然后按设计执行。把设计里的步骤作为具体条目加进 todo 列表，放在阶段 C 和阶段 D 两项之间。每一步都按阶段 C 的循环规矩来跑。阶段 D 的日志穿插在这些步骤中间，每落地一步记一行，不要把整条 trail 攒到最后才写。

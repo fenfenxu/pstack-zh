@@ -1,17 +1,17 @@
 ---
 title: "pstack 插件说明"
 description: "pstack 是 poteto 每天在 Cursor 交付高质量代码时用的那套 skill。它把 Cursor 变成一支真正的工程团队，帮你少写代码、写好代码。"
-sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/README.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/README.md"
 meta:
-  updated_at: "2026-10-11T09:37:01+08:00"
-  updated_by: "cursor-cloud-agent grok-4.7"
-  triggered_by: "routine pstack-daily-translate"
+  updated_at: "2026-10-15T08:23:15+08:00"
+  updated_by: "cursor-cloud-agent"
+  triggered_by: "poteto 每日翻译（手动触发）"
   translation:
     model: "grok-4.7"
     effort: "high"
-    translated_at: "2026-10-11T09:37:01+08:00"
-    source_commit: "978ca6e9c0e012047cd5058b8e829240336e704e"
-    source_version: "0.15.17 / 978ca6e"
+    translated_at: "2026-10-15T08:23:15+08:00"
+    source_commit: "6ce45c59b9301a638c1fe1a7b8dc2a82b650898f"
+    source_version: "0.15.25 / 6ce45c5"
 ---
 
 > [!NOTE]
@@ -21,7 +21,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/plugin-readme/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/README.md)（提交 `978ca6e`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/README.md)（提交 `6ce45c5`）
 
 # pstack
 
@@ -57,6 +57,8 @@ fork 它。改进它。把它变成你自己的。欢迎提 PR！
 ## 用法
 
 任务一开始就用 [`/poteto-mode`](../skills/poteto-mode/SKILL.md)。它会读你的请求，从一组 playbook（针对某类任务写好的一套步骤）里挑一个，再在步骤需要时运行其他 skill。
+
+输入任务之前，先从 `/` 菜单里选 `/poteto-mode`，这样 Cursor 会把这个 skill 挂到这条消息上。
 
 ### 就用 [`/poteto-mode`](../skills/poteto-mode/SKILL.md)
 
@@ -134,10 +136,12 @@ morning.
 |---|---|
 | [`/poteto-mode`](../skills/poteto-mode/SKILL.md) | 任何不简单的任务，默认都从这里开始。 |
 | [`/poteto-help`](../skills/poteto-help/SKILL.md) | 你刚接触 pstack，或不清楚该用哪个 skill、playbook 或原则。它先弄清你想做什么，回答这一部分，再给你一条可以输入的提示词。只有你输入 `/poteto-help` 时才会跑。 |
+| [`/in-your-own-words`](../skills/in-your-own-words/SKILL.md) | 你想让 agent 在开工前，用自己的话把你的目标和要解决的问题复述一遍。只有你输入 `/in-your-own-words` 时才会跑。 |
+| [`/sharpen`](../skills/sharpen/SKILL.md) | 你想让一项任务按顶尖专家的做法来，对准你真正要的结果，不要写得过死，也不要替你把选择定死。 |
 | [`/how`](../skills/how/SKILL.md) | 你想要一份讲解，带你走一遍某个子系统是怎么工作的。 |
 | [`/why`](../skills/why/SKILL.md) | 你想知道某样东西为什么这样建。它在运行时找出能用的 MCP，并行查询每一类证据（版本控制、问题跟踪、长篇文档、即时聊天、基础设施可观测性、错误跟踪、分析数据仓库）。 |
 | [`/recall`](../skills/recall/SKILL.md) | 你正要开始或接着干活，想从自己的聊天记录和共享记录里，把某个主题最近的上下文重建起来，最后拿到一份精炼的现状简报。 |
-| [`/ketchup`](../skills/ketchup/SKILL.md) | 你想用大白话了解这次对话里、你上一条消息之后发生的一切。每件要你拍板的事项都有一份摘要，上下文够你做决定。 |
+| [`/ketchup`](../skills/ketchup/SKILL.md) | 你想知道这次对话里、你上一条消息之后变了什么。用几句大白话和小图说清，每件要你拍板的事项只给够做决定的上下文。 |
 | [`/blast-radius`](../skills/blast-radius/SKILL.md) | 你有一处看着很小的改动，想知道它还可能弄坏什么。它之所以安全，靠的是某一条事实；这条事实要跑代码来证明，不能只凭断言。 |
 | [`/architect`](../skills/architect/SKILL.md) | 你马上要写跨函数边界的代码，想先把调用方的用法、类型和模块形状定下来。 |
 | [`/arena`](../skills/arena/SKILL.md) | 你想让同一件事并行做 N 次，再从每一份里挑出最好的部分。 |
@@ -211,11 +215,13 @@ help:              /poteto-help which skill should i use to review this branch?
 
 ## `poteto-agent` 和 Comment Sicko 子代理
 
-pstack 还带了一个子代理，从头到尾按我的风格干活。在父代理里用 [`subagent_type: "poteto-agent"`](../agents/poteto-agent.md) 启动它。动手之前，它会把 `poteto-mode` 完整读一遍，包括里面内嵌的原则索引。换成 `generalPurpose` 就会跳过这一步，越做越偏。
+[`/poteto-mode`](../skills/poteto-mode/SKILL.md) 跑在收到它的那场聊天里。那场聊天拥有 playbook、待办清单，以及每一次子代理派出。
+
+pstack 还带了 [`subagent_type: "poteto-agent"`](../agents/poteto-agent.md)，作为运行期间派出的委派的包装。动手之前，它会把 `poteto-mode` 完整读一遍，包括里面内嵌的原则索引。换成 `generalPurpose` 就会跳过这一步，越做越偏。不要开 `poteto-agent` 去跑 playbook 本身。
 
 [`/poteto-mode`](../skills/poteto-mode/SKILL.md) 和 [`subagent_type: "poteto-agent"`](../agents/poteto-agent.md) 走的是同一层封装。
 
-pstack 还带了 [Comment Sicko](../agents/comment-sicko.md)。它是一个只读的注释审查员，用 `subagent_type: "Comment Sicko"` 调用。一般经 [`/no-comments`](../skills/no-comments/SKILL.md) 来用，不直接调它。
+pstack 还带了 [Comment Sicko](../agents/comment-sicko.md)。它是一个只读的注释审查员，用 `subagent_type: "comment-sicko"` 调用。一般经 [`/no-comments`](../skills/no-comments/SKILL.md) 来用，不直接调它。
 
 ## 原则
 

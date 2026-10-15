@@ -4,7 +4,7 @@
 
 1. 改动只涉及一两个文件、做法也一目了然时，跳过计划。说明这一点，然后停下。
 2. 动笔之前，先用原型把悬而未决的问题定下来。每个问题跑一遍 `playbooks/prototype.md`。留好分支、SHA 和截图，写进附录 A。只有任何运行都定不下来的产品或偏好问题，才去问操作者，并给出选项（**never-block-on-the-human** 原则 skill）。
-3. 探索交给子代理。用 `subagent_type: "poteto-agent"`，并按 Subagents 一节为每个子代理明确指定模型（**guard-the-context-window** 原则 skill）。每个子代理交回文件指针、约定、测试命令和入口。不要把大段原始内容直接贴回来。
+3. 探索交给子代理。用 `subagent_type: "poteto-agent"`，并按 Subagents 一节为每个子代理明确指定模型（**guard-the-context-window** 原则 skill）。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 Subagents 一节。每个子代理交回文件指针、约定、测试命令和入口。不要把大段原始内容直接贴回来。
 4. 把下面的骨架复制进计划文件，填满每个占位符。操作者没指定路径时，把文件写到 agent 存储目录的 `docs/` 下。每个标题、每个子块都要保留，顺序和骨架一致。一个 PR 一节。一个 PR 就是一项改动，带着它自己的证据（**sequence-verifiable-units** 原则 skill）。在 **How to read this** 里写明执行时用哪个 playbook。`playbooks/autopilot-full.md` 和 `playbooks/autopilot-stack.md` 二选一，依据 `playbooks/autopilot-stack.md` 末尾的规则。长期运行的项目用 `playbooks/orchestrate.md`。
 5. 全文严格按 `/technical-writing` 写，写完再跑 `/unslop`。正文只用一种 Diátaxis 模式，就是 how-to。explanation 和 reference 放进附录。每个标题直接写出任务或结论。不用长破折号。句子中间不用冒号。
 6. 运行 `node pstack/skills/poteto-mode/scripts/check-plan.mjs <plan.md>`，把它打印出来的每一行都修掉（**encode-lessons-in-structure** 原则 skill）。
@@ -78,8 +78,8 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 ### Verdict and merge, for every PR
 
-- [ ] At the code-ready head SHA and at each later push that changes the patch, run the swarm per `pstack/skills/swarm/SKILL.md`. One gates lane. The ten live lanes from the PR's **Verify, live** block. The perf lane from its **Verify, perf** block. Two or more audit lanes, each with its own focus, that read the diff and the receipts and distrust the PR body. The root audits the receipts in the merge-ready report before the verdict.
-- [ ] Clean only when every lane is `PASS`. Findings go back to the owner, including a defect that a lane filed as a note. A new head gets a fresh swarm and a fresh verdict, except for results that stay valid under the patch-id rule in `playbooks/shipping.md`.
+- [ ] A full swarm runs once, at the code-ready head. Another full swarm runs only for new behavior, a redesign, or a large new diff. A rebase, a merge-conflict resolution, or a minor fix gets a single verifier at the new head. Run each full swarm per `pstack/skills/swarm/SKILL.md`. One gates lane. The ten live lanes from the PR's **Verify, live** block. The perf lane from its **Verify, perf** block. Two or more audit lanes, each with its own focus, that read the diff and the receipts and distrust the PR body. The root audits the receipts in the merge-ready report before the verdict.
+- [ ] Clean only when every lane is `PASS`. Findings go back to the owner, including a defect that a lane filed as a note. A new head gets a fresh verdict, except for results that stay valid under the patch-id rule in `playbooks/shipping.md`.
 - [ ] <The merge or append rule from the execution playbook, with the patch-id rule from `playbooks/shipping.md`.>
 
 ### Boot recipe, for every live lane

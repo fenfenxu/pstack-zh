@@ -1,6 +1,6 @@
 ---
 name: unslop
-description: 从任意写作中剔除 AI 痕迹。必须始终应用。
+description: 从任意写作中剔除 AI 痕迹。
 disable-model-invocation: true
 ---
 

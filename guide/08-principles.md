@@ -1,7 +1,7 @@
 ---
 title: "用原则名来转向"
 description: "pstack 自带 24 条原则，每条都是单独的 skill。任务中途报出原则名，就能给 agent 改方向，一句话比一大段指示更准。"
-sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/08-principles.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/08-principles.md"
 meta:
   updated_at: "2026-10-10T13:49:04+08:00"
   updated_by: "cursor-cloud-agent grok-4.6"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/08-principles/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/08-principles.md)（提交 `978ca6e`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/08-principles.md)（提交 `6ce45c5`）
 
 # 用原则名来转向
 

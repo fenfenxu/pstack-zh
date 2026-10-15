@@ -8,7 +8,7 @@
 2. 按 **principle-model-the-domain**，说出代码缺的是什么结构。形状已经清楚、而且只在局部时，平淡的代码就留着。重塑必须删掉分支或非法状态，不能加间接层。
 3. 说出目标形状。写明如果今天从头写，模块布局、类型和调用图应该是什么样（**principle-foundational-thinking**、**principle-redesign-from-first-principles**）。目标跨函数边界时，先用 **architect** skill 并行探索这个形状的设计，再动手迁移。
 4. 先减后加。引入新形状之前，删掉死代码，合并只有一个调用方的包装函数，去掉多余的校验器，清掉孤立的引用（**principle-subtract-before-you-add**）。交付的是能到达目标形状的最小改动（**principle-laziness-protocol**）。「也许有用」的投机性清理，要回退。
-5. 小步移动，每一步都不改变行为，每一步都让那道固定行为的检查保持通过。重塑 API 时，在同一波里迁移所有调用方，并删掉旧 API（**principle-migrate-callers-then-delete-legacy-apis**）。不留兼容垫片，不让新旧两条路径并存。每次重命名都要对照实际文件抽查。重命名会悄无声息地漏掉字符串、正文和反向引用里的用法。机械性的修改交给子代理，用你配置的 refactoring 模型（默认 `grok-4.7-xhigh-fast`），并给出明确的范围（文件路径、要移动的名字、要保持的行为）。
+5. 小步移动，每一步都不改变行为，每一步都让那道固定行为的检查保持通过。重塑 API 时，在同一波里迁移所有调用方，并删掉旧 API（**principle-migrate-callers-then-delete-legacy-apis**）。不留兼容垫片，不让新旧两条路径并存。每次重命名都要对照实际文件抽查。重命名会悄无声息地漏掉字符串、正文和反向引用里的用法。机械性的修改交给子代理，用你配置的 refactoring 模型（默认 `grok-4.7-xhigh-fast`），并给出明确的范围（文件路径、要移动的名字、要保持的行为）。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 Subagents 一节。
 6. 在真实产物上证明行为没变，「能编译」不算（**principle-prove-it-works**）。重塑规模较大时，跑一次等价检查：写个脚本 diff 新旧输出，把录好的基线拿到新代码上回放，或者用相关的 control skill 在对应的界面上做一次冒烟运行。
 7. 确认这个改动值得保留。衡量成功的标准是阅读负担变小（**principle-minimize-reader-load**）。如果这份 diff 没有在任何地方降低阅读负担，就回退。
 8. 用 rebase 整理成几个有序的小 commit。先是做减法的 commit，然后是重塑，最后是后续清理（如果有）。按 **sequence-verifiable-units** 原则 skill 安排它们，让每一片不改变行为的改动，在下一片开始之前都保持通过。执行 **Opening a PR**。

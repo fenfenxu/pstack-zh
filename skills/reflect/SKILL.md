@@ -24,7 +24,7 @@ ls -t <agent-transcripts>/*.jsonl <agent-transcripts>/*/*.jsonl <agent-transcrip
 
 一条消息、三次 `Task` 调用，`subagent_type: generalPurpose`，agent 模式（`readonly: false`）。评审者需要 MCP，才能去查 transcript 引用的工单、聊天串和可观测 trace。Readonly 会剥离 MCP。
 
-各评审者与合成器对应 `pstack-models.mdc` 规则中的一行角色及默认值。将 `model` 设为该行值；缺失则用默认。值为 `auto` 或 `inherit-parent` 时不设 `model`。Task 拒绝 slug 则用默认并说明。默认也被拒绝则从错误信息取同系列最近有效 slug。
+各评审者与合成器对应 `pstack-models.mdc` 规则中的一行角色及默认值。将 `model` 设为该行值；缺失则用默认。值为 `auto` 或 `inherit-parent` 时不设 `model`。Task 拒绝 slug 则用默认并说明。默认也被拒绝则从错误信息取同系列最近有效 slug。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 **poteto-mode** skill 的 Subagents 一节。
 
 | 视角 | 角色行 | 默认 `model` | Prompt 模板 |
 |---|---|---|---|

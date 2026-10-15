@@ -2,6 +2,97 @@
 
 这里只记已经放进本仓库的中文内容。
 
+## 2026-10-15
+
+- **新译文。** 插件说明的原文有改动。
+  - [插件说明](./guide/plugin-readme.md)
+- **新译文。** agent Comment Sicko 的原文有改动。
+  - [agent comment-sicko](./agents/comment-sicko.md)
+- **新译文。** agent poteto-agent 的原文有改动。
+  - [agent poteto-agent](./agents/poteto-agent.md)
+- **skill 更新。** autonomous-run 这篇 playbook 的原文有改动。
+  - [autonomous-run](./skills/poteto-mode/playbooks/autonomous-run.md)
+- **skill 更新。** autopilot-full 这篇 playbook 的原文有改动。
+  - [autopilot-full](./skills/poteto-mode/playbooks/autopilot-full.md)
+- **skill 更新。** autopilot-stack 这篇 playbook 的原文有改动。
+  - [autopilot-stack](./skills/poteto-mode/playbooks/autopilot-stack.md)
+- **skill 更新。** babysit 这篇 playbook 的原文有改动。
+  - [babysit](./skills/poteto-mode/playbooks/babysit.md)
+- **skill 更新。** bug-fix 这篇 playbook 的原文有改动。
+  - [bug-fix](./skills/poteto-mode/playbooks/bug-fix.md)
+- **skill 更新。** eval 这篇 playbook 的原文有改动。
+  - [eval](./skills/poteto-mode/playbooks/eval.md)
+- **skill 更新。** feature 这篇 playbook 的原文有改动。
+  - [feature](./skills/poteto-mode/playbooks/feature.md)
+- **skill 更新。** hillclimb 这篇 playbook 的原文有改动。
+  - [hillclimb](./skills/poteto-mode/playbooks/hillclimb.md)
+- **skill 更新。** multi-phase-plan 这篇 playbook 的原文有改动。
+  - [multi-phase-plan](./skills/poteto-mode/playbooks/multi-phase-plan.md)
+- **skill 更新。** opening-a-pr 这篇 playbook 的原文有改动。
+  - [opening-a-pr](./skills/poteto-mode/playbooks/opening-a-pr.md)
+- **skill 更新。** orchestrate 这篇 playbook 的原文有改动。
+  - [orchestrate](./skills/poteto-mode/playbooks/orchestrate.md)
+- **skill 更新。** perf-issue 这篇 playbook 的原文有改动。
+  - [perf-issue](./skills/poteto-mode/playbooks/perf-issue.md)
+- **skill 更新。** refactoring 这篇 playbook 的原文有改动。
+  - [refactoring](./skills/poteto-mode/playbooks/refactoring.md)
+- **skill 更新。** runtime-forensics 这篇 playbook 的原文有改动。
+  - [runtime-forensics](./skills/poteto-mode/playbooks/runtime-forensics.md)
+- **skill 更新。** session-pickup 这篇 playbook 的原文有改动。
+  - [session-pickup](./skills/poteto-mode/playbooks/session-pickup.md)
+- **skill 更新。** shipping 这篇 playbook 的原文有改动。
+  - [shipping](./skills/poteto-mode/playbooks/shipping.md)
+- **skill 更新。** trace-forensics 这篇 playbook 的原文有改动。
+  - [trace-forensics](./skills/poteto-mode/playbooks/trace-forensics.md)
+- **skill 更新。** worktree-cleanup 这篇 playbook 的原文有改动。
+  - [worktree-cleanup](./skills/poteto-mode/playbooks/worktree-cleanup.md)
+- **skill 更新。** arena 的原文有改动。
+  - [arena](./skills/arena/SKILL.md)
+- **skill 更新。** automate-me 的原文有改动。
+  - [automate-me](./skills/automate-me/SKILL.md)
+- **skill 更新。** create-verification-skill 的原文有改动。
+  - [create-verification-skill](./skills/create-verification-skill/SKILL.md)
+- **skill 更新。** figure-it-out 的原文有改动。
+  - [figure-it-out](./skills/figure-it-out/SKILL.md)
+- **skill 更新。** how 删去了「Exploration Instructions」。
+  - [how](./skills/how/SKILL.md)
+- **新译文。** 新增了 skill in-your-own-words。
+  - [in-your-own-words](./skills/in-your-own-words/SKILL.md)
+- **skill 更新。** interrogate 的原文有改动。
+  - [interrogate](./skills/interrogate/SKILL.md)
+- **skill 更新。** ketchup 新增了「Visuals」。
+  - [ketchup](./skills/ketchup/SKILL.md)
+- **skill 更新。** no-comments 的原文有改动。
+  - [no-comments](./skills/no-comments/SKILL.md)
+- **skill 更新。** poteto-help 的原文有改动。
+  - [poteto-help](./skills/poteto-help/SKILL.md)
+- **skill 更新。** poteto-mode 的原文有改动。
+  - [poteto-mode](./skills/poteto-mode/SKILL.md)
+- **skill 更新。** principle-encode-lessons-in-structure 的原文有改动。
+  - [principle-encode-lessons-in-structure](./skills/principle-encode-lessons-in-structure/SKILL.md)
+- **skill 更新。** principle-exhaust-the-design-space 的原文有改动。
+  - [principle-exhaust-the-design-space](./skills/principle-exhaust-the-design-space/SKILL.md)
+- **skill 更新。** principle-fix-root-causes 的原文有改动。
+  - [principle-fix-root-causes](./skills/principle-fix-root-causes/SKILL.md)
+- **skill 更新。** principle-guard-the-context-window 的原文有改动。
+  - [principle-guard-the-context-window](./skills/principle-guard-the-context-window/SKILL.md)
+- **skill 更新。** principle-laziness-protocol 的原文有改动。
+  - [principle-laziness-protocol](./skills/principle-laziness-protocol/SKILL.md)
+- **skill 更新。** recall 的原文有改动。
+  - [recall](./skills/recall/SKILL.md)
+- **skill 更新。** reflect 的原文有改动。
+  - [reflect](./skills/reflect/SKILL.md)
+- **新译文。** 新增了 skill sharpen。
+  - [sharpen](./skills/sharpen/SKILL.md)
+- **skill 更新。** show-me-your-work 的原文有改动。
+  - [show-me-your-work](./skills/show-me-your-work/SKILL.md)
+- **skill 更新。** swarm 的原文有改动。
+  - [swarm](./skills/swarm/SKILL.md)
+- **skill 更新。** unslop 的原文有改动。
+  - [unslop](./skills/unslop/SKILL.md)
+- **skill 更新。** why 删去了「PR number from the merge commit or branch」、「Body, review comments, linked issues. In a PR with discussion, reviews and comments hold the real signal」、「What good evidence looks like here」等 6 处。
+  - [why](./skills/why/SKILL.md)
+
 ## 2026-10-11
 
 - **新译文。** 插件说明的原文有改动。

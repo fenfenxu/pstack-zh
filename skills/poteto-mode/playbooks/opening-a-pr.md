@@ -25,7 +25,7 @@
 
 **内置 PR 工具。** 这次运行提供内置 PR 工具时，创建、编辑、改目标分支、标为就绪，都用它做，绝不用托管平台的命令行。用命令行开的 PR 会漏掉这个工具跟踪的东西。工具管不到的操作，以及这次运行根本没有这种工具时的所有 PR 操作，都用已经确定的托管平台。
 
-**规模与 stack。** 宁可开五个窄 PR，也不要开一个大 PR。stack 是一条靠目标分支串起来的链。根 PR 以 trunk 为目标。每个子分支都准确地 rebase 到父分支的最新提交上，它的 PR 以父分支为目标。没有内置 PR 工具时，按已确定的托管平台，用 `origin pr create --status open --base <parent-branch>` 或 `gh pr create --base <parent-branch>` 创建子 PR，用 `origin pr edit <pr> --base <parent-branch>` 或 `gh pr edit <pr> --base <parent-branch>` 改一个已有子 PR 的目标分支。只有独立的工作，才从 trunk 拉分支。在 stack 上做较大的工作之前，先 rebase 到 trunk 上。
+**规模与 stack。** 宁可开五个窄 PR，也不要开一个大 PR。stack 是一条靠目标分支串起来的链。根 PR 以 trunk 为目标。每个子分支都准确地 rebase 到父分支的最新提交上，它的 PR 以父分支为目标。父 PR 一合并，就按 `playbooks/shipping.md` 第 4 步把它的子 PR 挪到 trunk 上。没有内置 PR 工具时，按已确定的托管平台，用 `origin pr create --status open --base <parent-branch>` 或 `gh pr create --base <parent-branch>` 创建子 PR，用 `origin pr edit <pr> --base <parent-branch>` 或 `gh pr edit <pr> --base <parent-branch>` 改一个已有子 PR 的目标分支。只有独立的工作，才从 trunk 拉分支。在 stack 上做较大的工作之前，先 rebase 到 trunk 上。
 
 **就绪状态。** 每个 PR 打开时都处于就绪状态，绝不开成草稿。内置 PR 工具可能默认开草稿，所以每次用它创建 PR，都要设 `draft: false`。用 Origin 时，传 `--status open`。用 `gh` 时，不加 `--draft`。如果 PR 还是以草稿打开，就用 PR 工具把它标为就绪，或者按已确定的托管平台运行 `origin pr ready <number>` 或 `gh pr ready <number>`。提到 PR 状态之前，先运行 `origin pr view <number>` 或 `gh pr view <number>`。
 

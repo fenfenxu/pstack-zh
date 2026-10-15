@@ -14,7 +14,7 @@ disable-model-invocation: true
 
 1. 写明每个候选要产出什么。
 2. 定出评分标准，3 到 6 条可以具体打分的标准，说清*这个*任务做成是什么样。它是阶段 D 挑选时用的工具。候选只看得到任务。
-3. 选 runner（各自独立出方案的模型）。用 `~/.cursor/rules/pstack-models.mdc` 里的 `arena runners` 这一行。如果没有这条 rule 或没有这一行，默认 `claude-opus-5-5-xhigh` 和 `grok-4.7-xhigh-fast` 各一个。这一行或交叉评判那一行里写 `auto` 或 `inherit-parent` 的条目，指的是父模型，这时省略 `model`。如果 Task 工具拒绝某个配置的条目，这个席位改用同一模型族的默认值，并说明这件事。模型族按前缀分：`claude-*` 和 `grok-*`。哪个族都对不上时，用 `claude-opus-5-5-xhigh`。如果连默认值也被拒，从报错信息里挑同一族里最接近的有效 slug。arena 要覆盖好几个设计方向时，多开几个 runner。工作主要受生成量限制、不太考验判断时，用同一个模型跑 N 次。
+3. 选 runner（各自独立出方案的模型）。用 `~/.cursor/rules/pstack-models.mdc` 里的 `arena runners` 这一行。如果没有这条 rule 或没有这一行，默认 `claude-opus-5-5-xhigh` 和 `grok-4.7-xhigh-fast` 各一个。这一行或交叉评判那一行里写 `auto` 或 `inherit-parent` 的条目，指的是父模型，这时省略 `model`。如果 Task 工具拒绝某个配置的条目，这个席位改用同一模型族的默认值，并说明这件事。模型族按前缀分：`claude-*`，以及 `grok-*`，其中还包括 `cursor-grok-*` 和 `composer-*`。被拒绝的 `composer-*` 条目改跑 `grok-4.7-xhigh-fast`。哪个族都对不上时，用 `claude-opus-5-5-xhigh`。如果连默认值也被拒，从报错信息里挑同一族里最接近的有效 slug。arena 要覆盖好几个设计方向时，多开几个 runner。工作主要受生成量限制、不太考验判断时，用同一个模型跑 N 次。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 **poteto-mode** skill 的 Subagents 一节。
 4. 按 **separate-before-serializing-shared-state** 原则 skill，每个候选写到自己的位置（能用 git worktree 就用，否则用 `/tmp/arena-<slug>/candidate-<n>/`）。
 
 ## 阶段 B：扇出

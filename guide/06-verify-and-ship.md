@@ -1,7 +1,7 @@
 ---
 title: "验证结果并开 PR"
 description: "能编译不等于有证据。本页讲怎么写明完结条件、核对测出来的数字、为应用生成验证 skill、开 PR，再把 PR 一路推到合并。"
-sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/06-verify-and-ship.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/06-verify-and-ship.md"
 meta:
   updated_at: "2026-10-10T13:49:04+08:00"
   updated_by: "cursor-cloud-agent grok-4.6"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/06-verify-and-ship/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/06-verify-and-ship.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/06-verify-and-ship.md)（提交 `978ca6e`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/06-verify-and-ship.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/06-verify-and-ship.md)（提交 `6ce45c5`）
 
 # 验证结果并开 PR
 

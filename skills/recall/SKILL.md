@@ -16,7 +16,7 @@ Transcript 位于 `~/.cursor/projects/<slug>/agent-transcripts/<uuid>/<uuid>.jso
 
 1. 分类再路由。恢复某一次具体历史对话是 `session-pickup` playbook，不是本 skill。把习惯固化为长期 skill 是 `automate-me`。人类可读的工作摘要又是另一任务。Recall 是在行动前跨近期对话加载工作上下文。若用户已给完整状态胶囊（路径、分支、改动），直接用，跳过挖掘。
 2. 搜索前锁定范围。钉住时间窗口（「最近」是真实区间，默认最近 7 天）、若点名的主题、workspace（默认当前。未被要求时不要读其他项目的 transcript）。把范围复述回去。不要悄悄把「全部」变成「最近 N 条」。
-3. 在自己的聊天历史上扇出。在快速、廉价模型上并行 spawn 子 agent，各取语料一片。告诉每个子 agent 按真实修改时间排序候选（`ls -t`），绝不按 UUID 名；先 grep 主题再只读匹配对话的相关区域；跳过当前对话与明显噪声（subagent、eval、test 对话）。每个返回同一 schema，每对话一块：主题、用户目标、决策、开放线程、卡点与纠正、artifact（PR、ticket、分支），并引用对话 UUID。仅一两份对话时跳过扇出，直接搜。原始 transcript 留在子 agent，主线程只收发现。
+3. 在自己的聊天历史上扇出。在快速、廉价模型上并行 spawn 子 agent，各取语料一片。告诉每个子 agent 按真实修改时间排序候选（`ls -t`），绝不按 UUID 名；先 grep 主题再只读匹配对话的相关区域；跳过当前对话与明显噪声（subagent、eval、test 对话）。每个返回同一 schema，每对话一块：主题、用户目标、决策、开放线程、卡点与纠正、artifact（PR、ticket、分支），并引用对话 UUID。仅一两份对话时跳过扇出，直接搜。原始 transcript 留在子 agent，主线程只收发现。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 **poteto-mode** skill 的 Subagents 一节。
 4. 只要主题点名功能、文件、子系统、区域或 bug，就扫共享记录。这是默认，不是酌情。**why** skill 的 source investigator 负责，但把问题从「为何这样建」导向「当前状态、试过什么没撑住、用户还在报什么」。复用其 per-source playbook，与对话挖掘并行跑 investigator，继承其姿态：每 source 一个 investigator，空结果也是发现，MCP 不可用则跳过并说明。并入简报。仅纯活动回忆且无命名目标（「我这周做了什么」）时跳过，此时自己的历史与现场状态即全部答案。
 5. 对照现场状态核实。对挖掘与共享记录 sweep 发现的 PR、分支、ticket 用 `git` 与 `gh` 检查。当答案取决于 agent 实际做了什么（跑了什么工具、读了什么文件、遇到什么错误）时，读完整 transcript，不要只看本地截断副本。
 6. 按下方契约写简报。按线程分组。紧扣命名主题。

@@ -33,9 +33,9 @@ disable-model-invocation: true
 
 每个评审者的 `subagent_type` 是 `generalPurpose`，`readonly` 是 `true`，`model` 设成它配置的条目；没有配置这一行时用表里的默认值。条目是 `auto` 或 `inherit-parent` 时，省略 `model`，让这个评审者跑在父模型上。
 
-如果 Task 工具拒绝某个配置的条目，这个评审者改用同一模型族在表里的默认值，并说明这件事。模型族按前缀分：`claude-*` 和 `grok-*`。哪个族都对不上时，用 Reviewer A 的默认值。如果连表里的默认值也被拒，就用报错信息里有效 slug 中最接近的等价模型开评审者（优先同一族、同一推理档位），另开一个 PR 更新默认值表。不要因为 slug 的问题卡住评审。别名条目绝不当作被拒的 slug，两种回退都不用在它身上。
+如果 Task 工具拒绝某个配置的条目，这个评审者改用同一模型族在表里的默认值，并说明这件事。模型族按前缀分：`claude-*`，以及 `grok-*`，其中还包括 `cursor-grok-*` 和 `composer-*`。被拒绝的 `composer-*` 条目改跑 Reviewer B 的默认值。哪个族都对不上时，用 Reviewer A 的默认值。如果连表里的默认值也被拒，就用报错信息里有效 slug 中最接近的等价模型开评审者（优先同一族、同一推理档位），另开一个 PR 更新默认值表。不要因为 slug 的问题卡住评审。别名条目绝不当作被拒的 slug，两种回退都不用在它身上。
 
-读 `references/reviewer-prompt.md`，给每个评审者填同一份模板：写明的意图、diff 或文件内容、`references/rubric.md` 里的评审标准，以及 `references/code-quality-review.md` 里的代码质量视角。
+读 `references/reviewer-prompt.md`，给每个评审者填同一份模板：写明的意图、diff 或文件内容、`references/rubric.md` 里的评审标准，以及 `references/code-quality-review.md` 里的代码质量视角。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 **poteto-mode** skill 的 Subagents 一节。
 
 ## 第 4 步：综合
 

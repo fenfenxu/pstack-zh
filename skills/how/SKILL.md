@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 探索代码库，回答「X 是怎么工作的」这类问题。讲解的深度，以资深工程师刚接手一个子系统时的需要为准。要足够建立一个能用的心智模型，又不能细到读起来像加了注释的源码。
 
-下面每次启动都是一个 Task 子代理，`subagent_type` 为 `generalPurpose`，`readonly` 为 `true`。探索者用 `pstack-models.mdc` 这条 rule 里的 `how explorer` 那一行（默认 `grok-4.7-xhigh-fast`），每个讲解者用 `how explainer` 那一行（默认 `claude-opus-5-5-xhigh`）。把 `model` 设为那一行的值。rule 或那一行不存在时，设为默认值。值为 `auto` 或 `inherit-parent` 时，不设 `model`。Task 工具拒绝某个 slug 时，改用默认值，并说明这一点。Task 工具连默认值也拒绝时，从它的报错信息里挑同一系列中最接近的有效 slug。
+下面每次启动都是一个 Task 子代理，`subagent_type` 为 `generalPurpose`，`readonly` 为 `true`。探索者用 `pstack-models.mdc` 这条 rule 里的 `how explorer` 那一行（默认 `grok-4.7-xhigh-fast`），每个讲解者用 `how explainer` 那一行（默认 `claude-opus-5-5-xhigh`）。把 `model` 设为那一行的值。rule 或那一行不存在时，设为默认值。值为 `auto` 或 `inherit-parent` 时，不设 `model`。Task 工具拒绝某个 slug 时，改用默认值，并说明这一点。Task 工具连默认值也拒绝时，从它的报错信息里挑同一系列中最接近的有效 slug。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 **poteto-mode** skill 的 Subagents 一节。
 
 ## 1. 评估复杂度
 

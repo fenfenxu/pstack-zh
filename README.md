@@ -8,11 +8,11 @@ Unofficial Chinese translation of poteto's pstack. Not affiliated with Cursor or
 
 这些译文不能代替官方插件。在 Cursor 里执行时，安装官方 pstack。本仓库与 Cursor、Lauren Tan 没有隶属关系。
 
-英文原文在 [cursor/plugins 的 `pstack` 目录](https://github.com/cursor/plugins/tree/978ca6e9c0e012047cd5058b8e829240336e704e/pstack)，版本 0.15.17，提交 `978ca6e`。
+英文原文在 [cursor/plugins 的 `pstack` 目录](https://github.com/cursor/plugins/tree/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack)，版本 0.15.25，提交 `6ce45c5`。
 
 ## 目录
 
-- [`skills/`](skills/INDEX.md) 有 52 个 skill 的中文译文，包括 references、playbooks 和 skill 自带脚本。
+- [`skills/`](skills/INDEX.md) 有 54 个 skill 的中文译文，包括 references、playbooks 和 skill 自带脚本。
 - [`agents/`](agents/README.md) 有 2 个子代理的中文译文。
 - [`guide/`](guide/index.md) 是官方指南的中文译文，含第 01 到 10 章、目录和插件说明。
 - [`tutorials/`](tutorials/index.md) 是我们写的「认识 pstack」教程。

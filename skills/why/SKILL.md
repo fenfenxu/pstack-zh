@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 调查代码背后的动机与意图。配套的 `how` skill 回答代码做什么、如何工作。`why` 回答是什么力量塑造了它的形态。
 
-下面每次 spawn 都对应 `pstack-models.mdc` 规则中的一行角色及其默认值。将 `model` 设为该行值；若规则或该行缺失，则用默认值。当值为 `auto` 或 `inherit-parent` 时，不设置 `model`。若 Task 工具拒绝某 slug，改用默认值并说明。若默认值也被拒绝，从其错误信息中选取同系列最接近的有效 slug。
+下面每次 spawn 都对应 `pstack-models.mdc` 规则中的一行角色及其默认值。将 `model` 设为该行值；若规则或该行缺失，则用默认值。当值为 `auto` 或 `inherit-parent` 时，不设置 `model`。若 Task 工具拒绝某 slug，改用默认值并说明。若默认值也被拒绝，从其错误信息中选取同系列最接近的有效 slug。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 **poteto-mode** skill 的 Subagents 一节。
 
 每次启动都是 `generalPurpose`，`readonly` 为 `false`（agent 模式）。**不要用 readonly/Ask 模式。** 它会去掉 MCP，依赖 MCP 的调查员和合成器的引用抽查都会失效。调查员仍然不该写任何东西。
 

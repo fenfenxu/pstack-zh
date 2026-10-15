@@ -14,7 +14,7 @@
    7. 做得更便宜。
 
    前面的口诀已经达到目标，就停。
-3. 根据 trace 规划修复。修复跨函数边界时，先用 `architect`。把实现交给子代理，用你配置的 perf-issue 模型（默认 `grok-4.7-xhigh-fast`）。评审 diff。采集一份修复后的 trace。
+3. 根据 trace 规划修复。修复跨函数边界时，先用 `architect`。把实现交给子代理，用你配置的 perf-issue 模型（默认 `grok-4.7-xhigh-fast`）。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 Subagents 一节。评审 diff。采集一份修复后的 trace。
    按 **sequence-verifiable-units** 原则 skill 推进，每次尝试都先验证，再试下一个。
 4. 解析并比较产物（把 JSON 导入 sqlite，做 diff）。结果是「Inconclusive」（没有定论），或者测错了界面，都不算通过。要把它标出来。
 5. 在 PR 里引用这次测量。

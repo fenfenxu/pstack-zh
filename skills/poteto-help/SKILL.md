@@ -67,11 +67,13 @@ pstack 是为 Cursor 做的。它的 skill 用的是 Agent Skills 格式，所�
 | 用户想做的事 | skill |
 |---|---|
 | 严谨地做任何不简单的任务 | [`/poteto-mode`](../poteto-mode/SKILL.md) |
+| 开工前核对 agent 是否理解了目标和要解决的问题 | [`/in-your-own-words`](../in-your-own-words/SKILL.md) |
+| 开工前把任务的目标抬高：更专家、更对准结果，不要写得过死 | [`/sharpen`](../sharpen/SKILL.md) |
 | 弄清代码现在怎么运作，或新代码该放在哪 | [`/how`](../how/SKILL.md) |
 | 弄清代码为什么是这个形状，或某个数字是从哪来的 | [`/why`](../why/SKILL.md) |
 | 用大白话弄懂一次改动或一个子系统 | [`/teach`](../teach/SKILL.md) |
 | 补上自己最近在某个话题上的进度 | [`/recall`](../recall/SKILL.md) |
-| 补上这次对话里、自己上一条消息之后的一切，上下文要够对每件待用户处理的事做决定 | [`/ketchup`](../ketchup/SKILL.md) |
+| 补上这次对话里、自己上一条消息之后变了什么，用几句大白话和小图，上下文要够对每件待用户处理的事做决定 | [`/ketchup`](../ketchup/SKILL.md) |
 | 弄清一小段 diff 可能在自身以外弄坏什么 | [`/blast-radius`](../blast-radius/SKILL.md) |
 | 动手写跨函数边界的代码之前，先定下类型和模块形状 | [`/architect`](../architect/SKILL.md) |
 | 对同一份简报做几次尝试，再合成最好的一份 | [`/arena`](../arena/SKILL.md) |

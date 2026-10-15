@@ -2,13 +2,13 @@
 name: Poteto Mode
 description: poteto 的 agent 工作风格：回复简洁又不漏细节，子代理用得有分寸，文字去掉 slop，代码简单，工作经过验证。用于 poteto、/poteto-mode，或者要求照这种风格工作的请求。
 disable-model-invocation: true
-mode: true
 icon: crown
 color: yellow
-reminder: 新任务？若需匹配 playbook 或更高严谨度 → 应用 /poteto-mode。随意回合或用户明确退出 → 不要应用。
 ---
 
 # Poteto mode
+
+随插件带上的 skill 都在本文件的 `../<name>/SKILL.md`。所以写给每个 `poteto-agent` 的提示词里，都要放上本文件的绝对路径。
 
 ## 必须遵守
 
@@ -90,9 +90,11 @@ reminder: 新任务？若需匹配 playbook 或更高严谨度 → 应用 /potet
 
 ## Subagents
 
-**在 playbook 的步骤里开的任何子代理，都用 `subagent_type: "poteto-agent"`**（写代码的委派、临时的帮手）。`/poteto-mode` 和 `poteto-agent` 走的是同一层包装。被分派到的工作流程 skill（`how`、`why`、`interrogate`、`reflect`、`swarm`）为了让不同模型来评审，会自己设定 `subagent_type`。照 skill 的规定来，不要改成 `poteto-agent`。
+**在 playbook 的步骤里开的任何子代理，都用 `subagent_type: "poteto-agent"`**（写代码的委派、临时的帮手）。收到 `/poteto-mode` 的这场聊天来跑 playbook。绝不要再开一个 `poteto-agent` 去跑 playbook 本身。被分派到的工作流程 skill（`how`、`why`、`interrogate`、`reflect`、`swarm`）为了让不同模型来评审，会自己设定 `subagent_type`。照 skill 的规定来，不要改成 `poteto-agent`。
 
 **每次调用 `Task` 的默认设置。** `run_in_background: true`，用 agent 模式（只读模式会去掉 MCP），给文件指针而不是把上下文贴进去，每个角色明确指定模型（可以用 `/setup-pstack` 配置。默认写代码用 `grok-4.7-xhigh-fast`，写文字和做判断用 `claude-opus-5-5-xhigh`）。写代码的委派按难度分档。最难的改动（跨模块的设计、棘手的并发、微妙的算法）交给你判断力最强的模型（`claude-opus-5-5-xhigh`），不管这个任务是要从含糊的意图里做判断，还是一串规定得很精确、要一字不差执行的步骤。简单机械的修改交给你的快速代码模型。`/setup-pstack` 那条 rule 里按角色写的各行，会覆盖这些默认值，也会覆盖被分派到的 skill（`how`、`why`、`arena`、`swarm`、`architect`、`interrogate`、`reflect`）里的模型选择。没有对应行的角色保留默认值；某个角色那一行写的是 `inherit-parent` 或 `auto`，这个角色就跑在父聊天的模型上（省略 Task 的 `model`）。每个写代码的 playbook 用哪个模型，看它对应的那一行（`feature, refactoring`、`bug-fix`、`perf-issue` 或 `hillclimb`），最难的改动看 `hardest tasks`。写文字和做判断看 `judgment and prose`。
+
+**模型要跟工作匹配。** 每次派出之前，从该角色的那一行或默认值出发，按这项工作需要的推理强度和速度来选。`/setup-pstack` 的预算给出每个角色的起始档，默认是 xhigh。最难或最细的工作，往上提一档，最高到 max。判断类的工作降一档，常规工作降两档或更多。只有这件事很急，才用 fast：CI 或主干是红的，或者有人正被这个结果堵住。否则用标准速度，也就是同一个 slug 去掉 `-fast`。验证是例外，仍用 `swarm workers` 那一行的模型和速度（默认 `grok-4.7-xhigh-fast`）。只改推理强度，以及 slug 是不是 fast，模型族保持该角色指定的那个，这样不同模型的评审团仍然是不同的。如果这个族没有那个强度和速度的 slug，就用最接近的。角色是 `auto` 或 `inherit-parent` 时，继续跑在父模型上。如果 Task 工具拒绝了调整后的 slug，不要再试别的调整。改用该角色的那一行或默认值，并说明这件事。
 
 每个子代理的工作都由你负责。评审它的 diff，写你自己的总结，不要把它的话原样转述。第二意见就是把同一份提示词交给另一个模型。两边一致，是很强的信号。
 

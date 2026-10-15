@@ -1,7 +1,7 @@
 ---
 title: "把它变成你的"
 description: "生成你自己的 mode，留下一次会话的教训，用 /correct 改仓库拦住反复出现的错，写一个只做一件事的 skill，并在信任 skill 改动之前先做盲测。"
-sourceUrl: "https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/09-make-it-yours.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/09-make-it-yours.md"
 meta:
   updated_at: "2026-10-10T13:49:04+08:00"
   updated_by: "cursor-cloud-agent grok-4.6"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/09-make-it-yours/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/09-make-it-yours.md`](https://github.com/cursor/plugins/blob/978ca6e9c0e012047cd5058b8e829240336e704e/pstack/docs/guide/09-make-it-yours.md)（提交 `978ca6e`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/09-make-it-yours.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/09-make-it-yours.md)（提交 `6ce45c5`）
 
 # 把它变成你的
 

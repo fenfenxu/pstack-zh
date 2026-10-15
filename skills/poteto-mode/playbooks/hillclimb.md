@@ -9,7 +9,7 @@
 3. 用 **show-me-your-work** skill 开一份决策日志。用一个 `decision.tsv`，每次尝试记一行，列依次是 id、hypothesis、change、before、after、delta、tests、verdict（kept 或 reverted）、note。每次尝试前先读它。不要放进代码树（加进 gitignore）。
 4. 每个假设都要建立在第 1 步得到的架构模型上，指明一个具体机制（「X 会阻塞首次绘制，所以把它挪出启动路径」），而不是「随便找个地方加缓存试试」。指标是性能时，假设的顺序跟 Perf issue playbook（`playbooks/perf-issue.md`）第 2 步的性能口诀一致。只借用这个顺序，不借用那一步的停止规则。
 5. 循环，每轮只验证一个假设：
-   - 把改动交给子代理，用你配置的 hillclimb 模型（默认 `grok-4.7-xhigh-fast`），范围收紧。你负责监督和评审 diff，不要自己动手敲（**guard-the-context-window** 原则 skill）。同时有几个互相独立的假设待验证时，把它们扇出给并行的子代理，每个子代理用自己的 worktree（**separate-before-serializing-shared-state** 原则 skill）。
+   - 把改动交给子代理，用你配置的 hillclimb 模型（默认 `grok-4.7-xhigh-fast`），范围收紧。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 Subagents 一节。你负责监督和评审 diff，不要自己动手敲（**guard-the-context-window** 原则 skill）。同时有几个互相独立的假设待验证时，把它们扇出给并行的子代理，每个子代理用自己的 worktree（**separate-before-serializing-shared-state** 原则 skill）。
    - 用冻结的 harness 测改动前后的数值，并跑回归门禁。
    - 只有指标的变化超出噪声、门禁仍然全绿时，才接受。否则把改动完整还原。「可能有用」的小调整不保留。
    - 每接受一个修复，就单独做一个 commit，只暂存你改过的文件（`git add <files>`，绝不用 `-A`）。不管保留还是还原，都要记一行。

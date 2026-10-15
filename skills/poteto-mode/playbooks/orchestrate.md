@@ -12,7 +12,7 @@
 
 #### 角色与运行位置
 
-- **协调者（就是这个会话）。** 在本地跑。它框定任务、写简报、排空收件箱、负责给人的报告、做判断。它从不写代码，也从不改代码。有冲突的合并、restack（把 stack 里的分支重新 rebase 到各自的父分支上）和代码改动，永远是派出去的任务。在本地 git 操作很便宜的仓库里，机械地合入已验证的单元（快进或干净地 cherry-pick 执行者的提交，然后推送）属于记账杂务，协调者可以自己做。把做完的工作排在闲着的 stack 管理者（负责整理 stack 的 agent）后面，到了截止时间就会一无所获。整个循环从头到尾都由 agent 完成。派出、恢复和排空 agent，只用 Task 工具。在排空点读写状态，走 `scripts/orch/orch.ts`，一条命令进去，一行结果出来。这个 CLI 从不派出、等待或唤醒任何东西。
+- **协调者（就是这个会话）。** 在本地跑。它框定任务、写简报、排空收件箱、负责给人的报告、做判断。它从不写代码，也从不改代码。有冲突的合并、整条链的 rebase 和代码改动，永远是派出去的任务。在本地 git 操作很便宜的仓库里，机械地合入已验证的单元（快进或干净地 cherry-pick 执行者的提交，然后推送）属于记账杂务，协调者可以自己做。把做完的工作排在闲着的 stack 管理者（负责整理 stack 的 agent）后面，到了截止时间就会一无所获。整个循环从头到尾都由 agent 完成。派出、恢复和排空 agent，只用 Task 工具。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 Subagents 一节。在排空点读写状态，走 `scripts/orch/orch.ts`，一条命令进去，一行结果出来。这个 CLI 从不派出、等待或唤醒任何东西。
 - **子协调者。** 永远在本地，长期存在，每条工作线一个，而且只在项目大到一个协调者的排空处理不过来时才设。协调者自己排空得过来的工作线，不需要中间层。每多嵌一层，都要重新付一遍完整的上手说明。阻塞式的子协调者还会把它的子代理藏起来，让父代理干等。子协调者负责本工作线的单元和看板，给自己的执行者写简报，自己派出执行者和验证者（嵌套最多到第 3 层，嵌套里的派出也有完整的 Task 参数结构，包括 `environment`）。在每一波的边界把结果汇总上报。从不原样转发子代理的报告。在跑的子代理以一次排空能处理的数量为上限，大约十个，按滚动窗口维持。绝不分成阻塞式的批次，那样每一批都要等最慢的那个子代理。
 - **执行者 / 验证者。** 一律用 `environment: "cloud"`，除非任务需要这台机器：用 `cursor-team-kit` 的 `control-ui` 或 `control-cli` 做运行时验证；读取 `agent-transcripts/` 下的本地对话记录；模拟器和本地 IDE 状态；只有这台机器上才有的认证。cloud agent 读不到本地的存储目录（store），所以给它们的简报要把所需内容直接写进去，或者指向仓库里的路径。执行者宁可少一些，每个管的范围宽一些。每个 worktree 或分支只有一个写者（principle-separate-before-serializing-shared-state）。一个单元的验证者，要和它的执行者用不同系列的模型。
 
@@ -43,7 +43,8 @@ CONTEXT      pointers to files and PRs; upstream reports pasted in full when thi
 ACCEPTANCE   checkable criteria, one per line
 VERIFY       exact commands or the control-skill path, plus known gotchas
 TIMEBOX      rough cap on runtime; on expiry, return partial findings and stop rather than run on
-FORBIDDEN    no gt, no rebase, no force-push, no fixes outside scope, plus unit-specific bans
+FORBIDDEN    no PR retargets or merges, no rebase, no force-push, no fixes outside scope,
+             plus unit-specific bans
 REPORT       status, branch, head SHA, PRs, verdict, what you actually ran, deviations,
              suggested follow-ups
 STANDING     <preferences.md pasted verbatim>
@@ -58,7 +59,7 @@ STANDING     <preferences.md pasted verbatim>
 #### 步骤
 
 1. **框定任务。** 把完成条件写成能计数的形式（「126 个单元全部合并，每个在账本里都验证为 `unit-test-verified` 或更好」）。把范围量化：单元数、大致工作量、预计有几个 stack、墙钟时间预算。如果一个 agent 在这个预算内就能做完，在这一步停下，改走 Autonomous run。这种收缩不能依赖另一份文档在场。收缩的意思是：直接在本次会话里干活，有帮助时派普通的执行者，验证当场做，边做边合入，下文的存储目录、登记表和试点那一套都不用。按预算安排合入。预算用到大约 70% 时，停止派出，把已验证的部分合入。按项目给工作线命名。有争议的拆分方案，或者做了就回不了头的决定，先过 arena skill，再做试点。框定的结果只呈现一次。可撤销的准备工作直接推进，不用等。
-2. **装好运行时。** 运行 `orch init`。按 show-me-your-work skill 开始记 trail，在任何派出之前写好常设指令，并用 `orch frontier set --repo <repo-dir>` 从现有的 PR 初始化 `frontier.json`。
+2. **装好运行时。** 运行 `orch init`。按 show-me-your-work skill 开始记 trail，在任何派出之前写好常设指令，并用 `orch frontier set --repo <repo-dir>` 从现有的 PR 初始化 `frontier.json`，代码托管平台是 Origin 时加上 `--forge origin`。
 3. **跑试点。** 让一个单元走完整条路径：简报、执行者、验证、进入 stack、账本行、合并。试点的作用，是趁代价只有一个 agent 而不是五十个的时候，去证伪简报模板、验证方法和单元大小。任何扇出之前，先按试点得到的证据修正这套约定。试点的规模跟单元相称。如果项目里的单元又便宜、又几乎一样，第一个单元就是试点：按普通单元跑，验证命令当场执行，它一合入就开始扇出。专门的试点流程（单独的验证者 agent、审计门禁）用于成本高或形状新的单元，不用于克隆式的单元，因为对这类单元串行跑试点，没有东西可证伪。
 4. **扩大规模。** 按滚动窗口派出执行者，直到在跑的数量达到上限，有子代理做完就补上。阻塞式批次每一批都要等最慢的那个子代理。只有超过「角色与运行位置」一节说的门槛，也就是一个协调者排空不过来时，才派各工作线的子协调者。每次排空之后，重新算出哪些工作已经可以开始。把前置单元的报告转写进后续单元的简报。同级之间不直接沟通，只往上报。简报抽查和它抽样的那一波同时做，不合格时停的是下一次补充，不是当前这一波。
 5. **排空。** 在每个排空点，按下文的队列规矩来做。
@@ -76,9 +77,9 @@ STANDING     <preferences.md pasted verbatim>
 
 #### Stack safety
 
-- frontier 是计算出来的对象，绝不是叙述。每次合并和每次 stack 变动之后，都从 `gt` 重新计算 `frontier.json`，因为 restack 做到一半时，GitHub 上各 PR 的基础分支会漂移，而 gt 的跟踪记录才是权威。它的内容包括：有序的 PR 列表、分支名、head SHA、一个版本号、最下面那个未合并的 PR。在 gt 认识这个 stack 的地方解析它，通常是 stack 管理者的那份克隆。如果某个检出目录的 gt 元数据从没见过那几次 submit，它会报告没有 PR，命令直接报错，而不是去猜。
-- 每个 stack 恰好只有一个 stack 管理者可以运行 `gt`，在这个 stack 里串行执行。把担任这个角色的 agent 记进常设指令。restack 在云端跑。这种规模的 restack 放在本地跑，会把笔记本拖垮。
-- 执行者从不 rebase，也从不运行 `gt`。看护者按 `playbooks/babysit.md` 做事，每个 stack 一个，范围限定在一个不可变的 frontier 版本。遇到冲突，它们报告给 stack 管理者，不自己 restack。
+- frontier 是计算出来的对象，绝不是叙述。每次合并和每次 stack 变动之后，都重新计算 `frontier.json`。它的内容包括：有序的 PR 列表、分支名、head SHA、一个版本号、最下面那个未合并的 PR。这条命令顺着检出目录当前分支上的 PR 基础链往下走，所以链的顺序和 PR 状态来自代码托管平台。默认用 `gh`。项目把托管平台定成 Origin 时，传 `--forge origin`。head SHA 来自本地分支 ref，所以要在 stack 管理者的那份克隆上解析。没有 PR 的分支直接报错，而不是去猜。
+- 每个 stack 恰好只有一个 stack 管理者可以改拓扑（整条链的 rebase、force-push、改基础分支、合并），在这个 stack 里串行执行。把担任这个角色的 agent 记进常设指令。整条链的 rebase 在云端跑。这种规模的 rebase 放在本地跑，会把笔记本拖垮。
+- 执行者从不 rebase，也从不改 PR 的目标或合并 PR。看护者按 `playbooks/babysit.md` 做事，每个 stack 一个，范围限定在一个不可变的 frontier 版本。遇到冲突，它们报告给 stack 管理者，不自己 rebase。
 - 关闭 PR 和改 PR 的目标分支，都只交给 stack 管理者做。关掉一个作为基础的 PR，它上面的每条链都会变成孤儿。合并和 stack 结构调整也是单元，跟其他单元一样要有简报。
 - 设一个事后观察者，跟踪已合并的 PR：有没有回滚、合并后 CI 有没有坏、有没有没人接手的后续工作。
 
@@ -104,7 +105,7 @@ STANDING     <preferences.md pasted verbatim>
 
 下面这些要报给人，而且要攒进状态页一起报，不逐条报：不可逆的操作（对共享分支强制推送、部署、删除、关闭别人的 PR）；真正属于产品或偏好、任何实验都定不下来的决定；和实际观察相矛盾的常设指令；重新规划之后仍然走不通的项目级死胡同。每一项在提问之前，先记成 `gates.md` 里的一条，然后让工作绕开它继续。
 
-下面这些绝不报给人：推动 frontier 的小动作、restack 的具体操作、重试、CI 偶发失败的分诊、评审讨论串的分诊、格式修复、简报已经禁止的范围（拒绝，然后继续），以及「要不要继续」。拿不准时，先做，再记录。
+下面这些绝不报给人：推动 frontier 的小动作、rebase 的具体操作、重试、CI 偶发失败的分诊、评审讨论串的分诊、格式修复、简报已经禁止的范围（拒绝，然后继续），以及「要不要继续」。拿不准时，先做，再记录。
 
 运行中途发现的问题，只修挡住 frontier 的部分。其余的都搁进后续事项。扇出到这个规模，一点范围泄漏就会成倍放大，变成没人要的 PR。
 

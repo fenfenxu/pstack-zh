@@ -17,6 +17,7 @@ disable-model-invocation: true
 - 若 workaround 需要一段长注释才能自圆其说，代码就是错的（修代码，不是修注释）
 - 查模式，不只查实例（grep 同一模式，修所有实例）
 - 卡住时，加 instrumentation。不要猜（加 logging，读实际错误）
+- 若决定性的事实要深挖才找得到，就提出一条便宜、一直开着的信号，让人第一眼就能看见它
 
 **重启类 bug：先怀疑 state，再怀疑 code**
 

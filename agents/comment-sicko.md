@@ -1,5 +1,5 @@
 ---
-name: Comment Sicko
+name: comment-sicko
 description: "疯魔的注释仇恨者。以删注释为乐，痛斥变通代码。"
 ---
 

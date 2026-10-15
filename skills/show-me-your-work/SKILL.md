@@ -64,7 +64,7 @@ run 结束前、交回前，检查日志是否说了真话。读 active workspac
 
 ## 跨模型审查轨迹
 
-交回前，在与做工作的模型不同 model family 上 spawn 子 agent。自审不能替代。子 agent 读审计轨迹与本 run transcript，标出用户应留意的点。不是重做工作，是扫次优或风险之处。
+交回前，在与做工作的模型不同 model family 上 spawn 子 agent。自审不能替代。子 agent 读审计轨迹与本 run transcript，标出用户应留意的点。不是重做工作，是扫次优或风险之处。按这项工作给每个子代理选推理强度，以及用 fast 还是标准速度，见 **poteto-mode** skill 的 Subagents 一节。
 
 - 证据弱或缺失的决策。
 - 跳过或 transcript 无证明的验证步骤。

@@ -15,13 +15,9 @@ babysit 在用户要求时才开始，通常是一个阶段或整个 stack（一
 
    在 GitHub 上，single 或 stack 模式下，一个 PR 到了 `READY` 就停。queued 模式永远不会给出 `READY`。没有阻塞项的 frontier，状态是非终态的 `WAITING`，原因是 `merge-queue`。这时报告这个 frontier 已可合并，并停掉监视脚本。不要让它一直跑到合并发生，那是 Shipping 的事。如果有别的参与者合并了 frontier，监视脚本报告 `ADVANCE`，就接着处理新的 frontier。如果别的参与者走完了整个队列，`COMPLETE` 就是终态。
 
-   重新启动监视脚本，从来不等于授权合并，也不等于授权开启 merge-when-ready（条件满足后自动合并）。除非用户明确要求合并、落地、交付或就绪后合并，否则不要运行 `origin pr merge` 或 `gh pr merge`。这类请求转给 `playbooks/shipping.md`。stack 里的 PR，如果父 PR 没有必需的检查，一开启 merge-when-ready，就可能立刻合进父分支。这样评审就不再按 PR 分开。ref 丢失的竞态还可能让它显示为已合并，父分支的 ref 却没有更新。
-
    循环中途用户提问，回答之后继续。在当前托管平台的停止条件到来之前，只有明确叫停才能结束循环。在 GitHub 上，停止条件是 single 或 stack 模式下的 `READY`，或者 queued 模式下报告的 `WAITING`/`merge-queue` 或 `COMPLETE`。在 Origin 上，停止条件是上文定义的可合并状态。对 GitHub 上的 queued stack，自下而上记录一次 PR 列表，之后每次重启监视都传同一份冻结的列表。只有第 4 步允许的那种后续 PR 才能改这份列表。把它加到末尾，去掉已经合并的所属 PR，再用改好的快照重启监视。
 7. **重新触发 CI 之前，先判断失败属于哪一类。** 偶发失败或基础设施问题，可以换来一次全新的构建，绝不是单独重试某个任务。只重试一次。第二次失败一模一样，说明它从来就不是偶发失败。这时重新归类，去读子任务的日志，不要盲目重试。失败出在 diff 完全没碰过的代码上，说明分支的基点过时了。先用 `git merge-base --is-ancestor` 检查，再考虑是不是偶发失败。基点过时就报告需要 rebase，不要白白耗掉重试次数。只有 diff 自己的代码出了问题，才值得提交一个修复。
 8. **Bugbot 的评论，永远带着怀疑去分类处理。** 按 `../references/bugbot-triage.md`，对照代码核实每一条说法。真实的 finding（Bugbot 报出的问题）要修，并附上先红后绿的证明。修复放在拥有这段代码的最底下那个 PR 里，绝不放在 stack 最上面的 PR 里，除非所属 PR 已经合并。那种情况下，用第 4 步允许的后续 PR。按第 2 步，上层 PR 的修复，要等第 5 步下一波围绕 frontier 的推送。先推送这一波再回复，这样回复里能引用对应的 commit。在 Origin 上，用 `origin pr thread reply <thread-id> <pr> --body-file <reply-file>` 回复。在 GitHub 上，调用 `gh api --method POST "repos/<owner>/<repo>/pulls/<pr>/comments/<comment-id>/replies" --input <payload.json>`，把回复正文作为数据放进这个 JSON 文件。绝不把评论正文或回复内容拼进 shell 命令。驳回噪声时，在讨论里写出具体的反证。在 GitHub 上，用监视脚本给出的 Bugbot 轮数。在 Origin 上，根据 `origin pr thread list` 和评审历史推算轮数。从第三轮起，对已有记录的模式倾向于驳回。但凡涉及安全、鉴权、计费、数据或迁移，仍然要上报，不要自己驳回。绝不为了让 bot 安静而反复改代码。
 9. **到了该由人决定的地方就停。** 负责人的批准只能等，不是你要去修的阻塞项。babysit 从不授权合并。只有明确提出合并、落地、交付或就绪后合并的请求，才构成授权。这类请求转给 Shipping。把需要上报的事摆出来，其余的继续做。GitHub 报告 `READY`、queued 模式停在 `WAITING`/`merge-queue`，或报告 `COMPLETE` 之后，或者 Origin 报告 frontier 可以合并之后，把这次运行里的分类决定统一过一遍。对团队有用的驳回模式，都作为候选条目提给共享的判断准则（`../references/bugbot-triage.md`），并单独开一个 PR。绝不只记在私有记忆里。
 
 `drive` 到可以合并时结束。stack 的落地归 `playbooks/shipping.md`。
-
-**回复：** 写明模式，frontier 和它在当前托管平台上的状态，GitHub 上监视脚本的四列表格，哪些修了、哪些驳回了以及各自的理由，还有哪些待处理，以及哪些需要人来处理。
