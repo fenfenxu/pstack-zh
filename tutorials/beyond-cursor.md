@@ -2,9 +2,9 @@
 title: Claude Code / Codex 能用吗
 description: 官方插件不能原样装。可移植的是规程与原则。Cursor 专属钩子要重写或降级。
 meta:
-  updated_at: "2026-10-04T23:07:18+08:00"
-  updated_by: "cursor-cloud-agent cursor"
-  triggered_by: "sidebar order"
+  updated_at: "2026-10-17T16:30:00+08:00"
+  updated_by: "Grok Bot"
+  triggered_by: "liu xu"
 ---
 
 ## 结论
@@ -86,4 +86,5 @@ meta:
 
 - [构成与关系](./anatomy.md)
 - [中文开发者能直接用吗](./for-chinese-devs.md)
+- 相关阅读：[pstack 官方支持 Claude Code 了](./pstack-in-claude-code.md)（2026-10-17 起有官方的 Claude Code 安装方式）、[无版本号更新：pstack 支持 Claude Code](https://pstack.ganhai.cloud/releases/claude-code-support/)（PR #637 的翻译与代码解读）
 - 在 Cursor 里先跑通 [两个入口](./index.md) 后再谈移植

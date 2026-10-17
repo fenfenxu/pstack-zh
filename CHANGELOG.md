@@ -2,6 +2,11 @@
 
 这里只记已经放进本仓库的中文内容。
 
+## 2026-10-17
+
+- **新文章。** 写了一篇站长解读：pstack 官方支持 Claude Code 之后，为什么还要专门适配，两份副本怎么维护。
+  - [pstack 官方支持 Claude Code 了](./tutorials/pstack-in-claude-code.md)
+
 ## 2026-10-15
 
 - **新译文。** 插件说明的原文有改动。

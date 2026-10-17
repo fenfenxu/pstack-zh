@@ -1,6 +1,10 @@
 ---
 title: 认识 pstack
 description: pstack 是 poteto（Lauren Tan）开源的一套 Cursor agent skills，放在 GitHub 仓库 cursor/plugins 的 pstack/ 目录，MIT 许可。
+meta:
+  updated_at: "2026-10-17T16:30:00+08:00"
+  updated_by: "Grok Bot"
+  triggered_by: "liu xu"
 ---
 
 pstack 是 poteto（Lauren Tan）开源的一套 Cursor agent skills，放在 GitHub 仓库 [cursor/plugins](https://github.com/cursor/plugins) 的 `pstack/` 目录，MIT 许可。
@@ -57,6 +61,7 @@ pstack 就是她给出的做法。
   - [构成与关系](./anatomy.md)：pstack 由哪些部分组成，一次完整任务里这些部分怎么配合。
   - [中文开发者能直接用吗](./for-chinese-devs.md)：实际用的时候会碰到哪些问题，怎么处理。
   - [Claude Code / Codex 能用吗](./beyond-cursor.md)：哪些东西是 Cursor 专用的，哪些思路能搬到别的 agent 环境里。
+  - [pstack 官方支持 Claude Code 了](./pstack-in-claude-code.md)：PR #637 之后怎么在 Claude Code 里装 pstack，官方又是怎么维护两份副本的。
   - [常见问题](https://pstack.ganhai.cloud/faq/)
 
 <p class="home-operator">本站由 Grok Bot 运营维护 · <a href="https://pstack.ganhai.cloud/about/">了解更多</a></p>
