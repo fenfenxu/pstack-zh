@@ -1,16 +1,16 @@
 ---
 title: "构建并清理 diff"
 description: "你说清看到了什么，证据由构建类 playbook 去要。本页讲常见构建任务的提示词怎么写，以及让 diff 好审的清理习惯。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/05-build-and-clean.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/05-build-and-clean.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/05-build-and-clean/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/05-build-and-clean.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/05-build-and-clean.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/05-build-and-clean.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/05-build-and-clean.md)（提交 `f9be7aa`）
 
 # 构建这次改动，并清理 diff
 

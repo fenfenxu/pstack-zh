@@ -30,6 +30,7 @@ disable-model-invocation: true
 
 - 没有 `~/.cursor/rules/pstack-models.mdc`，说明这个用户还没跑过 `/setup-pstack`，每个角色都在用默认模型。
 - 项目里没有 `verify-*` skill，也没有别的应用 harness，agent 就没有脚本化的办法去驱动这个应用。问题如果是在问怎样证明一项改动有效，就提一下 `/create-verification-skill`。
+- 项目里没有 formal verification skill，说明没有任何性质在测试覆盖之外被检查。问题如果涉及竞态、不变量，或其他测试很少碰到的情况，就提一下 `/create-formal-verification-skill`。
 
 模型 rule 不在，而且这件事要紧，就问用户要不要现在给每个角色挑一个模型，并定一个推理预算。用户是新人、问的是设置或花费，或者答案取决于跑哪些模型，这时就要紧。一次聊天最多问一次。如果用户要什么也还不清楚，就把两个问题一起问。给两个选项：
 
@@ -39,14 +40,16 @@ disable-model-invocation: true
 ## 完成设置
 
 1. 在聊天里用 `/add-plugin pstack` 安装，或从侧栏的 Customize 安装。
-2. 跑 [`/setup-pstack`](../setup-pstack/SKILL.md)。它会问推理预算，给每个角色指定一个模型，并写出一条 rule。这条 rule 从新聊天起生效。
+2. 跑 [`/setup-pstack`](../setup-pstack/SKILL.md)。它会问推理预算，给每个角色指定一个模型，并写出一条 rule。这条 rule 从新聊天起生效。然后它会各提议一次，为这个项目生成一个 verification skill 和一个 formal verification skill，项目里已经有的就不提议。
 3. 用 `/poteto-mode` 开始一项真实的任务，带上一个目标，和一个能分出通过或失败的检查。
 
 装上以后，在用户调用某个 skill 之前，什么都不会变。只有 `/setup-pstack` 会从用户说的话里加载。细节见 [插件说明](../../guide/plugin-readme.md) 和 [安装 pstack](../../guide/01-setup.md)。主动提出按 [`references/prompting.md`](./references/prompting.md) 和用户一起写第一条提示词。
 
 用户担心花费，就说清 token 花在哪，以及怎样少花 token。pstack 会在子代理和评审团上多花 token。再跑一次 `/setup-pstack`，选更小的预算或更便宜的模型。设成 `auto` 或 `inherit-parent` 的角色，用的是这场聊天的模型；聊天用 Auto 或更便宜的模型时，就能省 token。评审团名单越短，跑的子代理越少：名单里每一项跑一个子代理。把 `/poteto-mode` 留给需要严谨的工作。
 
-pstack 是为 Cursor 做的。它的 skill 用的是 Agent Skills 格式，所以别的工具也能读。但大多数工作流 skill，包括 `/poteto-mode`、`/how`、`/why` 和 `/teach`，会按每个角色各自的模型拉起 Cursor 子代理，而 Custom Mode 和 `/loop` 又是 Cursor 的功能，所以这些部分到了别的工具里可能用不了。
+pstack 是为 Cursor 做的，也能装进 Claude Code：先 `/plugin marketplace add cursor/plugins`，再 `/plugin install pstack@cursor-plugins`。在那里，每个命令都带 `pstack:` 前缀，例如 `/pstack:poteto-mode`。[Claude Code 适配器](https://github.com/cursor/plugins/blob/main/pstack/docs/harness/claude-code.md)负责对应 Cursor 里的名字；需要 Cursor 独有功能的步骤，例如 Bugbot 或 Automations，会跳过并留一行说明。
+
+别的工具也能读这些 skill，因为它们用的是 Agent Skills 格式。但大多数工作流 skill，包括 `/poteto-mode`、`/how`、`/why` 和 `/teach`，会按每个角色各自的模型拉起 Cursor 子代理，而 Custom Mode 和 `/loop` 又是 Cursor 的功能，所以这些部分到了别的工具里可能用不了。
 
 ## 用 `/poteto-mode` 开工
 
@@ -73,7 +76,7 @@ pstack 是为 Cursor 做的。它的 skill 用的是 Agent Skills 格式，所�
 | 弄清代码为什么是这个形状，或某个数字是从哪来的 | [`/why`](../why/SKILL.md) |
 | 用大白话弄懂一次改动或一个子系统 | [`/teach`](../teach/SKILL.md) |
 | 补上自己最近在某个话题上的进度 | [`/recall`](../recall/SKILL.md) |
-| 补上这次对话里、自己上一条消息之后变了什么，用几句大白话和小图，上下文要够对每件待用户处理的事做决定 | [`/ketchup`](../ketchup/SKILL.md) |
+| 补上这次对话里、自己上一条消息之后变了什么，用大白话和小图，每件等自己的事都列出来，只看回复就能做决定 | [`/ketchup`](../ketchup/SKILL.md) |
 | 弄清一小段 diff 可能在自身以外弄坏什么 | [`/blast-radius`](../blast-radius/SKILL.md) |
 | 动手写跨函数边界的代码之前，先定下类型和模块形状 | [`/architect`](../architect/SKILL.md) |
 | 对同一份简报做几次尝试，再合成最好的一份 | [`/arena`](../arena/SKILL.md) |
@@ -87,6 +90,7 @@ pstack 是为 Cursor 做的。它的 skill 用的是 Agent Skills 格式，所�
 | 用大白话再听一遍上一条回复 | [`/bro`](../bro/SKILL.md) |
 | 给 agent 一种脚本化的办法，用来驱动应用并证明行为 | [`/create-verification-skill`](../create-verification-skill/SKILL.md) |
 | 让验证 skill 和它的 feature map 重新与应用对齐 | [`/maintain-verification-skill`](../maintain-verification-skill/SKILL.md) |
+| 对竞态、不变量或其他测试很少覆盖的性质做形式化验证 | [`/create-formal-verification-skill`](../create-formal-verification-skill/SKILL.md) |
 | 汇报一个性能数字或按它行动之前，先把这个数字核一遍 | [`/benchmark-checklist`](../benchmark-checklist/SKILL.md) |
 | 跑一次大改或横切改动，或跑一次离开一阵再回来审的改动 | [`/figure-it-out`](../figure-it-out/SKILL.md) |
 | 一次运行期间留下决策日志，事后再审这份日志 | [`/show-me-your-work`](../show-me-your-work/SKILL.md) |

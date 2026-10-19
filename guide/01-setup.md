@@ -1,16 +1,16 @@
 ---
 title: "安装 pstack"
 description: "这一页装好插件，选定 pstack 用的模型，再跑第一个任务。安装只要一条命令，加一段简短的对话。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/01-setup.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/01-setup.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/01-setup/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/01-setup.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/01-setup.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/01-setup.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/01-setup.md)（提交 `f9be7aa`）
 
 # 安装 pstack
 
@@ -35,6 +35,8 @@ meta:
 ```
 
 Cursor 会告诉你插件已经装好。
+
+在 Claude Code（命令行里的编程 agent）中，先运行 `/plugin marketplace add cursor/plugins`，再运行 `/plugin install pstack@cursor-plugins`。Claude Code 会给插件命令加前缀，所以这份指南里的命令到了那里都要加上 `pstack:` 前缀，比如 `/pstack:setup-pstack`。它会把模型 rule 写到 `~/.claude/rules/pstack-models.md`。其他差异见 [Claude Code 适配器](https://github.com/cursor/plugins/blob/main/pstack/docs/harness/claude-code.md)。
 
 ## 选定你的模型
 
@@ -52,13 +54,15 @@ Cursor 会告诉你插件已经装好。
 
 你可能会问，用 Auto 的话怎么办。把角色设成 `inherit-parent` 或 `auto`，pstack 就不给子代理填 `model` 字段，子代理会沿用父聊天的模型。这两个值是一个意思，也都不是模型 slug。模型组角色的值是一个列表。列表里每一项跑一个子代理，所以列表有几项，这一组就有几个子代理。安装还会配置 `swarm workers`，也就是每个 `/swarm` worker 默认用的模型。只有当某次 race（几个 worker 做同一件事，按规则选出结果）给每个 arm（race 里的每一路）都指定了模型，才不用这个默认值。
 
-## 创建你的验证 skill
+## 选择是否创建验证 skill
 
 安装的最后，`/setup-pstack` 会在你的项目里找一种证明应用行为的办法。它找的是 `verify-*` skill，或者现成的 harness（能驱动应用、检查结果的测试工具）。两样都没有，它会主动问你一次，要不要用 [`/create-verification-skill`](../skills/create-verification-skill/SKILL.md) 生成一个。
 
 回答 yes，它把 skill 写到 `.cursor/skills/verify-<app>/`。这个 skill 只属于当前项目，教 agent 像用户一样操作应用。交给你之前，它会先跑通一次，证明这个 skill 能用。回答 no，安装就接着往下走。你随时可以自己跑 `/create-verification-skill`。细节见[验证并交付](./06-verify-and-ship.md#create-a-project-verification-skill)。
 
 刚接触 pstack，就回答 yes。能自己检查工作的 agent，会一直做到检查通过。做不到的 agent，每交出一份结果都得你亲手核对。这份指南里，验证 skill 回报最大。
+
+接着，安装会问你是否用 [`/create-formal-verification-skill`](../skills/create-formal-verification-skill/SKILL.md) 生成一个形式化验证 skill，只问一次。项目里已经有的话，就不会再问。测试检查的是有人想到要写下的用例。形式化验证 skill 检查代码的一条关键性质，比如「一个任务绝不会同时运行两次」，并覆盖规定范围内的所有情况。如果代码涉及并发、重试、状态机或解析器，而且 bug 代价很高、测试又很难碰到会出错的用例，就回答 yes。否则回答 no，以后情况变了再运行。[验证并交付](./06-verify-and-ship.md#prove-a-property-with-a-formal-verification-skill) 有详细说明。
 
 装完以后，新开一个聊天。模型 rule 从新会话开始生效。
 
@@ -82,6 +86,6 @@ pstack 在子代理和审查组上多花 token。严谨就是这个价钱。想�
 
 留意 todo 列表。排在最前面的几项，是从匹配到的 playbook 原样抄进来的步骤。这条提示词匹配到的是 Feature playbook。`/poteto-mode` 如果跳过某一步，这一步仍然留在列表里，标着 `skip: <reason>`。这样你能看到它决定不做哪些事。
 
-之后你照常接着说就行。想让 `/poteto-mode` 整段聊天都在，从 `/` 菜单里选它时，用 Option+Enter（Mac）或 Alt+Enter（Windows），不要用 Enter。这样它会变成 [Custom Mode](https://cursor.com/docs/skills)，每一轮都留在上下文里，直到你退出。Custom Mode 在 Agents Window 和 CLI 里都能用。普通的 Enter 只把这个 skill 挂到这一条消息上，聊天往前走，它就会淡掉。
+之后你照常接着说就行。想让 `/poteto-mode` 整段聊天都在，从 `/` 菜单里选它时，用 Option+Enter（Mac）或 Alt+Enter（Windows），不要用 Enter。这样它会变成 [Custom Mode](https://cursor.com/docs/skills#using-a-skill-as-a-custom-mode)，每一轮都留在上下文里，直到你退出。Custom Mode 在 Agents Window 和 CLI 里都能用。普通的 Enter 只把这个 skill 挂到这一条消息上，聊天往前走，它就会淡掉。
 
 下一篇：[把工作交给 `/poteto-mode`](./02-poteto-mode.md)。

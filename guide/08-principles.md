@@ -1,16 +1,16 @@
 ---
 title: "用原则名来转向"
 description: "pstack 自带 24 条原则，每条都是单独的 skill。任务中途报出原则名，就能给 agent 改方向，一句话比一大段指示更准。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/08-principles.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/08-principles.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/08-principles/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/08-principles.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/08-principles.md)（提交 `f9be7aa`）
 
 # 用原则名来转向
 
@@ -57,7 +57,7 @@ separate before serializing shared state. give each attempt its own worktree, no
 - [Laziness Protocol](../skills/principle-laziness-protocol/SKILL.md) 优先删代码，优先选能解决问题的最小改动。
 - [Foundational Thinking](../skills/principle-foundational-thinking/SKILL.md) 先定下核心数据结构，再写逻辑。
 - [Redesign from First Principles](../skills/principle-redesign-from-first-principles/SKILL.md) 接入新需求时，就当它从第一天起就在。
-- [Attack the Premise](../skills/principle-attack-the-premise/SKILL.md) 两次以上的修复都失败时，先清点失衡落在哪些参与方身上，再质疑这些修复共有的前提。
+- [Attack the Premise](../skills/principle-attack-the-premise/SKILL.md) 两个或更多修复都失败时，先写下这些修复共有的前提，直接检验它，再做下一次修复。
 - [Subtract Before You Add](../skills/principle-subtract-before-you-add/SKILL.md) 先减掉累赘，再往上加东西。
 - [Minimize Reader Load](../skills/principle-minimize-reader-load/SKILL.md) 压平读者得记在脑子里的那些层次和隐藏状态。
 - [Outcome-Oriented Execution](../skills/principle-outcome-oriented-execution/SKILL.md) 重写时直奔目标设计，不去保留用完就扔的兼容状态。
@@ -79,7 +79,7 @@ separate before serializing shared state. give each attempt its own worktree, no
 - [Prove It Works](../skills/principle-prove-it-works/SKILL.md) 验证真实产物，不拿替代品充数。
 - [Fix Root Causes](../skills/principle-fix-root-causes/SKILL.md) 改代码之前，先复现问题，追到根因。
 - [Sequence Work into Verifiable Units](../skills/principle-sequence-verifiable-units/SKILL.md) 每个小单元都以一次检查收尾，然后才开始下一个。
-- [Test Behavior, Not Implementation](../skills/principle-test-behavior-not-implementation/SKILL.md) 像使用者那样调用代码，断言一个写死的期望值。如果所有导入的函数都返回 `undefined`，测试照样能过，就删掉这个测试。
+- [Test Behavior, Not Implementation](../skills/principle-test-behavior-not-implementation/SKILL.md) 断言代码使用者能观察到的结果。这样行为出问题时测试会失败，只改内部实现时测试仍能通过。
 - [Explain the Number](../skills/principle-explain-the-number/SKILL.md) 测出一个数字后，先说清是什么在限制它，再排除它其实测到了别的东西，然后才轮到有人相信或汇报它。[`/benchmark-checklist`](../skills/benchmark-checklist/SKILL.md) 把它落成七个问题，答案都要从真实跑出来的结果里来。
 
 委派原则让并行工作不至于乱套：

@@ -72,3 +72,7 @@ interrogate reviewers: claude-opus-5-5-xhigh, grok-4.7-xhigh-fast
 ### 7. 提供 verification skill（可选）
 
 检查项目是否有驱动真实应用作证明的方式（`verify-*` skill 或现有 harness）。若无，提供一次：「要不要项目本地 verification skill，让 agent 像用户一样驱动应用并证明改动有效？我可以用 /create-verification-skill 生成。」若同意，调用 `/create-verification-skill`（解析 pstack 安装位置：workspace、user 或 plugin）。若否，继续，不反复推销。
+
+### 8. 提供 formal verification skill（可选）
+
+检查项目是否已有 formal verification skill（对代码跑模型检查器、证明或其他验证器的项目 skill）。若无，提供一次：「要不要一个 formal verification skill，让 agent 能证明代码的某个关键性质在所有范围内的情形下都成立，而不只是测试覆盖到的那些？我可以用 /create-formal-verification-skill 生成。」若同意，调用 `/create-formal-verification-skill`（解析 pstack 安装位置：workspace、user 或 plugin）。若否，继续，不反复推销。

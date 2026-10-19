@@ -1,16 +1,16 @@
 ---
 title: "验证结果并开 PR"
 description: "能编译不等于有证据。本页讲怎么写明完结条件、核对测出来的数字、为应用生成验证 skill、开 PR，再把 PR 一路推到合并。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/06-verify-and-ship.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/06-verify-and-ship.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,11 +20,11 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/06-verify-and-ship/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/06-verify-and-ship.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/06-verify-and-ship.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/06-verify-and-ship.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/06-verify-and-ship.md)（提交 `f9be7aa`）
 
 # 验证结果并开 PR
 
-「能编译」不是证据。[Prove It Works 原则](../skills/principle-prove-it-works/SKILL.md) 要求 agent 先检查真实产物，再报告成功。你的任务，是让这个「真实产物」有办法检查。本页讲五件事：写明完结条件，核对测出来的数字，为你的应用生成验证 skill，开 PR，再把 PR 一路推到合并。
+「能编译」不是证据。[Prove It Works 原则](../skills/principle-prove-it-works/SKILL.md) 要求 agent 先检查真实产物，再报告成功。你的任务，是让这个「真实产物」有办法检查。本页讲六件事：写明完结条件，核对测出来的数字，为你的应用生成验证 skill，对测试很难覆盖的性质做形式化验证，开 PR，再把 PR 一路推到合并。
 
 验证通常是 agent 工作里最慢的一步，因为这一步常常在等人。让 agent 自己做，你就不再是瓶颈。跳过它，多开几个 agent，只是多出几份没核对过的活要审。
 
@@ -85,7 +85,7 @@ meta:
 
 [`/create-verification-skill`](../skills/create-verification-skill/SKILL.md) 找仓库要答案，不找你。它要弄清这几件事：用户会碰到哪些地方，应用在本地怎么启动，用什么来操作它，什么证据能证明行为，两个实例能不能同时跑。操作手段优先用项目里现成的 harness（用来启动和操作应用的测试程序），没有的话，再用浏览器加 CDP、PTY（伪终端），或者直接发 HTTP 请求。只有代码答不出来的问题，它才来问你。
 
-它会写出 `.cursor/skills/verify-<app>/`。里面是写给 agent 看的说明，分成 Launch、Doctor、Drive、Evidence、Cleanup 几节，每节都写得很具体。`features/` 下面还有一份 feature map，列出应用的各项功能，以及每项功能用什么结果来证明可用。这个 skill 自带一份[完整的 feature map 示例](../skills/create-verification-skill/references/feature-map-example/README.md)，包括一个 README 索引，每个功能一个文件，每个文件都用规定的四个二级标题。交给你之前，生成器会把这个 skill 从头到尾跑通一次：启动，doctor 检查，操作一个功能，采集证据，清理。这一遍没跑通，就别用它生成的东西。
+它会写出 `.cursor/skills/verify-<app>/`。里面是写给 agent 看的说明，分成 Launch、Doctor、Drive、Evidence、Cleanup 几节，每节都写得很具体。如果附带了脚本，还会有一个 Helpers 节。`features/` 下面还有一份 feature map，列出应用的各项功能，以及每项功能用什么结果来证明可用。这个 skill 自带一份[完整的 feature map 示例](../skills/create-verification-skill/references/feature-map-example/README.md)，包括一个 README 索引，每个功能一个文件，每个文件都用规定的四个二级标题。交给你之前，生成器会把这个 skill 从头到尾跑通一次：启动，doctor 检查，操作一个功能，采集证据，清理，再确认清理后证据仍然保留。这一遍没跑通，就别用它生成的东西。
 
 从此以后，在这个仓库里，「在应用里验证一下」就成了任何 agent 都能执行的一步，不用先聊一轮怎么配置。想要某种具体形态的证据时，在提示词里点名：
 
@@ -120,6 +120,27 @@ meta:
 
 [`/maintain-verification-skill`](../skills/maintain-verification-skill/SKILL.md) 会审查生成出来的 skill。它先按功能拆开，每个功能一路，并行读源码，全程只读不写。然后实际跑一轮，把 feature map 里的每个功能都操作一遍。最后的结果一定是下面三种之一。`clean` 表示全部覆盖到了，没有东西要提交。`changed` 表示有一个 PR，里面是验证过的修正，改动只限于验证 skill 自己的目录。`blocked` 会写明卡在哪里。它从不改产品代码。实际跑的那一轮如果发现产品回归，它会报告这个回归，不会在文档里把它糊弄过去。
 
+<a id="prove-a-property-with-a-formal-verification-skill"></a>
+## 用形式化验证 skill 证明一条性质
+
+验证 skill 证明的是你实际走过的路径。有些 bug 藏在没人走的路径上：两次重试叠在一起，锁在写入中途过期，状态变化乱序到达。测试很难碰到这些情况。如果这类 bug 在你的代码里代价很高，就运行：
+
+```text
+/create-formal-verification-skill
+```
+
+[`/create-formal-verification-skill`](../skills/create-formal-verification-skill/SKILL.md) 会从代码里选择目标：代码承诺始终成立的一条性质。它一旦失守会伤害用户，测试又很难碰到让它失守的情况。它选最值得验证的目标，不是最容易验证的。也可以点名一个范围或 bug，让它从那里开始：
+
+```text
+/create-formal-verification-skill the job lease and retry logic. a job must never run twice at once.
+```
+
+问题本身决定工具。要检查事件是否可能按错误顺序发生，适合先为设计建立一个小模型，再用模型检查器。要检查代码是否对每种输入都正常，适合用直接针对代码运行的验证器。一条性质如果必须在任意规模下成立，就可能需要形式化证明。agent 会说明它选了哪种工具，以及为什么。
+
+它验证一条性质，还会在一个破坏这条性质的代码变体上展示它如何失守。从没见过失败的检查，什么也证明不了。如果当前代码已经违反这条性质，你会拿到一个反例。反例用你代码里的概念写成一小串步骤。性质按原样保留，发现的问题也不会被抹掉。除非你要求，否则不会改产品代码。
+
+它会生成一个只属于本项目的 skill，告诉下一个 agent 怎么判断改动是否碰到已验证的代码，怎样用一条命令运行检查，以及怎样区分真正的 bug 和建模错误。交给你之前，生成器会在一个破坏该性质的临时改动上照这份 skill 走一遍，检查必须抓住问题。交付说明会写明验证了什么、用了哪种工具、验证边界是什么、检查发现了什么，以及没有覆盖什么。通过只覆盖这个模型或设定的边界，不代表整个系统。
+
 ## 开 PR
 
 ```text
@@ -136,7 +157,7 @@ PR 一开，挡住合并的问题马上开始堆积。检查会挂，审查者�
 /poteto-mode babysit this pr. get it green.
 ```
 
-Babysit 用自带的监视脚本盯着 PR，按顺序处理问题：先解决冲突，再处理审查评论，最后是 CI。已知的修复会攒在一起，一次推送上去。这样检查只重跑一次，不用每修一处就重跑一遍。它筛评论时抱着怀疑的态度，因为人和机器人都会把真问题和噪声提在同一张列表里。真的 finding（审查中发现的问题）就修。噪声就驳回，并把反驳的证据贴在那条评论下面。如果你只想知道现状，就问得小一点。Babysit 会直接回答，不会启动那套循环：
+Babysit 会盯着 PR，在 GitHub 上用自带的监视脚本；Origin CLI 可用时，也可以用 Origin CLI。它按顺序处理问题：先解决冲突，再处理审查评论，最后是 CI。已知的修复会攒在一起，一次推送上去。这样检查只重跑一次，不用每修一处就重跑一遍。它筛评论时抱着怀疑的态度，因为人和机器人都会把真问题和噪声提在同一张列表里。真的 finding（审查中发现的问题）就修。噪声就驳回，并把反驳的证据贴在那条评论下面。如果你只想知道现状，就问得小一点。Babysit 会直接回答，不会启动那套循环：
 
 ```text
 /poteto-mode check on pr 123. anything outstanding?

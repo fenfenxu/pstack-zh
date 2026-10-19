@@ -1,16 +1,16 @@
 ---
 title: "pstack 指南"
 description: "别再一步一步地指挥 agent。说清你要什么、怎样算做完，/poteto-mode 会挑 playbook、调用其他 skills，再把证据拿给你看。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/README.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/README.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/README.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/README.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/README.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/README.md)（提交 `f9be7aa`）
 
 # pstack 指南
 
@@ -33,7 +33,7 @@ meta:
 3. [理解代码](./03-understand.md)。先做一次只读调查，动手改之前再用 `/how`、`/why`、`/teach` 和 `/recall`。
 4. [设计这次改动](./04-design.md)。代码定型之前，先用 `/architect`、`/arena`、`/swarm`、`/interrogate`，再加上原型和计划。
 5. [构建并清理这次改动](./05-build-and-clean.md)。构建类 playbook，以及 `/tdd`、`/unslop` 和 `/no-comments`。
-6. [验证并交付](./06-verify-and-ship.md)。先在真实应用上证明行为没问题，用 `/benchmark-checklist` 核对测出来的数字，再开一个只做一件事的 PR，一路推到合并。
+6. [验证并交付](./06-verify-and-ship.md)。先在真实应用上证明行为没问题，对测试很难覆盖的性质做形式化验证，用 `/benchmark-checklist` 核对测出来的数字，再开一个只做一件事的 PR，一路推到合并。
 7. [睡觉时让工作继续跑](./07-overnight.md)。先赢得信任再开循环，再加一份过夜交接约定、一份可以审计的决策日志，以及能扩展到多个 agent 的 Projects 和自动化。
 8. [用原则名来转向](./08-principles.md)。这 24 个名字能在任务中途让 agent 改方向。
 9. [把它变成你的](./09-make-it-yours.md)。做一个你自己的 mode，用 `/correct` 处理反复出现的错，再学会测试 skill 改动。

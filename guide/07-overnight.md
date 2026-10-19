@@ -1,16 +1,16 @@
 ---
 title: "睡觉时让工作继续跑"
 description: "能自己验证结果的 agent，才能放心把难活留给它过夜。靠的是可检查的完结条件、隔离的 worktree 或 cloud agent，和一份早上能审的决策日志。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/07-overnight.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/07-overnight.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/07-overnight/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/07-overnight.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/07-overnight.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/07-overnight.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/07-overnight.md)（提交 `f9be7aa`）
 
 # 睡觉时让工作继续跑
 
@@ -91,11 +91,13 @@ flowchart TD
 
 交回总结之前，这个 skill 会用另一个系列的模型启动一个审查者，让它读 trail 和对话记录。回复最后有一节 Attention，列出值得你仔细看的地方。先读这一节，再看它指到的那几行日志。你要审的是决定，不是把整夜的过程重读一遍。
 
+只想快速了解现状，不做审计时，在跑这项工作的聊天里运行 [`/ketchup`](../skills/ketchup/SKILL.md)。它只读不改，用大白话告诉你上一条消息之后发生了什么，并附上工作过程中产生的截图和小图。然后列出每一项等你决定的事，比如合并、批准，或在几个选项里做选择。每项都给出它建议的选择、证据和风险，让你只看回复就能决定。
+
 ## 夜里跑一整条队列
 
 上面那份交接，管的是一个任务、一个完结条件。有些晚上要做的更多，可能是一串互不相干的改动，也可能是一整个大项目。有三个 playbook 能把同样的信任放大到这种规模。
 
-[Autopilot-full](../skills/poteto-mode/playbooks/autopilot-full.md) 把一串互不相干的 PR 一直跑到合并。每个 PR 配一个负责人 agent，从构建一路管到合并，但负责人不能凭自己的 verdict（验证后给出的判定）合并。负责人报告代码就绪时，一组新开的验证者会以 swarm（一群并行工作的子代理）的形式，在那一版上跑一轮验证。之后每次推送只要改动了补丁，就再跑一轮。只有最终合并的那份补丁拿到干净的 verdict，才能合并：
+[Autopilot-full](../skills/poteto-mode/playbooks/autopilot-full.md) 把一串互不相干的 PR 一直跑到合并。每个 PR 配一个负责人 agent，从构建一路管到合并，但负责人不能凭自己的 verdict（验证后给出的判定）合并。负责人报告代码就绪时，一组新开的验证者会以 swarm（一群并行工作的子代理）的形式检查那一版。之后如果只是 rebase 或小修，就由一个新的验证者检查。只有新增行为或很大的新 diff，才会再次动用完整的 swarm。只有最终合并的那份补丁拿到干净的 verdict，才能合并：
 
 ```text
 /poteto-mode full autopilot on this queue. each item is independent. i want them merged by morning.

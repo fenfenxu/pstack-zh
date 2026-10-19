@@ -1,16 +1,16 @@
 ---
 title: "交给 /poteto-mode"
 description: "/poteto-mode 是总入口。你给它一个目标，它从二十三个 playbook 里挑出一个，把步骤抄进 todo 列表，需要时再调用其他 skills。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/02-poteto-mode.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/02-poteto-mode.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/02-poteto-mode/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/02-poteto-mode.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/02-poteto-mode.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/02-poteto-mode.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/02-poteto-mode.md)（提交 `f9be7aa`）
 
 # 把工作交给 `/poteto-mode`
 
@@ -49,7 +49,7 @@ flowchart TD
     J --> K
 ```
 
-图里画的是常见路线。此外还有一些 playbook，分别用来持续优化某个指标、诊断运行时症状和抓取到的 trace、做原型、让界面像素级对齐、编写和评估 skill、让 agent 自主跑完长任务、把单个 PR 或一组堆叠 PR 照看到可以合并、交付一组验证过的堆叠 PR、全自动跑完一队 PR、统筹整个项目规模的工作、接手之前的会话、安全地暂停、推进多阶段计划，以及清理 worktree（同一个仓库另外检出的一份独立工作目录）。全部 playbook 见 [playbook 目录](../skills/poteto-mode/SKILL.md)。
+图里画的是常见路线。此外还有一些 playbook，分别用来持续优化某个指标、诊断运行时症状和抓取到的 trace、做原型、让界面像素级对齐、编写和评估 skill、让 agent 自主跑完长任务、开 PR、把单个 PR 或一组堆叠 PR 照看到可以合并、交付一组验证过的堆叠 PR、全自动跑完一队 PR 或一组堆叠 PR、统筹整个项目规模的工作、接手之前的会话、安全地暂停、推进多阶段计划，以及清理 worktree（同一个仓库另外检出的一份独立工作目录）。全部 playbook 见 [playbook 目录](../skills/poteto-mode/SKILL.md)。
 
 ## 直接说目标
 
@@ -89,7 +89,15 @@ flowchart TD
 /poteto-mode read this thread. restate the underlying issue in your own words, in plain english. don't change any code yet.
 ```
 
-读错了，会先出现在重述里，这时还没有任何代码。在那里纠正，代价是一条消息，不是一次修错。
+读错了，会先出现在重述里，这时还没有任何代码。在那里纠正，代价是一条消息，不是一次修错。只想让它重述、不走 playbook 时，运行 [`/in-your-own-words`](../skills/in-your-own-words/SKILL.md)。它会复述 agent 认为你的目标是什么、你想解决什么问题。
+
+如果你不确定任务的方向对不对，在它前面加上 [`/sharpen`](../skills/sharpen/SKILL.md)：
+
+```text
+/sharpen write a migration guide for the v2 config format.
+```
+
+开始前，agent 会问自己，顶尖专家会怎么做这项任务，你真正想要什么，以及要求是否规定得过多或不足。它既能补上对目标有用的约束，也同样愿意删掉没用的约束。它把选择权留给你，并保留一项外部检查，确认结果正确。然后开始干活。
 
 ## 跟进写短
 

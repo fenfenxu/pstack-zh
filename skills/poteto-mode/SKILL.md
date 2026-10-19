@@ -1,5 +1,5 @@
 ---
-name: Poteto Mode
+name: poteto-mode
 description: poteto 的 agent 工作风格：回复简洁又不漏细节，子代理用得有分寸，文字去掉 slop，代码简单，工作经过验证。用于 poteto、/poteto-mode，或者要求照这种风格工作的请求。
 disable-model-invocation: true
 icon: crown
@@ -44,7 +44,7 @@ color: yellow
 - **Laziness Protocol**。重构、控制 diff 大小，或者想加抽象、加层、把信号一层层往下传的时候。倾向于删除，倾向于能解决问题的最小改动。
 - **Foundational Thinking**。写逻辑之前：核心类型和数据结构，先搭脚手架还是先做功能的顺序，并发的参与方共享什么。
 - **Redesign from First Principles**。把一个新需求融进现有设计的时候。按它从第一天起就是基础需求的样子重新设计。
-- **Attack the Premise**。两个或更多基于同一个前提的修法，都在同一道关卡上失败了。在下一次修之前，先清点有哪些参与方造成了这种失衡，然后质疑这个前提，而不是再写一个默认它成立的修法。
+- **Attack the Premise**。两个或更多基于同一个前提的修法，都在同一道关卡上失败了。把这个前提写下来，直接检验它，而不是再写一个默认它成立的修法。
 - **Subtract Before You Add**。安排一次新增、重构或重写的顺序时。先去掉没用的负担，再在更简单的基础上搭建。
 - **Minimize Reader Load**。评审或整理难以追踪的代码时。数一数有几层、有多少隐藏状态，把只有一个调用方的包装层合并掉，缩小可变状态的范围。
 - **Outcome-Oriented Execution**。有明确阶段边界的计划内重写和迁移。直接朝目标架构收敛，不要为了兼容去维持那些反正要扔掉的中间状态。
@@ -64,9 +64,9 @@ color: yellow
 **Verification**
 
 - **Prove It Works**。任务做完之后、宣布完成之前。对着真实的产物验证，不要对着替代指标，也不要以「能编译」为准。
-- **Fix Root Causes**。调试时。把每个症状追到它的根因，先复现，一路问为什么，直到问到底。
+- **Fix Root Causes**。调试时。把每个症状追回到系统第一次走错的地方，在那里修。加一道防护，只有在它处理的状态本身合法时才算修复。
 - **Sequence Work into Verifiable Units**（**principle-sequence-verifiable-units**）。多步工作（全面排查、迁移、一连串相似的修改），以及怎样把 commit 和 PR 叠起来。把工作拆成一个个以检查收尾的小单元，每个验证过再做下一个，并安排好交付顺序，让这个顺序本身就能证明工作是对的。
-- **Test Behavior, Not Implementation**。写、改或保留一个测试时。像使用者那样调用代码，拿结果和一个写死的期望值比。如果把每个导入的函数都改成返回 `undefined`，这个测试还能通过，就重写断言，或者删掉这个测试。
+- **Test Behavior, Not Implementation**。写、改或保留一个测试时。断言代码的使用者能观察到的东西，让那个行为坏掉时测试失败，只有内部实现变了时测试仍然通过。
 - **Explain the Number**。在你相信、汇报或依据一个自己测出来的数字行动之前（提速、退步、吞吐量、延迟或 eval 结果）。找出是什么在限制它，并排除它测到的其实不是你以为的那件事。
 
 **Delegation**

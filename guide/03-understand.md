@@ -1,16 +1,16 @@
 ---
 title: "先理解代码"
 description: "改没看懂的代码，不易察觉的回归就是这样上线的。先做只读调查，再用 /how、/why、/teach 和 /recall。每种都会让 agent 用你能核对的话解释自己。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/03-understand.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/03-understand.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/03-understand/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/03-understand.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/03-understand.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/03-understand.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/03-understand.md)（提交 `f9be7aa`）
 
 # 改代码前先理解它
 
@@ -54,9 +54,9 @@ pstack 给你四种入手的办法。`/how` 讲清代码现在在做什么。`/w
 /why was the retry limit set to five? does the reason still hold?
 ```
 
-[`/why`](../skills/why/SKILL.md) 干活像侦探查一桩陈年悬案。它从版本控制查起，再把你的 MCP 能接到的各类证据同时查一遍，比如工单系统、长篇文档、团队聊天、可观测性平台、错误追踪和数据分析。报告里每一条都注明出处，直接证据和推断分开写。记录不多时，它会说「appears to」（看起来是）。什么都没查到，也会写进报告，因为「没人写下原因」本身就是答案。
+[`/why`](../skills/why/SKILL.md) 从版本控制查起，再把你的 MCP 能接到的各类证据同时查一遍，比如工单系统、长篇文档、团队聊天、可观测性平台、错误追踪和数据分析。报告里每一条都注明出处，直接证据和推断分开写。记录不多时，它会说「appears to」（看起来是）。什么都没查到，也会写进报告，因为「没人写下原因」本身就是答案。
 
-这两个 skill 很自然就能连着用。如果你怀疑眼前这团乱是历史原因造成的，`do why first then how` 就是一条很好的提示词。
+这两个 skill 很自然就能连着用。如果你怀疑眼前这团乱是历史原因造成的，`do why first then how` 就是一条不错的提示词。
 
 ## 用 `/teach` 真正理解它
 
@@ -64,7 +64,7 @@ pstack 给你四种入手的办法。`/how` 讲清代码现在在做什么。`/w
 /teach me how this PR changes retries. convince me it fixes the cause and not the symptom.
 ```
 
-摘要不够用的时候，就用 [`/teach`](../skills/teach/SKILL.md)。它会跑 `/how` 和 `/why`，改动小的话可能只跑其中一个，再把各个 finding（查出来的结论）串成一份平实的讲解，一张图接一张图地往上搭。「convince me」（说服我）这个说法值得抄过来用。这样讲解就成了一套你能挑刺的论证，而不只是带你逛一圈。
+摘要不够用的时候，就用 [`/teach`](../skills/teach/SKILL.md)。它会跑 `/how` 和 `/why`，改动小的话可能只跑其中一个，再把各个 finding（查出来的结论）串成一份平实的讲解，一张图接一张图地往上搭。「convince me」（说服我）这个说法值得沿用。这样讲解就成了一套你能检验的论证，而不只是带你逛一圈。
 
 它也能用在 agent 自己的选择上：
 

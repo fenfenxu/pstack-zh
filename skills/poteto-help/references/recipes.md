@@ -42,6 +42,7 @@ description: 把真实的路径、skill 和做完的检查换进去。随意地�
 ## 审查并交付
 
 - `/interrogate the whole branch, but skeptically. don't change anything yet. no nitpicks unless it's a real bug or regression.` 被驳回的那些也要读。
+- `/create-formal-verification-skill prove <property> holds in <module>, even when <steps> interleave or retry.`
 - `/swarm check every package under <dir> against its check script. one worker per package. one report.`
 - `/poteto-mode open the pr. small ordered commits, evidence in the description.`
 - `/poteto-mode babysit this pr. get it green.` 只问现状时：`/poteto-mode check on pr <number>. anything outstanding?`
@@ -51,6 +52,7 @@ description: 把真实的路径、skill 和做完的检查换进去。随意地�
 
 - `/poteto-mode im going to bed. <goal> in a fresh worktree off <base>. done means <checks>. keep a decision log. don't ask me before committing. /loop until done. if you're truly stuck after a few hours, stop and write up why.`
 - `/show-me-your-work catch me up on what you did last night.` 先读它的「Attention」节。
+- `/ketchup` 补上这次对话里、你上一条消息之后的变化，并列出每一件等你拍板的事。
 - `/poteto-mode full autopilot on this queue. each item is independent.`
 - `/poteto-mode autopilot these changes but stack them, don't ship. i'll land the stack.`
 - `/reflect capture what we learned so the next run doesn't repeat it.` 只批准那些会改变以后某个决定的改动。

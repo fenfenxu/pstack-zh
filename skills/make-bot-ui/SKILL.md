@@ -1,8 +1,9 @@
 ---
-name: Make Bot UI
+name: make-bot-ui
 description: "用于以下情况：搭建自定义 UI（页面、仪表盘、按钮），让它通过 webhook 唤醒 Grok Bot；需要用户提供 webhook sender key；要在 Tailscale 上开放这个 UI。"
 disable-model-invocation: true
 ---
+
 # 制作 bot UI
 
 做一个让用户点击的页面。这台电脑上的一个服务器用 POST 把 JSON 发给 webhook routine（由 webhook 触发、会唤醒 bot 的自动任务）。bot 带着这份 JSON 醒来。sender key（发送方密钥）留在服务器上。不要把 sender key 放进浏览器、聊天或这个 skill 里。

@@ -1,17 +1,17 @@
 ---
 title: "pstack 插件说明"
 description: "pstack 是 poteto 每天在 Cursor 交付高质量代码时用的那套 skill。它把 Cursor 变成一支真正的工程团队，帮你少写代码、写好代码。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/README.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/README.md"
 meta:
-  updated_at: "2026-10-15T08:23:15+08:00"
-  updated_by: "cursor-cloud-agent"
-  triggered_by: "poteto 每日翻译（手动触发）"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.7"
-    effort: "high"
-    translated_at: "2026-10-15T08:23:15+08:00"
-    source_commit: "6ce45c59b9301a638c1fe1a7b8dc2a82b650898f"
-    source_version: "0.15.25 / 6ce45c5"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_commit: "f9be7aa00c2b2bf4b13562143a6918445e06b99d"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -21,7 +21,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/plugin-readme/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/README.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/README.md)（提交 `f9be7aa`）
 
 # pstack
 
@@ -42,6 +42,17 @@ fork 它。改进它。把它变成你自己的。欢迎提 PR！
 ```bash
 /add-plugin pstack
 ```
+
+在 Claude Code（命令行里的编程 agent）中：
+
+```bash
+/plugin marketplace add cursor/plugins
+/plugin install pstack@cursor-plugins
+```
+
+Claude Code 会给插件命令和 agent 加上前缀，所以 `/poteto-mode` 在那里是 `/pstack:poteto-mode`。[Claude Code 适配器](https://github.com/cursor/plugins/blob/main/pstack/docs/harness/claude-code.md)列出了其他 Cursor 名称的对应关系。在 Claude Code 中，`/pstack:setup-pstack` 会把你的模型选择写到 `~/.claude/rules/pstack-models.md`。如果某一步需要 Cursor 独有的功能，比如 Bugbot（自动代码审查工具）或自动化，这一步会跳过，并留下一行说明。
+
+Claude Code 安装的是 pstack 的生成副本，其中包括这份 README 和指南。副本来自仓库根目录的 [`harness/pstack/`](https://github.com/cursor/plugins/tree/main/harness/pstack)。改过 pstack 后，要在仓库根目录运行 `node scripts/generate-pstack-harness-trees.mjs`，并提交生成结果。生成副本不是最新时，CI 会失败。
 
 ## 开始
 
@@ -95,7 +106,7 @@ morning.
 | [shipping](../skills/poteto-mode/playbooks/shipping.md) | 独立验证一个全绿的 PR 栈，再从底部往上，把连续验证过的那一段落地。默认走 GitHub，能用 Origin 时走 Origin。 |
 | [autonomous run](../skills/poteto-mode/playbooks/autonomous-run.md) | 中途不停，把一个长任务一直推到完成。 |
 | [orchestrate](../skills/poteto-mode/playbooks/orchestrate.md) | 把一个长期项目交给一个负责协调的对话：要做好几天，有许多叠放的 PR，还有成群的子代理。 |
-| [autopilot-full](../skills/poteto-mode/playbooks/autopilot-full.md) | 把互相独立的 PR 一路跑到合并。每个 PR 一个负责人。从代码就绪的 head 提交算起，每一轮都要等根 agent 用 swarm（一批并行的子代理）验证，给出 verdict（结论）。 |
+| [autopilot-full](../skills/poteto-mode/playbooks/autopilot-full.md) | 把互相独立的 PR 一路跑到合并。每个 PR 一个负责人。swarm（一批并行的子代理）会验证每个代码就绪的 head 提交。之后补丁每有改动，都会重新检查。 |
 | [autopilot-stack](../skills/poteto-mode/playbooks/autopilot-stack.md) | 搭好并验证一条线性的基分支栈，交给操作者审查并落地。 |
 | [session pickup](../skills/poteto-mode/playbooks/session-pickup.md) | 接着做或接手之前某个 agent 没做完的工作。 |
 | [pause safely](../skills/poteto-mode/playbooks/pause-safely.md) | 把做到一半的工作干净地停下来，方便以后接着做。 |
@@ -113,7 +124,7 @@ morning.
 
 完整的 rule 和 playbook 都在 [`skills/poteto-mode/SKILL.md`](../skills/poteto-mode/SKILL.md) 里。
 
-要让 [`/poteto-mode`](../skills/poteto-mode/SKILL.md) 在接下来每一轮都开着，从 `/` 菜单里选它，然后按 option+enter（mac）或 alt+enter（windows），不要按 enter。这样就成了 [custom mode](https://cursor.com/docs/skills)。Cursor 在 agents 窗口和 CLI 里都提供这个。它每一轮都留在上下文里。有 playbook 对得上、或者任务需要严谨时，它自己起作用；其他时候它不碍事。只按 enter，它只挂在这一条消息上。想退出就说一声，或者退出这个 mode 把它关掉。
+要让 [`/poteto-mode`](../skills/poteto-mode/SKILL.md) 在接下来每一轮都开着，从 `/` 菜单里选它，然后按 option+enter（mac）或 alt+enter（windows），不要按 enter。这样就成了 [custom mode](https://cursor.com/docs/skills#using-a-skill-as-a-custom-mode)。Cursor 在 agents 窗口和 CLI 里都提供这个。它每一轮都留在上下文里，直到你退出这个 mode。只按 enter，它只挂在这一条消息上。
 
 [`/poteto-mode`](../skills/poteto-mode/SKILL.md) 和 Cursor 的 `/loop` 命令配合得特别好。你可以让 Cursor 一连干好几个小时，严谨一点不打折扣。
 
@@ -141,7 +152,7 @@ morning.
 | [`/how`](../skills/how/SKILL.md) | 你想要一份讲解，带你走一遍某个子系统是怎么工作的。 |
 | [`/why`](../skills/why/SKILL.md) | 你想知道某样东西为什么这样建。它在运行时找出能用的 MCP，并行查询每一类证据（版本控制、问题跟踪、长篇文档、即时聊天、基础设施可观测性、错误跟踪、分析数据仓库）。 |
 | [`/recall`](../skills/recall/SKILL.md) | 你正要开始或接着干活，想从自己的聊天记录和共享记录里，把某个主题最近的上下文重建起来，最后拿到一份精炼的现状简报。 |
-| [`/ketchup`](../skills/ketchup/SKILL.md) | 你想知道这次对话里、你上一条消息之后变了什么。用几句大白话和小图说清，每件要你拍板的事项只给够做决定的上下文。 |
+| [`/ketchup`](../skills/ketchup/SKILL.md) | 你想知道这次对话里、你上一条消息之后变了什么。它用大白话和小图说明，并列出所有等你拍板的事项。即使因此回复很长，只看这条回复也能对每件事作出决定。 |
 | [`/blast-radius`](../skills/blast-radius/SKILL.md) | 你有一处看着很小的改动，想知道它还可能弄坏什么。它之所以安全，靠的是某一条事实；这条事实要跑代码来证明，不能只凭断言。 |
 | [`/architect`](../skills/architect/SKILL.md) | 你马上要写跨函数边界的代码，想先把调用方的用法、类型和模块形状定下来。 |
 | [`/arena`](../skills/arena/SKILL.md) | 你想让同一件事并行做 N 次，再从每一份里挑出最好的部分。 |
@@ -161,6 +172,7 @@ morning.
 | [`/show-me-your-work`](../skills/show-me-your-work/SKILL.md) | 你想留一条能复查的决策 trail（逐条记下的决策记录）。它把决策写进一个可以提交的 tsv 文件。 |
 | [`/create-verification-skill`](../skills/create-verification-skill/SKILL.md) | 你的项目还没有用脚本证明应用行为的办法。它生成一个只属于本项目的验证 skill，附带 feature map，什么语言、什么平台都行。 |
 | [`/maintain-verification-skill`](../skills/maintain-verification-skill/SKILL.md) | 你的验证 skill 里的 feature map 已经跟应用对不上了。先一波并行读源码，再对运行中的应用走一轮，证实过的修正最多合成一个 PR。 |
+| [`/create-formal-verification-skill`](../skills/create-formal-verification-skill/SKILL.md) | 测试覆盖不到竞态、重试、状态机、解析器或不安全代码里导致故障的用例时用它。它用合适的工具验证一条性质，并生成一个只属于本项目的 skill，让每次改动都重新检查这条性质。 |
 | [`/unslop`](../skills/unslop/SKILL.md) | 你在清理文字。它去掉那些一看就是 AI 写的痕迹。 |
 | [`/bro`](../skills/bro/SKILL.md) | 你想把上一条消息换成大白话重说一遍，不带行话。 |
 | [`/technical-writing`](../skills/technical-writing/SKILL.md) | 分层的文档写作标准（Diátaxis + Google developer style + STE + Global English），用于文档、RFC、README、PR 描述和提交说明。 |
@@ -235,7 +247,7 @@ pstack 还带了 [Comment Sicko](../agents/comment-sicko.md)。它是一个只�
 | [laziness-protocol](../skills/principle-laziness-protocol/SKILL.md) | 核心 | 偏向删除，偏向能解决问题的最小改动。 |
 | [foundational-thinking](../skills/principle-foundational-thinking/SKILL.md) | 核心 | 写逻辑之前用：选核心类型和数据结构，安排先搭脚手架还是先做功能，问清并发的各方共享什么。数据结构选对了，后面的代码就一目了然。 |
 | [redesign-from-first-principles](../skills/principle-redesign-from-first-principles/SKILL.md) | 核心 | 重新设计，就当这个需求从第一天起就是基础前提，而不是事后硬加上去。 |
-| [attack-the-premise](../skills/principle-attack-the-premise/SKILL.md) | 核心 | 基于同一前提的两个或更多修复，都没过同一道关时用。下一次修复之前，先清点失衡落在哪些参与方身上，然后质疑这个前提，不要再写一个默认它成立的修复。 |
+| [attack-the-premise](../skills/principle-attack-the-premise/SKILL.md) | 核心 | 基于同一前提的两个或更多修复，都没过同一道关时用。下一次修复之前，先写下这个前提并直接检验，不要再写一个默认它成立的修复。 |
 | [subtract-before-you-add](../skills/principle-subtract-before-you-add/SKILL.md) | 核心 | 先去掉累赘、多余的校验器和桩引用，再在更简单的基础上搭建。 |
 | [minimize-reader-load](../skills/principle-minimize-reader-load/SKILL.md) | 核心 | 数一数从问题到答案隔了几层，读者脑子里还得记着多少隐藏状态。合并只有一个调用方的包装层，缩小可变状态的范围。 |
 | [outcome-oriented-execution](../skills/principle-outcome-oriented-execution/SKILL.md) | 核心 | 用在阶段边界明确、事先规划好的重写和迁移里。直接收敛到目标架构，不要为了让中间状态平滑，写用完就扔的兼容代码。 |
@@ -244,14 +256,14 @@ pstack 还带了 [Comment Sicko](../agents/comment-sicko.md)。它是一个只�
 | [build-the-lever](../skills/principle-build-the-lever/SKILL.md) | 核心 | 用于任何不简单的工作，不只是批量活：修改、迁移、分析、检查。别纯手工做，去做一个能完成它或证明它的工具（codemod、脚本、生成器，或者一份让子代理照着做的 skill）。这个工具就是审查者可以重跑的产物。 |
 | [model-the-domain](../skills/principle-model-the-domain/SKILL.md) | 架构 | 把领域编进一个结构里，不要散成一堆条件判断。 |
 | [boundary-discipline](../skills/principle-boundary-discipline/SKILL.md) | 架构 | 把防御检查集中在系统边界（CLI、配置、网络、外部 API）。信任内部类型，把业务逻辑放进纯函数。 |
-| [type-system-discipline](../skills/principle-type-system-discipline/SKILL.md) | 架构 | 让非法状态无法表示。给有语义的原始类型打上品牌。在边界解析外部数据。不对编译器撒谎。穷举所有变体。从权威 schema 推导。 |
+| [type-system-discipline](../skills/principle-type-system-discipline/SKILL.md) | 架构 | 让非法状态无法表示。给有语义的原始类型打上品牌。在边界解析外部数据。穷举所有变体。从权威 schema 推导。 |
 | [make-operations-idempotent](../skills/principle-make-operations-idempotent/SKILL.md) | 架构 | 不管之前的运行做到哪一步，最后都收敛到同一个终态。 |
 | [migrate-callers-then-delete-legacy-apis](../skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md) | 架构 | 在同一波改动里迁走调用方、删掉旧 API，不留兼容层。 |
 | [separate-before-serializing-shared-state](../skills/principle-separate-before-serializing-shared-state/SKILL.md) | 架构 | 先消除共享。只有当单一共享写入者确实是不变量时，才在结构上串行化。 |
 | [prove-it-works](../skills/principle-prove-it-works/SKILL.md) | 验证 | 任务做完、宣布完成之前用。对着真实的产物验证（跑一遍功能、读实际的值、检查 diff），不拿替代指标、自我汇报或「能编译」充数。 |
-| [fix-root-causes](../skills/principle-fix-root-causes/SKILL.md) | 验证 | 把每个症状追到根因，在根因处修。先复现，一路追问为什么，直到找到根因。忍住，别用空值检查把崩溃压下去。 |
+| [fix-root-causes](../skills/principle-fix-root-causes/SKILL.md) | 验证 | 把每个症状追回到系统最早出错的地方，在那里修。防御检查只有在处理合法状态时才算修复。 |
 | [sequence-verifiable-units](../skills/principle-sequence-verifiable-units/SKILL.md) | 验证 | 用于多步骤的工作（大范围清扫、迁移、一连串相似的修改），也用于安排提交和 PR 怎么叠。把工作拆成小单元，每个单元都停在可验证的状态，查完一个再做下一个。交付顺序也要排好，让这个序列自己向审查者证明它没问题。 |
-| [test-behavior-not-implementation](../skills/principle-test-behavior-not-implementation/SKILL.md) | 验证 | 写测试、改测试，或决定留不留一个测试时用。像用户那样调用代码，拿他们看到的结果和一个字面量期望值做断言。如果每个导入的函数都返回 undefined，测试照样能过，那就重写断言，或者删掉这个测试。 |
+| [test-behavior-not-implementation](../skills/principle-test-behavior-not-implementation/SKILL.md) | 验证 | 写测试、改测试，或决定留不留一个测试时用。断言代码使用者能观察到的结果。这样行为出问题时测试会失败，只改内部实现时测试仍能通过。 |
 | [explain-the-number](../skills/principle-explain-the-number/SKILL.md) | 验证 | 在相信、汇报一个自己测出的数字，或据此行动之前用：提速、退步、吞吐量、延迟，或者评测结果。找出是什么在限制它，并排除它测的其实是别的东西，而不是你以为的那项工作。 |
 | [guard-the-context-window](../skills/principle-guard-the-context-window/SKILL.md) | 委派 | 大批量的活交给子代理。主线程只留摘要，不留原始数据。 |
 | [never-block-on-the-human](../skills/principle-never-block-on-the-human/SKILL.md) | 委派 | 先做，再把结果拿给人看，让人事后纠偏。只有不可逆的操作才先确认。 |
@@ -265,7 +277,7 @@ pstack 还带了 [Comment Sicko](../agents/comment-sicko.md)。它是一个只�
 
 - `/deslop` 和 `deslop` skill 在 `cursor-team-kit` 插件里。
 - `control-cli`（用于 CLI 和 TUI）和 `control-ui`（用于浏览器、Electron、网页）也在 `cursor-team-kit` 里。
-- `/create-skill` 是 Cursor 内置的。Cursor 也内置了一个 `/babysit`。在 `poteto-mode` 里，问 PR 状态的请求由 [babysit playbook](../skills/poteto-mode/playbooks/babysit.md) 接手，不用内置的那个。
+- `/create-skill` 是 Cursor 内置的。Cursor 也内置了会盯着 PR 的 `/autopilot`。在 `poteto-mode` 里，问 PR 状态的请求改用 [babysit playbook](../skills/poteto-mode/playbooks/babysit.md)。
 
 想要全套的话，把 `cursor-team-kit` 和 pstack 一起装上。
 
@@ -287,7 +299,7 @@ Cursor 已经有一个很好用的 plan mode，和 pstack 配合得也很好。�
 
 pstack 还带了一个默认不启用的 [Benny 自动化包](https://github.com/cursor/plugins/tree/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/automations/benny)。Benny 会筛查 Slack 上报来的问题，确认是 bug 的，再拿真实的界面证据复现并修好。它的文件没有注册成斜杠 skill。
 
-要配置它，让 Cursor 照着 [`FOR_AGENTS.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/automations/benny/FOR_AGENTS.md) 做。配置时会把这个包复制到目标仓库的 `.cursor/automations/benny/`，在那个仓库里启用 pstack 好共用 skill，并把用户配置放在复制过去的包外面。
+要配置它，让 Cursor 照着 [`FOR_AGENTS.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/automations/benny/FOR_AGENTS.md) 做。配置时会把这个包复制到目标仓库的 `.cursor/automations/benny/`，在那个仓库里启用 pstack 好共用 skill，并把用户配置放在复制过去的包外面。Benny 跑在 Cursor 自动化上，所以只能在 Cursor 中使用。
 
 ## 许可证
 

@@ -12,7 +12,7 @@ disable-model-invocation: true
 | 规则 | 摘要 |
 |------|---------|
 | 可区分联合 | 用 `kind` 字面量 discriminant 建模变体，使不可能状态无法表示。不要可选字段大杂烩。 |
-| 品牌类型 | 用 `& { readonly __brand: "X" }` 标记原始类型，防止混用。边界处校验一次。 |
+| 品牌类型 | 用 `& { readonly __brand: "X" }` 标记原始类型，防止混用。边界处校验一次。品牌只能由实际执行验证的 type guard（`input is AgentId`）给出，不能靠 `as`。 |
 | 构造式建模 | 构造形状使非法值无法构造。非空用 `[T, ...T[]]`，偶长用 `[T, T][]`，区间用 `start` 加 `duration`。不是运行时 guard，不是 refinement 类型的愿望。 |
 | 最简全函数类型 | 对 `T[]` 的一切操作仍全函数时保持 `T[]`。仅当宽松类型迫使 `!`、强转或「不应发生」的 throw 时才加强为 `NonEmpty<T>`。 |
 | `unknown` 优于 `any` | 外部数据是 `unknown`。 |

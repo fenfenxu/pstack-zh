@@ -1,16 +1,16 @@
 ---
 title: "配方与坑"
 description: "值得照抄的提示词，加上每个人都会犯一次的错。用的时候，把路径和完结条件换成你自己的。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/10-recipes-and-pitfalls.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/10-recipes-and-pitfalls.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/10-recipes-and-pitfalls/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/10-recipes-and-pitfalls.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/10-recipes-and-pitfalls.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/10-recipes-and-pitfalls.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/10-recipes-and-pitfalls.md)（提交 `f9be7aa`）
 
 # 配方与坑
 
@@ -42,7 +42,15 @@ use /how first to understand how this initialization works. then use /why to fig
 /poteto-mode read this thread. restate the underlying issue in your own words, in plain english. don't change any code yet.
 ```
 
-读错了，会先出现在重述里，纠正只要一条消息。你自己的猜测先留着，等 agent 说出它自己的理解。
+读错了，会先出现在重述里，纠正只要一条消息。你自己的猜测先留着，等 agent 说出它自己的理解。`/in-your-own-words` 只让它重述，不走 playbook。
+
+## 开工前先对准任务
+
+```text
+/sharpen write the onboarding doc for the new billing service.
+```
+
+agent 会问，专家会怎么做这项任务，你真正想要什么，以及任务要求是否说得太多或太少。它会保留一项外部检查来确认结果正确，然后开始干活。
 
 ## 先做原型再挑选
 
@@ -66,7 +74,7 @@ use /how first to understand how this initialization works. then use /why to fig
 ask /arena for a second opinion on this thread and our approach
 ```
 
-你现在的设计会成为几个候选之一。最后的综合结论会告诉你，评审团是找到了更好的方案，还是确认了你原来的方案。在做代价高的决定之前，这是一份便宜的保险。
+你现在的设计会成为几个候选之一。最后的综合结论会告诉你，评审团是找到了更好的方案，还是确认了你原来的方案。相比一个以后推翻代价很高的设计，这一步成本很低。
 
 ## 并行检查互相独立的切片
 
@@ -99,6 +107,14 @@ ask /arena for a second opinion on this thread and our approach
 ```
 
 「if it repros on main」让 bug 已经不在时，这次运行可以早停。视频让你在读 diff 之前，先核对这次修复。
+
+## 证明测试很难覆盖的性质
+
+```text
+/create-formal-verification-skill the retry queue. a message must never be delivered twice.
+```
+
+它会在规定范围内的所有情况下检查一条性质。如果代码已经违反这条性质，你会拿到用代码概念表达的反例。它还会生成一个项目内的 skill，供下一个 agent 在相关代码改动时运行。
 
 ## 发出去之前先核对数
 
@@ -158,6 +174,14 @@ apply prove it works. show me the real output, not the build log.
 
 整条提示词就这些。[`/bro`](../skills/bro/SKILL.md) 会把上一条消息重说一遍，像一个人跟另一个人说话那样，不用行话，也更短。一条回复技术上很周全，你读完却还是不知道它说了什么，这时就用它。
 
+## 快速了解聊天的新进展
+
+```text
+/ketchup
+```
+
+[`/ketchup`](../skills/ketchup/SKILL.md) 用大白话告诉你上一条消息之后变了什么，再列出每项等你拍板的事，附上它建议的选择、证据和风险。它只报告，不做任何改动。
+
 ## 常见的坑
 
 - **在提示词里把 skill 一个个列出来。** 「use /how then /architect then /arena」会打乱 playbook 已经排好的步骤。说清目标和约束就行。只有想改掉某个默认选择时，才点名 skill。
@@ -165,7 +189,7 @@ apply prove it works. show me the real output, not the build log.
 - **一上来就抛出你对原因的猜测。** agent 会往你指到的地方搜。先让它重述问题，再分享你的直觉。
 - **接住第一版设计。** 只试一次，模型最先想到的形状就定死了。要几份原型或 `/architect`，再从证据里挑。
 - **打磨一份抽象计划。** 对着还没有代码的计划做对抗审查，会编出永远不会发生的风险。先用原型把还没定的问题定下来，再审已经做出来的东西。
-- **几个并行的 agent 挤在同一个 worktree（Git 的独立工作目录）里。** 它们会互相覆盖，diff 会变成考古现场。把它们当成 cloud agent 来跑，或者说一句「own worktree per attempt」。
+- **几个并行的 agent 挤在同一个 worktree（Git 的独立工作目录）里。** 它们会互相覆盖，谁也分不清每处改动出自哪个 agent。把它们当成 cloud agent 来跑，或者说一句「own worktree per attempt」。
 - **还信不过循环就开循环。** 不能自己验证工作的循环，只会更快地造出没核对过的活。先把验证 skill 跑起来。
 - **相信一个没核对过的数字。** 热缓存或一条没跑到的代码路径，都能假造加速。数字发出去之前，先跑 `/benchmark-checklist`。
 - **同一个错靠手改。** 聊天里纠正一次，只帮这一轮。`/correct` 改仓库，后面的运行就不会再犯。

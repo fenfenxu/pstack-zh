@@ -1,16 +1,16 @@
 ---
 title: "写代码前先设计"
 description: "难的设计只试一次，模型最先想到的形状就定死了。/architect 先定类型和边界，/arena 多试几版取长补短，/interrogate 让别的模型来挑错，/swarm 负责分块覆盖。"
-sourceUrl: "https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/04-design.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/04-design.md"
 meta:
-  updated_at: "2026-10-10T13:49:04+08:00"
-  updated_by: "cursor-cloud-agent grok-4.6"
-  triggered_by: "liu xu"
+  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_by: "kimi-code-cli"
+  triggered_by: "routine pstack-daily-translate"
   translation:
-    model: "grok-4.6"
-    effort: "high"
-    translated_at: "2026-10-10T13:49:04+08:00"
-    source_version: "0.15.15 / d73344b"
+    model: "kimi-code/k3"
+    effort: "default"
+    translated_at: "2026-10-19T09:35:18+08:00"
+    source_version: "0.15.27 / f9be7aa"
 ---
 
 > [!NOTE]
@@ -20,13 +20,13 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/04-design/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/04-design.md`](https://github.com/cursor/plugins/blob/6ce45c59b9301a638c1fe1a7b8dc2a82b650898f/pstack/docs/guide/04-design.md)（提交 `6ce45c5`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/04-design.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/04-design.md)（提交 `f9be7aa`）
 
 # 写代码之前先设计
 
 难的设计只试一次，模型最先想到的那个形状就定死了。`/architect` 在动手实现之前，先定下类型和边界。`/arena` 拿同一份任务说明试好几次，再把各自最好的部分合到一起。`/interrogate` 让别的模型来挑这个结果的毛病。如果这件事要的是覆盖面，不是把几份设计合成一份，就用 `/swarm`。它把工作切成几块分头做，或者发起 race（几个 worker 做同一件事，按规则选出结果），最后汇总。
 
-最常见的两种设计错误，是接住 agent 的第一版设计，以及打磨一份还没有代码试过的计划。这一页把两处都改掉。你用代码来做计划：原型回答还没定的问题，README 或 tutorial 定下目标，写出来的计划放在最后。
+最常见的两种设计错误，是接住 agent 的第一版设计，以及打磨一份还没有代码试过的计划。这一页把两处都改掉。你用代码来做计划。原型回答还没定的问题，README 或 tutorial 定下目标，写出来的计划放在最后。
 
 ![三个机器人在各自的桌前搭着互相竞争的桥梁模型，头顶分别挂着 /architect、/arena 和 /interrogate 的牌子。一个拿着写字板的裁判机器人在旁边，满脸怀疑地检查。](https://pstack.ganhai.cloud/guide/design.jpg)
 
