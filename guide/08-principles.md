@@ -1,7 +1,7 @@
 ---
 title: "用原则名来转向"
 description: "pstack 自带 24 条原则，每条都是单独的 skill。任务中途报出原则名，就能给 agent 改方向，一句话比一大段指示更准。"
-sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/08-principles.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/08-principles.md"
 meta:
   updated_at: "2026-10-19T09:35:18+08:00"
   updated_by: "kimi-code-cli"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/08-principles/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/08-principles.md)（提交 `f9be7aa`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/08-principles.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/08-principles.md)（提交 `d457567`）
 
 # 用原则名来转向
 

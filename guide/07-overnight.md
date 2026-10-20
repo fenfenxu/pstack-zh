@@ -1,7 +1,7 @@
 ---
 title: "睡觉时让工作继续跑"
 description: "能自己验证结果的 agent，才能放心把难活留给它过夜。靠的是可检查的完结条件、隔离的 worktree 或 cloud agent，和一份早上能审的决策日志。"
-sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/07-overnight.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/07-overnight.md"
 meta:
   updated_at: "2026-10-19T09:35:18+08:00"
   updated_by: "kimi-code-cli"
@@ -20,7 +20,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/07-overnight/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/07-overnight.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/07-overnight.md)（提交 `f9be7aa`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/07-overnight.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/07-overnight.md)（提交 `d457567`）
 
 # 睡觉时让工作继续跑
 

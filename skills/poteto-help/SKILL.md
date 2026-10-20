@@ -30,7 +30,7 @@ disable-model-invocation: true
 
 - 没有 `~/.cursor/rules/pstack-models.mdc`，说明这个用户还没跑过 `/setup-pstack`，每个角色都在用默认模型。
 - 项目里没有 `verify-*` skill，也没有别的应用 harness，agent 就没有脚本化的办法去驱动这个应用。问题如果是在问怎样证明一项改动有效，就提一下 `/create-verification-skill`。
-- 项目里没有 formal verification skill，说明没有任何性质在测试覆盖之外被检查。问题如果涉及竞态、不变量，或其他测试很少碰到的情况，就提一下 `/create-formal-verification-skill`。
+- 项目里没有 formal verification skill，说明没有任何性质在测试覆盖之外被检查。问题如果涉及竞态、不变量，或其他测试很少碰到的情况，就提一下 `/create-formal-verification-skill`。项目里已有 formal verification skill，而它覆盖的代码在它记录的最后同步提交之后有改动时，问题如果涉及那段代码，就提一下 `/maintain-formal-verification-skill`。
 
 模型 rule 不在，而且这件事要紧，就问用户要不要现在给每个角色挑一个模型，并定一个推理预算。用户是新人、问的是设置或花费，或者答案取决于跑哪些模型，这时就要紧。一次聊天最多问一次。如果用户要什么也还不清楚，就把两个问题一起问。给两个选项：
 
@@ -91,6 +91,7 @@ pstack 是为 Cursor 做的，也能装进 Claude Code：先 `/plugin marketplac
 | 给 agent 一种脚本化的办法，用来驱动应用并证明行为 | [`/create-verification-skill`](../create-verification-skill/SKILL.md) |
 | 让验证 skill 和它的 feature map 重新与应用对齐 | [`/maintain-verification-skill`](../maintain-verification-skill/SKILL.md) |
 | 对竞态、不变量或其他测试很少覆盖的性质做形式化验证 | [`/create-formal-verification-skill`](../create-formal-verification-skill/SKILL.md) |
+| 形式化验证覆盖的代码改动之后，让验证重新对齐，并弄清一次失败是漂移还是 bug | [`/maintain-formal-verification-skill`](../maintain-formal-verification-skill/SKILL.md) |
 | 汇报一个性能数字或按它行动之前，先把这个数字核一遍 | [`/benchmark-checklist`](../benchmark-checklist/SKILL.md) |
 | 跑一次大改或横切改动，或跑一次离开一阵再回来审的改动 | [`/figure-it-out`](../figure-it-out/SKILL.md) |
 | 一次运行期间留下决策日志，事后再审这份日志 | [`/show-me-your-work`](../show-me-your-work/SKILL.md) |

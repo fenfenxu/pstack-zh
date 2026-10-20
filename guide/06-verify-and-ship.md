@@ -1,16 +1,17 @@
 ---
 title: "验证结果并开 PR"
 description: "能编译不等于有证据。本页讲怎么写明完结条件、核对测出来的数字、为应用生成验证 skill、开 PR，再把 PR 一路推到合并。"
-sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/06-verify-and-ship.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/06-verify-and-ship.md"
 meta:
-  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_at: "2026-10-20T09:36:32+08:00"
   updated_by: "kimi-code-cli"
   triggered_by: "routine pstack-daily-translate"
   translation:
     model: "kimi-code/k3"
     effort: "default"
-    translated_at: "2026-10-19T09:35:18+08:00"
-    source_version: "0.15.27 / f9be7aa"
+    translated_at: "2026-10-20T09:36:32+08:00"
+    source_commit: "d457567332aa6989e753ea289f30ea2bfbc80bc0"
+    source_version: "0.15.28 / d457567"
 ---
 
 > [!NOTE]
@@ -20,7 +21,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/06-verify-and-ship/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/06-verify-and-ship.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/06-verify-and-ship.md)（提交 `f9be7aa`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/06-verify-and-ship.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/06-verify-and-ship.md)（提交 `d457567`）
 
 # 验证结果并开 PR
 
@@ -135,11 +136,13 @@ meta:
 /create-formal-verification-skill the job lease and retry logic. a job must never run twice at once.
 ```
 
-问题本身决定工具。要检查事件是否可能按错误顺序发生，适合先为设计建立一个小模型，再用模型检查器。要检查代码是否对每种输入都正常，适合用直接针对代码运行的验证器。一条性质如果必须在任意规模下成立，就可能需要形式化证明。agent 会说明它选了哪种工具，以及为什么。
+问题本身决定工具。要检查事件是否可能按错误顺序发生，适合先为设计建立一个小模型，再用模型检查器，TLA+ 在任何语言里都是这个用途的默认选择。要检查代码是否对每种输入都正常，适合用直接针对代码运行的验证器。你的语言上没有可用的验证器时，agent 会直说，然后用生成的输入测试真实代码，而不是手写一份函数的模型。一条性质如果必须在任意规模下成立，就可能需要形式化证明。agent 会说明它选了哪种工具，以及为什么。
 
 它验证一条性质，还会在一个破坏这条性质的代码变体上展示它如何失守。从没见过失败的检查，什么也证明不了。如果当前代码已经违反这条性质，你会拿到一个反例。反例用你代码里的概念写成一小串步骤。性质按原样保留，发现的问题也不会被抹掉。除非你要求，否则不会改产品代码。
 
 它会生成一个只属于本项目的 skill，告诉下一个 agent 怎么判断改动是否碰到已验证的代码，怎样用一条命令运行检查，以及怎样区分真正的 bug 和建模错误。交给你之前，生成器会在一个破坏该性质的临时改动上照这份 skill 走一遍，检查必须抓住问题。交付说明会写明验证了什么、用了哪种工具、验证边界是什么、检查发现了什么，以及没有覆盖什么。通过只覆盖这个模型或设定的边界，不代表整个系统。
+
+这份 skill 还会记录每条检查覆盖哪些代码，以及检查最后一次与代码相符是在哪个提交。绕过这份 skill 的合并和重构，可能让检查在一份描述着已消失代码的模型上继续通过。在这之后，运行 [`/maintain-formal-verification-skill`](../skills/maintain-formal-verification-skill/SKILL.md)。它根据代码更新验证，重新运行，证明每条更新后的检查仍然能失败，并告诉你每个失败是验证里的漂移还是代码里的 bug。
 
 ## 开 PR
 

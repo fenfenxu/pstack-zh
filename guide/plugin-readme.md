@@ -1,17 +1,17 @@
 ---
 title: "pstack 插件说明"
 description: "pstack 是 poteto 每天在 Cursor 交付高质量代码时用的那套 skill。它把 Cursor 变成一支真正的工程团队，帮你少写代码、写好代码。"
-sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/README.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/README.md"
 meta:
-  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_at: "2026-10-20T09:36:32+08:00"
   updated_by: "kimi-code-cli"
   triggered_by: "routine pstack-daily-translate"
   translation:
     model: "kimi-code/k3"
     effort: "default"
-    translated_at: "2026-10-19T09:35:18+08:00"
-    source_commit: "f9be7aa00c2b2bf4b13562143a6918445e06b99d"
-    source_version: "0.15.27 / f9be7aa"
+    translated_at: "2026-10-20T09:36:32+08:00"
+    source_commit: "d457567332aa6989e753ea289f30ea2bfbc80bc0"
+    source_version: "0.15.28 / d457567"
 ---
 
 > [!NOTE]
@@ -21,7 +21,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/plugin-readme/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/README.md)（提交 `f9be7aa`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/README.md)（提交 `d457567`）
 
 # pstack
 
@@ -173,6 +173,7 @@ morning.
 | [`/create-verification-skill`](../skills/create-verification-skill/SKILL.md) | 你的项目还没有用脚本证明应用行为的办法。它生成一个只属于本项目的验证 skill，附带 feature map，什么语言、什么平台都行。 |
 | [`/maintain-verification-skill`](../skills/maintain-verification-skill/SKILL.md) | 你的验证 skill 里的 feature map 已经跟应用对不上了。先一波并行读源码，再对运行中的应用走一轮，证实过的修正最多合成一个 PR。 |
 | [`/create-formal-verification-skill`](../skills/create-formal-verification-skill/SKILL.md) | 测试覆盖不到竞态、重试、状态机、解析器或不安全代码里导致故障的用例时用它。它用合适的工具验证一条性质，并生成一个只属于本项目的 skill，让每次改动都重新检查这条性质。 |
+| [`/maintain-formal-verification-skill`](../skills/maintain-formal-verification-skill/SKILL.md) | 形式化验证覆盖的代码，自上次检查以来已经变了。它更新模型、harness 或性质，让它们跟代码一致，重新运行，并说明每个失败是验证里的漂移还是代码里的 bug。 |
 | [`/unslop`](../skills/unslop/SKILL.md) | 你在清理文字。它去掉那些一看就是 AI 写的痕迹。 |
 | [`/bro`](../skills/bro/SKILL.md) | 你想把上一条消息换成大白话重说一遍，不带行话。 |
 | [`/technical-writing`](../skills/technical-writing/SKILL.md) | 分层的文档写作标准（Diátaxis + Google developer style + STE + Global English），用于文档、RFC、README、PR 描述和提交说明。 |
@@ -299,7 +300,7 @@ Cursor 已经有一个很好用的 plan mode，和 pstack 配合得也很好。�
 
 pstack 还带了一个默认不启用的 [Benny 自动化包](https://github.com/cursor/plugins/tree/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/automations/benny)。Benny 会筛查 Slack 上报来的问题，确认是 bug 的，再拿真实的界面证据复现并修好。它的文件没有注册成斜杠 skill。
 
-要配置它，让 Cursor 照着 [`FOR_AGENTS.md`](https://github.com/cursor/plugins/blob/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/automations/benny/FOR_AGENTS.md) 做。配置时会把这个包复制到目标仓库的 `.cursor/automations/benny/`，在那个仓库里启用 pstack 好共用 skill，并把用户配置放在复制过去的包外面。Benny 跑在 Cursor 自动化上，所以只能在 Cursor 中使用。
+要配置它，让 Cursor 照着 [`FOR_AGENTS.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/automations/benny/FOR_AGENTS.md) 做。配置时会把这个包复制到目标仓库的 `.cursor/automations/benny/`，在那个仓库里启用 pstack 好共用 skill，并把用户配置放在复制过去的包外面。Benny 跑在 Cursor 自动化上，所以只能在 Cursor 中使用。
 
 ## 许可证
 

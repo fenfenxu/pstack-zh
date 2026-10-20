@@ -1,16 +1,17 @@
 ---
 title: "把它变成你的"
 description: "生成你自己的 mode，留下一次会话的教训，用 /correct 改仓库拦住反复出现的错，写一个只做一件事的 skill，并在信任 skill 改动之前先做盲测。"
-sourceUrl: "https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/09-make-it-yours.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/09-make-it-yours.md"
 meta:
-  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_at: "2026-10-20T09:36:32+08:00"
   updated_by: "kimi-code-cli"
   triggered_by: "routine pstack-daily-translate"
   translation:
     model: "kimi-code/k3"
     effort: "default"
-    translated_at: "2026-10-19T09:35:18+08:00"
-    source_version: "0.15.27 / f9be7aa"
+    translated_at: "2026-10-20T09:36:32+08:00"
+    source_commit: "d457567332aa6989e753ea289f30ea2bfbc80bc0"
+    source_version: "0.15.28 / d457567"
 ---
 
 > [!NOTE]
@@ -20,7 +21,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/09-make-it-yours/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/09-make-it-yours.md`](https://github.com/cursor/plugins/blob/f9be7aa00c2b2bf4b13562143a6918445e06b99d/pstack/docs/guide/09-make-it-yours.md)（提交 `f9be7aa`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/09-make-it-yours.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/09-make-it-yours.md)（提交 `d457567`）
 
 # 把它变成你的
 
@@ -84,7 +85,7 @@ poteto-mode 是一个人的风格。它底下那套机制，也就是 playbook�
 
 写 skill 会匹配到 [Authoring or modifying a skill playbook](../skills/poteto-mode/playbooks/authoring-a-skill.md)。它用 Cursor 内置的 `create-skill` 来写，检查 frontmatter 和链接，最后走 Opening a PR playbook 把结果交出去。写给 agent 看的文字，要求比写给人看的更高。因为一句没用的话，会变成将来某个 agent 照着执行的指令。这个标准交给 playbook 去守，不要自己手写 `SKILL.md`。
 
-有两种特殊情况自带生成器。一个 skill 如果必须操作你的应用、证明它的行为，那它就是验证 skill，这时改用 [`/create-verification-skill`](../skills/create-verification-skill/SKILL.md) 和 [`/maintain-verification-skill`](../skills/maintain-verification-skill/SKILL.md)。如果 skill 要用模型检查器、形式化证明或其他验证器检查代码的一条性质，那它就是形式化验证 skill，这时使用 [`/create-formal-verification-skill`](../skills/create-formal-verification-skill/SKILL.md)。[验证结果并开 PR](./06-verify-and-ship.md#create-a-project-verification-skill) 把这两类都讲了。
+有两种特殊情况自带生成器。一个 skill 如果必须操作你的应用、证明它的行为，那它就是验证 skill，这时改用 [`/create-verification-skill`](../skills/create-verification-skill/SKILL.md) 和 [`/maintain-verification-skill`](../skills/maintain-verification-skill/SKILL.md)。如果 skill 要用模型检查器、形式化证明或其他验证器检查代码的一条性质，那它就是形式化验证 skill，这时使用 [`/create-formal-verification-skill`](../skills/create-formal-verification-skill/SKILL.md) 和 [`/maintain-formal-verification-skill`](../skills/maintain-formal-verification-skill/SKILL.md)。[验证结果并开 PR](./06-verify-and-ship.md#prove-a-property-with-a-formal-verification-skill) 把这两类都讲了。
 
 ## 用 `/technical-writing` 按标准写文档
 

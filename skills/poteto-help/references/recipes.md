@@ -42,7 +42,7 @@ description: 把真实的路径、skill 和做完的检查换进去。随意地�
 ## 审查并交付
 
 - `/interrogate the whole branch, but skeptically. don't change anything yet. no nitpicks unless it's a real bug or regression.` 被驳回的那些也要读。
-- `/create-formal-verification-skill prove <property> holds in <module>, even when <steps> interleave or retry.`
+- `/create-formal-verification-skill prove <property> holds in <module>, even when <steps> interleave or retry.` 这段代码经历合并或重构之后：`/maintain-formal-verification-skill`。
 - `/swarm check every package under <dir> against its check script. one worker per package. one report.`
 - `/poteto-mode open the pr. small ordered commits, evidence in the description.`
 - `/poteto-mode babysit this pr. get it green.` 只问现状时：`/poteto-mode check on pr <number>. anything outstanding?`
