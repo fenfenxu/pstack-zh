@@ -71,7 +71,7 @@ pstack 是为 Cursor 做的，也能装进 Claude Code：先 `/plugin marketplac
 |---|---|
 | 严谨地做任何不简单的任务 | [`/poteto-mode`](../poteto-mode/SKILL.md) |
 | 开工前核对 agent 是否理解了目标和要解决的问题 | [`/in-your-own-words`](../in-your-own-words/SKILL.md) |
-| 开工前把任务的目标抬高：更专家、更对准结果，不要写得过死 | [`/sharpen`](../sharpen/SKILL.md) |
+| 发送前把提示词改写得更深，而不是更大：顶尖专家会补上什么、他们的原始材料和方法，以及一项外部检查。它只交回提示词，不替你做任务 | [`/sharpen`](../sharpen/SKILL.md) |
 | 弄清代码现在怎么运作，或新代码该放在哪 | [`/how`](../how/SKILL.md) |
 | 弄清代码为什么是这个形状，或某个数字是从哪来的 | [`/why`](../why/SKILL.md) |
 | 用大白话弄懂一次改动或一个子系统 | [`/teach`](../teach/SKILL.md) |

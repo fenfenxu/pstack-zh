@@ -1,17 +1,17 @@
 ---
 title: "pstack 插件说明"
 description: "pstack 是 poteto 每天在 Cursor 交付高质量代码时用的那套 skill。它把 Cursor 变成一支真正的工程团队，帮你少写代码、写好代码。"
-sourceUrl: "https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/README.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/88d47514b82e7c44f00f2b2a72ff6dd12158038c/pstack/README.md"
 meta:
-  updated_at: "2026-10-20T09:36:32+08:00"
+  updated_at: "2026-10-21T09:26:22+08:00"
   updated_by: "kimi-code-cli"
   triggered_by: "routine pstack-daily-translate"
   translation:
     model: "kimi-code/k3"
     effort: "default"
-    translated_at: "2026-10-20T09:36:32+08:00"
-    source_commit: "d457567332aa6989e753ea289f30ea2bfbc80bc0"
-    source_version: "0.15.28 / d457567"
+    translated_at: "2026-10-21T09:26:22+08:00"
+    source_commit: "88d47514b82e7c44f00f2b2a72ff6dd12158038c"
+    source_version: "0.15.29 / 88d4751"
 ---
 
 > [!NOTE]
@@ -21,7 +21,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/plugin-readme/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/README.md)（提交 `d457567`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/README.md`](https://github.com/cursor/plugins/blob/88d47514b82e7c44f00f2b2a72ff6dd12158038c/pstack/README.md)（提交 `88d4751`）
 
 # pstack
 
@@ -148,7 +148,7 @@ morning.
 | [`/poteto-mode`](../skills/poteto-mode/SKILL.md) | 任何不简单的任务，默认都从这里开始。 |
 | [`/poteto-help`](../skills/poteto-help/SKILL.md) | 你刚接触 pstack，或不清楚该用哪个 skill、playbook 或原则。它先弄清你想做什么，回答这一部分，再给你一条可以输入的提示词。只有你输入 `/poteto-help` 时才会跑。 |
 | [`/in-your-own-words`](../skills/in-your-own-words/SKILL.md) | 你想让 agent 在开工前，用自己的话把你的目标和要解决的问题复述一遍。只有你输入 `/in-your-own-words` 时才会跑。 |
-| [`/sharpen`](../skills/sharpen/SKILL.md) | 你想让一项任务按顶尖专家的做法来，对准你真正要的结果，不要写得过死，也不要替你把选择定死。 |
+| [`/sharpen`](../skills/sharpen/SKILL.md) | 你想在发出提示词之前，把它改得更深，而不是更大：顶尖专家会做哪些你没要求的事，他们会从什么原始材料入手，用哪些方法和工具，再加一项从外部核对结果对不对的检查。它交回改写好的提示词，选择权留给你。它不替你做任务。只有你输入 `/sharpen` 时才会跑。 |
 | [`/how`](../skills/how/SKILL.md) | 你想要一份讲解，带你走一遍某个子系统是怎么工作的。 |
 | [`/why`](../skills/why/SKILL.md) | 你想知道某样东西为什么这样建。它在运行时找出能用的 MCP，并行查询每一类证据（版本控制、问题跟踪、长篇文档、即时聊天、基础设施可观测性、错误跟踪、分析数据仓库）。 |
 | [`/recall`](../skills/recall/SKILL.md) | 你正要开始或接着干活，想从自己的聊天记录和共享记录里，把某个主题最近的上下文重建起来，最后拿到一份精炼的现状简报。 |
@@ -300,7 +300,7 @@ Cursor 已经有一个很好用的 plan mode，和 pstack 配合得也很好。�
 
 pstack 还带了一个默认不启用的 [Benny 自动化包](https://github.com/cursor/plugins/tree/12d587dfb20741cafc376c42c696c5f6e2a64487/pstack/automations/benny)。Benny 会筛查 Slack 上报来的问题，确认是 bug 的，再拿真实的界面证据复现并修好。它的文件没有注册成斜杠 skill。
 
-要配置它，让 Cursor 照着 [`FOR_AGENTS.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/automations/benny/FOR_AGENTS.md) 做。配置时会把这个包复制到目标仓库的 `.cursor/automations/benny/`，在那个仓库里启用 pstack 好共用 skill，并把用户配置放在复制过去的包外面。Benny 跑在 Cursor 自动化上，所以只能在 Cursor 中使用。
+要配置它，让 Cursor 照着 [`FOR_AGENTS.md`](https://github.com/cursor/plugins/blob/88d47514b82e7c44f00f2b2a72ff6dd12158038c/pstack/automations/benny/FOR_AGENTS.md) 做。配置时会把这个包复制到目标仓库的 `.cursor/automations/benny/`，在那个仓库里启用 pstack 好共用 skill，并把用户配置放在复制过去的包外面。Benny 跑在 Cursor 自动化上，所以只能在 Cursor 中使用。
 
 ## 许可证
 

@@ -200,4 +200,4 @@ skills 与 agents 的文件都在这个仓库里。模型表由 `/setup-pstack` 
 | [`unslop`](./unslop/SKILL.md) | 去 AI 腔 |
 | [`why`](./why/SKILL.md) | 为何如此 |
 
-英文原文总览见上游 [`pstack/README.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/README.md)。
+英文原文总览见上游 [`pstack/README.md`](https://github.com/cursor/plugins/blob/88d47514b82e7c44f00f2b2a72ff6dd12158038c/pstack/README.md)。

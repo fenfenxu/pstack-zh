@@ -1,16 +1,17 @@
 ---
 title: "交给 /poteto-mode"
 description: "/poteto-mode 是总入口。你给它一个目标，它从二十三个 playbook 里挑出一个，把步骤抄进 todo 列表，需要时再调用其他 skills。"
-sourceUrl: "https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/02-poteto-mode.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/88d47514b82e7c44f00f2b2a72ff6dd12158038c/pstack/docs/guide/02-poteto-mode.md"
 meta:
-  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_at: "2026-10-21T09:26:22+08:00"
   updated_by: "kimi-code-cli"
   triggered_by: "routine pstack-daily-translate"
   translation:
     model: "kimi-code/k3"
     effort: "default"
-    translated_at: "2026-10-19T09:35:18+08:00"
-    source_version: "0.15.27 / f9be7aa"
+    translated_at: "2026-10-21T09:26:22+08:00"
+    source_commit: "88d47514b82e7c44f00f2b2a72ff6dd12158038c"
+    source_version: "0.15.29 / 88d4751"
 ---
 
 > [!NOTE]
@@ -20,7 +21,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/02-poteto-mode/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/02-poteto-mode.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/02-poteto-mode.md)（提交 `d457567`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/02-poteto-mode.md`](https://github.com/cursor/plugins/blob/88d47514b82e7c44f00f2b2a72ff6dd12158038c/pstack/docs/guide/02-poteto-mode.md)（提交 `88d4751`）
 
 # 把工作交给 `/poteto-mode`
 
@@ -91,13 +92,13 @@ flowchart TD
 
 读错了，会先出现在重述里，这时还没有任何代码。在那里纠正，代价是一条消息，不是一次修错。只想让它重述、不走 playbook 时，运行 [`/in-your-own-words`](../skills/in-your-own-words/SKILL.md)。它会复述 agent 认为你的目标是什么、你想解决什么问题。
 
-如果你不确定任务的方向对不对，在它前面加上 [`/sharpen`](../skills/sharpen/SKILL.md)：
+如果你不确定提示词的方向对不对，发出去之前先对它运行 [`/sharpen`](../skills/sharpen/SKILL.md)：
 
 ```text
 /sharpen write a migration guide for the v2 config format.
 ```
 
-开始前，agent 会问自己，顶尖专家会怎么做这项任务，你真正想要什么，以及要求是否规定得过多或不足。它既能补上对目标有用的约束，也同样愿意删掉没用的约束。它把选择权留给你，并保留一项外部检查，确认结果正确。然后开始干活。
+agent 会说出：顶尖专家会做哪些你没要求的事，他们会从最原始的什么材料入手，会用哪些具体的方法和工具，以及除了你和 agent 之外，什么能证明结果是对的。然后它把你的提示词改写成正好要这些东西，更深，但不变大，选择权留给你。它不替你做任务。读一读改写稿，再发出去，比如用 `/poteto-mode`。
 
 ## 跟进写短
 

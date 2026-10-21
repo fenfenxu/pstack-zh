@@ -1,16 +1,17 @@
 ---
 title: "配方与坑"
 description: "值得照抄的提示词，加上每个人都会犯一次的错。用的时候，把路径和完结条件换成你自己的。"
-sourceUrl: "https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/10-recipes-and-pitfalls.md"
+sourceUrl: "https://github.com/cursor/plugins/blob/88d47514b82e7c44f00f2b2a72ff6dd12158038c/pstack/docs/guide/10-recipes-and-pitfalls.md"
 meta:
-  updated_at: "2026-10-19T09:35:18+08:00"
+  updated_at: "2026-10-21T09:26:22+08:00"
   updated_by: "kimi-code-cli"
   triggered_by: "routine pstack-daily-translate"
   translation:
     model: "kimi-code/k3"
     effort: "default"
-    translated_at: "2026-10-19T09:35:18+08:00"
-    source_version: "0.15.27 / f9be7aa"
+    translated_at: "2026-10-21T09:26:22+08:00"
+    source_commit: "88d47514b82e7c44f00f2b2a72ff6dd12158038c"
+    source_version: "0.15.29 / 88d4751"
 ---
 
 > [!NOTE]
@@ -20,7 +21,7 @@ meta:
 >
 > 对照英文：[本站英文页](https://pstack.ganhai.cloud/en/skills-zh/official-guide/10-recipes-and-pitfalls/)
 >
-> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/10-recipes-and-pitfalls.md`](https://github.com/cursor/plugins/blob/d457567332aa6989e753ea289f30ea2bfbc80bc0/pstack/docs/guide/10-recipes-and-pitfalls.md)（提交 `d457567`）
+> 英文原文出处：cursor/plugins 仓库 [`pstack/docs/guide/10-recipes-and-pitfalls.md`](https://github.com/cursor/plugins/blob/88d47514b82e7c44f00f2b2a72ff6dd12158038c/pstack/docs/guide/10-recipes-and-pitfalls.md)（提交 `88d4751`）
 
 # 配方与坑
 
@@ -44,13 +45,13 @@ use /how first to understand how this initialization works. then use /why to fig
 
 读错了，会先出现在重述里，纠正只要一条消息。你自己的猜测先留着，等 agent 说出它自己的理解。`/in-your-own-words` 只让它重述，不走 playbook。
 
-## 开工前先对准任务
+## 发送前先把提示词磨深
 
 ```text
 /sharpen write the onboarding doc for the new billing service.
 ```
 
-agent 会问，专家会怎么做这项任务，你真正想要什么，以及任务要求是否说得太多或太少。它会保留一项外部检查来确认结果正确，然后开始干活。
+agent 会说出：专家会做哪些你没要求的事，他们会从什么原始材料入手，用哪些方法和工具，以及一项从外部核对结果对不对的检查。它把提示词改写成正好要这些东西，交回给你，不替你做任务。读起来对了，就把改写稿发出去。
 
 ## 先做原型再挑选
 
